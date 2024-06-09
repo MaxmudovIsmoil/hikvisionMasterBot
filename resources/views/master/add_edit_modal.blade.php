@@ -13,11 +13,11 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <label>{{__("admin.Instance")}}: </label>
+                            <label>: </label>
                             <div class="form-group">
                                 <select name="instances[]" class="form-control select2 js_instance" multiple>
-                                    @foreach($instances as $instance)
-                                        <option value="{{ $instance->id }}">{{ $instance->name_ru }}</option>
+                                    @foreach([1,2,3,4] as $u)
+                                        <option value="1">$u</option>
                                     @endforeach
                                 </select>
                                 <div class="invalid-feedback">Status fail!</div>

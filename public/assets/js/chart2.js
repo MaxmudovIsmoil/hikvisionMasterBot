@@ -2,7 +2,7 @@ var ctx2 = document.getElementById('doughnut').getContext('2d');
 var myChart2 = new Chart(ctx2, {
     type: 'doughnut',
     data: {
-        labels: ['Academic', 'Non-Academic', 'Administration', 'Others'],
+        labels: ['Shaxboz aka', 'Ayubxon Aka', ' Sanjar Aka', 'Shaxriyor Aka'],
 
         datasets: [{
             label: 'Employees',
