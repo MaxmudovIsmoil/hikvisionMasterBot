@@ -1,7 +1,18 @@
 <?php
+/** @var SergiX44\Nutgram\Nutgram $bot */
 
-use Illuminate\Support\Facades\Route;
+use SergiX44\Nutgram\Nutgram;
 
-Route::get('/t', function () {
-    return 'admin';
-});
+/*
+|--------------------------------------------------------------------------
+| Nutgram Handlers
+|--------------------------------------------------------------------------
+|
+| Here is where you can register telegram handlers for Nutgram. These
+| handlers are loaded by the Nutgram ServiceProvider. Enjoy!
+|
+*/
+
+//$bot->onCommand('start', function (Nutgram $bot) {
+//    return $bot->sendMessage('Hello, world!');
+//})->description('The start command!');

@@ -13,24 +13,22 @@ Route::get('/', function () {
     if (!Auth::check()) {
         return redirect('login');
     }
-    return redirect()->intended('home');
+    return redirect()->intended('dashboard');
 });
 
 Route::get('login', function () {
     return view('auth.login');
 });
 
-Route::get('/home', function () {
-    return view('home');
-})->name('dashboard');
-
 Route::post('login', [AuthController::class, 'login'])->name('login');
 
-//Route::middleware('auth')->group(function () {
 
-//    Route::get('/home', function () {
-//        return view('home');
-//    });
+Route::middleware('auth')->group(function () {
+
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
     // master
     Route::resource('master', MasterController::class)->except(['create', 'edit', 'show']);
     Route::get('/master/one/{id}', [MasterController::class, 'getOne'])->name('master.getOne');
@@ -54,7 +52,8 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
     // user profile
     Route::post('/user/profile', [AuthController::class, 'profile'])->name('user.profile');
-//});
+});
 
 
 
+// Route::post('/webhook', 'WebHookController');

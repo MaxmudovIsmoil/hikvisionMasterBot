@@ -14,15 +14,15 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('phone');
-            $table->string('address');
-            $table->string('resume');
-            $table->string('photo');
+            $table->string('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->string('resume')->nullable();
+            $table->string('photo')->nullable();
             $table->string('username')->unique();
-            $table->enum('status', [1, 0])->default(1);
-            $table->enum('isMaster', [1,0])->default(1)->comment('1-master, 0-admin');
-            $table->string('password');
-            $table->string('email')->unique();
+            $table->enum('status', [1, 0])->default(1)->comment('1-active,0-no active');
+            $table->enum('isMaster', [1, 0])->default(1)->comment('1-master, 0-admin');
+            $table->string('password')->nullable();
+            $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamp('created_at')->useCurrent();

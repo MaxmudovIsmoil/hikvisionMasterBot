@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Dto\AuthDto;
 use App\Exceptions\UnauthorizedException;
 use App\Models\User;
 use App\Traits\FileTrait;
@@ -13,12 +12,13 @@ class AuthService
 {
     use FileTrait;
 
-    public function login(AuthDto $dto): bool
+    public function login(array $data): bool
     {
         $credentials = [
-            'username' => strtolower($dto->username),
-            'password' => $dto->password
+            'username' => strtolower($data['username']),
+            'password' => $data['password']
         ];
+
 
         if (! Auth::attempt($credentials)) {
             throw new UnauthorizedException(message: trans('admin.Login or password error'), code: 401);

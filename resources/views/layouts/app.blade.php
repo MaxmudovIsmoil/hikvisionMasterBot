@@ -23,53 +23,54 @@
             </div>
             <i class="fas fa-bell"></i>
             <div class="user user-div">
-                <img src="{{ asset('assets/images/user.png') }}" alt="">
+                <img class="dropdown-toggle" src="{{ asset('assets/images/user.png') }}" alt="Admin">
             </div>
+
         </div>
         <div class="sidebar">
             <ul class="sidebar-ul">
-                <li class="active">
+                <li class="@if(Request::is('dashboard')) active @endif">
                     <a href="{{ route('dashboard') }}">
                         <i class="fas fa-th-large"></i>
                         <div>Dashboard</div>
                     </a>
                 </li>
-                <li>
+                <li class="@if(Request::is('master')) active @endif">
                     <a href="{{ route('master.index') }}">
                         <i class="fas fa-users"></i>
-                        <div>Ustalar</div>
+                        <div>Hodimlar</div>
                     </a>
                 </li>
-                <li>
+                <li class="@if(Request::is('work')) active @endif">
                     <a href="{{ route('work.index') }}">
-                        <i class="fas fa-hand-holding-usd"></i>
-                        <div>Ishlar</div>
+                        <i class="fas fa-camera"></i>
+                        <div>Servis</div>
                     </a>
                 </li>
-                <li>
+                <li class="@if(Request::is('completed')) active @endif">
                     <a href="#">
-                        <i class="fas fa-delicious"></i>
-                        <div>Ish turlari</div>
+                        <i class="fas fa-list"></i>
+                        <div>Bitgan ishlar</div>
                     </a>
                 </li>
-                <li>
+                <li class="@if(Request::is('report')) active @endif">
                     <a href="{{ route('report') }}">
                         <i class="fas fa-chart-bar"></i>
-                        <div>Analytics</div>
+                        <div>Hisobot</div>
                     </a>
                 </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-hand-holding-usd"></i>
-                        <div>Earnings</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-cog"></i>
-                        <div>Settings</div>
-                    </a>
-                </li>
+{{--                <li>--}}
+{{--                    <a href="#">--}}
+{{--                        <i class="fas fa-hand-holding-usd"></i>--}}
+{{--                        <div>Earnings</div>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--                <li>--}}
+{{--                    <a href="#">--}}
+{{--                        <i class="fas fa-cog"></i>--}}
+{{--                        <div>Settings</div>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
             </ul>
         </div>
 
@@ -78,6 +79,8 @@
         </div>
     </div>
     <script src="{{ asset('assets/js/jquery3.7.min.js') }}"></script>
+    <script src="{{ asset('assets/popper/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/bootstrap-5.0.2/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/bootstrap-5.0.2/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/datatable/dataTables.bootstrap5.min.js') }}"></script>
     <script src="{{ asset('assets/datatable/jquery.dataTables.min.js') }}"></script>

@@ -24,12 +24,7 @@ class AuthController extends Controller
     {
         try {
             $this->service->login($request->validated());
-
-            if(Auth::user()->role === "1") {
-                return redirect()->intended('/user');
-            }
-
-            return redirect()->route('home');
+            return redirect()->intended('/dashboard');
         }
         catch (UnauthorizedException $e) {
             return Redirect::back()->withErrors([
