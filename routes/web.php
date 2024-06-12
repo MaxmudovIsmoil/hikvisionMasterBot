@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\InstallController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ServiceController;
@@ -46,6 +47,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/group/create/', [GroupController::class, 'store'])->name('group.store');
     Route::put('/group/update/{id}', [GroupController::class, 'update'])->name('group.update');
     Route::delete('/group/delete/{id}', [GroupController::class, 'destroy'])->name('group.destroy');
+
+    // Group ball send text admin to telegram
+    Route::get('/group-ball', [GroupController::class, 'index'])->name('groupBall');
 
     // master
     Route::resource('master', MasterController::class)->except(['create', 'edit', 'show']);

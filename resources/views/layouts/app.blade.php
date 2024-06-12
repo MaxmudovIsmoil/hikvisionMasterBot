@@ -67,7 +67,7 @@
                 </li>
                 <li class="@if(Request::is('group-ball')) active @endif">
                     <a href="{{ route('groupBall') }}">
-                        <i class="fas fa-balance-scale"></i>
+                        <i class="fas fa-coins"></i>
                         <div>Guruh bal</div>
                     </a>
                 </li>
