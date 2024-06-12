@@ -1,16 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="service-btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-sm btn-outline-primary mb-1"><i class="fas fa-list"></i> Barchasi</button>
-        <button type="button" class="btn btn-sm btn-outline-primary mb-1">Terminal</button>
-        <button type="button" class="btn btn-sm btn-outline-primary mb-1">Domofon</button>
-        <button type="button" class="btn btn-sm btn-primary mb-1">Kamera</button>
-    </div>
     <div class="content">
         <div class="content-header">
-            <a data-store_url="{{ route('work.store') }}"
-               class="btn btn-outline-primary mb-1 btn-sm addBtn js_add_btn">
+            <a data-store_url="{{ route('install.store') }}"
+               class="btn btn-outline-primary btn-sm addBtn js_add_btn">
                 <i class="fas fa-user-plus"></i>&nbsp; Qo'shish
             </a>
         </div>
@@ -23,88 +17,36 @@
                                 <thead>
                                 <tr>
                                     <th>№</th>
-                                    <th>Nomi</th>
-                                    <th>Soni</th>
-                                    <th>Telefon raqam (mijoz)</th>
+                                    <th>Blanka Raqami</th>
+                                    <th>Fish</th>
+                                    <th>Huhud</th>
                                     <th>Manzil</th>
-                                    <th>Lokatsiya</th>
+                                    <th>Geo Lokatsiya</th>
+                                    <th>Xizmat narxi</th>
                                     <th>Status</th>
                                     <th class="text-right">Harakat</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Kamera o'rnatish</td>
-                                    <td>2</td>
-                                    <td>(94) 422-00-44</td>
-                                    <td>Temurmalik 77B</td>
-                                    <td>Lokatyiya</td>
-                                    <td>
-                                        <span class="badge rounded-pill bg-warning">Bajarilmoqda</span>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex justify-content-around">
-                                            <a class="btn btn-outline-info btn-sm" title="See">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                            <a class="btn btn-outline-primary btn-sm" title="Edit">
-                                                <i class="fas fa-pen"></i>
-                                            </a>
-                                            <a class="btn btn-outline-danger btn-sm" title="Delete">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Kamera o'rnatish (internet ko'ra olish)</td>
-                                    <td>5</td>
-                                    <td>(99) 229-53-55</td>
-                                    <td>Charhiy</td>
-                                    <td>Lokatsiya</td>
-                                    <td>
-                                        <span class="badge rounded-pill bg-danger">Bajarilmadi</span>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex justify-content-around">
-                                            <a class="btn btn-outline-info btn-sm" title="See">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                            <a class="btn btn-outline-primary btn-sm" title="Edit">
-                                                <i class="fas fa-pen"></i>
-                                            </a>
-                                            <a class="btn btn-outline-danger btn-sm" title="Delete">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Domofon o'rnatish</td>
-                                    <td>3</td>
-                                    <td>(90) 123-45-67</td>
-                                    <td>Alisher Navoiy 102</td>
-                                    <td>Lokatyiya</td>
-                                    <td>
-                                        <span class="badge rounded-pill bg-success">Yopildi</span>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex justify-content-around">
-                                            <a class="btn btn-outline-info btn-sm" title="See">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                            <a class="btn btn-outline-primary btn-sm" title="Edit">
-                                                <i class="fas fa-pen"></i>
-                                            </a>
-                                            <a class="btn btn-outline-danger btn-sm" title="Delete">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>12</td>
+                                        <td>Aliyev Olimjon</td>
+                                        <td>Alisher Navoiy 102</td>
+                                        <td>link</td>
+                                        <td>520 000 so'm</td>
+                                        <td>Yopilgan</td>
+                                        <td>
+                                            <div class="d-flex justify-content-around">
+                                                <a class="btn btn-outline-info btn-sm">
+                                                    <i class="fas fa-pen"></i> edit
+                                                </a>
+                                                <a class="btn btn-outline-danger btn-sm">
+                                                    <i class="fas fa-trash-alt"></i> delete
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

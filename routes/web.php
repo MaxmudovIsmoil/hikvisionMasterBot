@@ -3,8 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\ReportController;
-use App\Http\Controllers\TypeWorkController;
-use App\Http\Controllers\WorkController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\GroupController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -29,21 +29,27 @@ Route::middleware('auth')->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
+    // установка
+    Route::get('/install', [InstallController::class, 'index'])->name('install.index');
+    Route::post('/install/store/', [InstallController::class, 'store'])->name('install.store');
+    Route::put('/install/update/{id}', [InstallController::class, 'update'])->name('install.update');
+    Route::delete('/install/delete/{id}', [InstallController::class, 'destroy'])->name('install.destroy');
+
+    // service
+    Route::get('/service', [ServiceController::class, 'index'])->name('service.index');
+    Route::post('/service/store/', [ServiceController::class, 'store'])->name('service.store');
+    Route::put('/service/update/{id}', [ServiceController::class, 'update'])->name('service.update');
+    Route::delete('/service/delete/{id}', [ServiceController::class, 'destroy'])->name('service.destroy');
+
+    // group
+    Route::get('/group', [GroupController::class, 'index'])->name('group.index');
+    Route::post('/group/create/', [GroupController::class, 'store'])->name('group.store');
+    Route::put('/group/update/{id}', [GroupController::class, 'update'])->name('group.update');
+    Route::delete('/group/delete/{id}', [GroupController::class, 'destroy'])->name('group.destroy');
+
     // master
     Route::resource('master', MasterController::class)->except(['create', 'edit', 'show']);
     Route::get('/master/one/{id}', [MasterController::class, 'getOne'])->name('master.getOne');
-
-    // type of work
-    Route::get('/type-work', [TypeWorkController::class, 'index'])->name('typeWork.index');
-//    Route::post('/type-work/store/', [TypeWorkController::class, 'store'])->name('typeWork.store');
-//    Route::put('/type-work/update/{id}', [TypeWorkController::class, 'update'])->name('typeWork.update');
-//    Route::delete('/type-work/delete/{id}', [TypeWorkController::class, 'destroy'])->name('typeWork.destroy');
-
-    // work
-    Route::get('/work', [WorkController::class, 'index'])->name('work.index');
-    Route::post('/work/create/', [WorkController::class, 'store'])->name('work.store');
-    Route::put('/work/update/{id}', [WorkController::class, 'update'])->name('work.update');
-    Route::delete('/work/delete/{id}', [WorkController::class, 'destroy'])->name('work.destroy');
 
 
     Route::get('/report', [ReportController::class, 'index'])->name('report');

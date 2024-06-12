@@ -35,22 +35,28 @@
                         <div>Dashboard</div>
                     </a>
                 </li>
+                <li class="@if(Request::is('install')) active @endif">
+                    <a href="{{ route('install.index') }}">
+                        <i class="fas fa-stream"></i>
+                        <div>установка</div>
+                    </a>
+                </li>
+                <li class="@if(Request::is('service')) active @endif">
+                    <a href="{{ route('service.index') }}">
+                        <i class="fas fa-layer-group"></i>
+                        <div>Servis</div>
+                    </a>
+                </li>
+                <li class="@if(Request::is('group')) active @endif">
+                    <a href="{{ route('group.index') }}">
+                        <i class="fas fa-group"></i>
+                        <div>Guruh</div>
+                    </a>
+                </li>
                 <li class="@if(Request::is('master')) active @endif">
                     <a href="{{ route('master.index') }}">
                         <i class="fas fa-users"></i>
                         <div>Hodimlar</div>
-                    </a>
-                </li>
-                <li class="@if(Request::is('work')) active @endif">
-                    <a href="{{ route('work.index') }}">
-                        <i class="fas fa-camera"></i>
-                        <div>Servis</div>
-                    </a>
-                </li>
-                <li class="@if(Request::is('completed')) active @endif">
-                    <a href="#">
-                        <i class="fas fa-list"></i>
-                        <div>Bitgan ishlar</div>
                     </a>
                 </li>
                 <li class="@if(Request::is('report')) active @endif">
@@ -59,18 +65,12 @@
                         <div>Hisobot</div>
                     </a>
                 </li>
-{{--                <li>--}}
-{{--                    <a href="#">--}}
-{{--                        <i class="fas fa-hand-holding-usd"></i>--}}
-{{--                        <div>Earnings</div>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--                <li>--}}
-{{--                    <a href="#">--}}
-{{--                        <i class="fas fa-cog"></i>--}}
-{{--                        <div>Settings</div>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                <li class="@if(Request::is('group-ball')) active @endif">
+                    <a href="{{ route('groupBall') }}">
+                        <i class="fas fa-balance-scale"></i>
+                        <div>Guruh bal</div>
+                    </a>
+                </li>
             </ul>
         </div>
 
