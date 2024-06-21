@@ -2,14 +2,14 @@
 
 namespace App\Services\Admin;
 
-use App\Models\Instance;
+use App\Models\GroupDetail;
 use Yajra\DataTables\DataTables;
 
 class InstanceService
 {
     public function list()
     {
-        $instances = Instance::orderBy('id', 'DESC')->get();
+        $instances = GroupDetail::orderBy('id', 'DESC')->get();
 
         return DataTables::of($instances)
             ->addIndexColumn()
@@ -42,12 +42,12 @@ class InstanceService
 
     public function one(int $id)
     {
-        return Instance::findOrFail($id);
+        return GroupDetail::findOrFail($id);
     }
 
     public function create(array $data)
     {
-        return Instance::create([
+        return GroupDetail::create([
             'name_ru' => $data['name_ru'],
             'status' => $data['status']
         ]);
@@ -55,7 +55,7 @@ class InstanceService
 
     public function update(array $data, int $id)
     {
-        return Instance::where(['id'=> $id])
+        return GroupDetail::where(['id'=> $id])
             ->update([
                 'name_ru' => $data['name_ru'],
                 'status' => $data['status']
@@ -64,7 +64,7 @@ class InstanceService
 
     public function delete(int $id)
     {
-        Instance::destroy($id);
+        GroupDetail::destroy($id);
         return $id;
     }
 

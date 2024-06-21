@@ -9,7 +9,7 @@
     </div>
     <div class="content">
         <div class="content-header">
-            <a data-store_url="{{ route('work.store') }}"
+            <a data-store_url=""
                class="btn btn-outline-primary mb-1 btn-sm addBtn js_add_btn">
                 <i class="fas fa-user-plus"></i>&nbsp; Qo'shish
             </a>
@@ -113,7 +113,7 @@
             </div>
         </div>
 
-        @include('service.add_edit_modal')
+        @include('report.add_edit_modal')
     </div>
 @endsection
 

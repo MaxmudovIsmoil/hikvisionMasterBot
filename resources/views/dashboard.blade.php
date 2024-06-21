@@ -49,7 +49,7 @@
         </div>
     </div>
     <div class="chart doughnut-chart">
-        <h2>Ustalar</h2>
+        <h2>Gruhlar</h2>
         <div>
             <canvas id="doughnut"></canvas>
         </div>

@@ -2,24 +2,11 @@
 
 @section('content')
     <div class="content">
-        <div class="service-btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-sm btn-outline-primary mb-1"><i class="fas fa-list"></i> Barchasi</button>
-            <button type="button" class="btn btn-sm btn-outline-primary mb-1">Terminal</button>
-            <button type="button" class="btn btn-sm btn-outline-primary mb-1">Domofon</button>
-            <button type="button" class="btn btn-sm btn-primary mb-1">Kamera</button>
-        </div>
         <div class="content-header">
             <a data-store_url="{{ route('install.store') }}"
                class="btn btn-outline-primary btn-sm addBtn js_add_btn">
                 <i class="fas fa-plus"></i>&nbsp; Qo'shish
             </a>
-{{--            <div class="status-btn-group">--}}
-{{--                <a href="#" class="btn btn-sm btn-secondary">Barchasi</a>--}}
-{{--                <a href="#" class="btn btn-sm btn-info">Yangi</a>--}}
-{{--                <a href="#" class="btn btn-sm btn-warning">Jarayonda</a>--}}
-{{--                <a href="#" class="btn btn-sm btn-success">Yopilgan</a>--}}
-{{--                <a href="#" class="btn btn-sm btn-danger">Bekor qilingan</a>--}}
-{{--            </div>--}}
         </div>
         <div class="content-body">
             <div class="row">
@@ -30,33 +17,20 @@
                                 <thead>
                                 <tr>
                                     <th>№</th>
-                                    <th>Blanka Raqami</th>
-                                    <th>Fish</th>
-                                    <th>Huhud</th>
-                                    <th>Manzil</th>
-                                    <th>Geo lokatsiya</th>
-                                    <th>Xizmat narxi</th>
+                                    <th>Nomi</th>
                                     <th>Status</th>
                                     <th class="text-right">Harakat</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr style="background: #ffebb0e6;">
+                                    <tr>
                                         <td>1</td>
-                                        <td>12</td>
-                                        <td>Aliyev Olimjon</td>
-                                        <td>Charhiy</td>
-                                        <td>Nurafshon ko'chasi 102</td>
-                                        <td>Link</td>
-                                        <td>520 000 so'm</td>
+                                        <td>Domofon</td>
                                         <td>
-                                            <span class="badge rounded-pill bg-warning">Jarayonda</span>
+                                            <span class="badge rounded-pill bg-success">Faol</span>
                                         </td>
                                         <td>
                                             <div class="d-flex justify-content-around">
-                                                <a class="btn btn-info btn-sm text-white" title="See">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
                                                 <a class="btn btn-primary btn-sm js_add_btn" title="Edit">
                                                     <i class="fas fa-pen"></i>
                                                 </a>
@@ -66,72 +40,14 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr style="background: #cefee8;">
+                                    <tr>
                                         <td>2</td>
-                                        <td>13</td>
-                                        <td>Tohirov Shohruh</td>
-                                        <td>Chorsu</td>
-                                        <td>Namuna mahallasi 35</td>
-                                        <td>Link</td>
-                                        <td>360 000 so'm</td>
+                                        <td>Kamera</td>
                                         <td>
-                                            <span class="badge rounded-pill bg-success">Yopilgan</span>
+                                            <span class="badge rounded-pill bg-success">Faol</span>
                                         </td>
                                         <td>
                                             <div class="d-flex justify-content-around">
-                                                <a class="btn btn-info btn-sm text-white" title="See">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <a class="btn btn-primary btn-sm js_add_btn" title="Edit">
-                                                    <i class="fas fa-pen"></i>
-                                                </a>
-                                                <a class="btn btn-danger btn-sm" title="Delete">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr style="background: #93baf3eb;">
-                                        <td>3</td>
-                                        <td>15</td>
-                                        <td>Ergashev Shokirjon</td>
-                                        <td>Archazor</td>
-                                        <td>Furqat kochasi 27</td>
-                                        <td>Link</td>
-                                        <td>750 000 so'm</td>
-                                        <td>
-                                            <span class="badge rounded-pill bg-primary">Yangi</span>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex justify-content-around">
-                                                <a class="btn btn-info btn-sm text-white" title="See">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <a class="btn btn-primary btn-sm js_add_btn" title="Edit">
-                                                    <i class="fas fa-pen"></i>
-                                                </a>
-                                                <a class="btn btn-danger btn-sm" title="Delete">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr style="background: #ff3e5057;">
-                                        <td>4</td>
-                                        <td>17</td>
-                                        <td>Qodirov Abbosxon</td>
-                                        <td>Archazor</td>
-                                        <td>Uzumzor ko'chasi 87</td>
-                                        <td>Link</td>
-                                        <td>450 000 so'm</td>
-                                        <td>
-                                            <span class="badge rounded-pill bg-danger">Bekor qilindi</span>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex justify-content-around">
-                                                <a class="btn btn-info btn-sm text-white" title="See">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
                                                 <a class="btn btn-primary btn-sm js_add_btn" title="Edit">
                                                     <i class="fas fa-pen"></i>
                                                 </a>
@@ -149,7 +65,7 @@
             </div>
         </div>
 
-        @include('install.add_edit_modal')
+        @include('installCategory.add_edit_modal')
     </div>
 @endsection
 

@@ -1,11 +1,12 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\InstallCategoryController;
 use App\Http\Controllers\InstallController;
-use App\Http\Controllers\MasterController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,13 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard');
 
     // установка
+    Route::get('/install-category', [InstallCategoryController::class, 'index'])->name('installCategory.index');
+    Route::post('/install-category/store/', [InstallCategoryController::class, 'store'])->name('installCategory.store');
+    Route::put('/install-category/update/{id}', [InstallCategoryController::class, 'update'])->name('installCategory.update');
+    Route::delete('/install-category/delete/{id}', [InstallCategoryController::class, 'destroy'])->name('installCategory.destroy');
+
+
+    // установка
     Route::get('/install', [InstallController::class, 'index'])->name('install.index');
     Route::post('/install/store/', [InstallController::class, 'store'])->name('install.store');
     Route::put('/install/update/{id}', [InstallController::class, 'update'])->name('install.update');
@@ -43,17 +51,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/service/delete/{id}', [ServiceController::class, 'destroy'])->name('service.destroy');
 
     // group
-    Route::get('/group', [GroupController::class, 'index'])->name('group.index');
-    Route::post('/group/create/', [GroupController::class, 'store'])->name('group.store');
-    Route::put('/group/update/{id}', [GroupController::class, 'update'])->name('group.update');
-    Route::delete('/group/delete/{id}', [GroupController::class, 'destroy'])->name('group.destroy');
+    Route::resource('group', GroupController::class)->except(['create', 'edit', 'show']);
+    Route::get('/get-groups', [GroupController::class, 'getGroups'])->name('getGroups');
+    Route::get('/group/one/{id}', [GroupController::class, 'getOne'])->name('group.getOne');
 
     // Group ball send text admin to telegram
     Route::get('/group-ball', [GroupController::class, 'index'])->name('groupBall');
 
-    // master
-    Route::resource('master', MasterController::class)->except(['create', 'edit', 'show']);
-    Route::get('/master/one/{id}', [MasterController::class, 'getOne'])->name('master.getOne');
+    // Users
+    Route::get('/sub/users', [UserController::class, 'index'])->name('users');
+    Route::resource('user', UserController::class)->except(['create', 'create', 'edit', 'show']);
+    Route::get('/get-users', [UserController::class, 'getUsers'])->name('getUsers');
+    Route::get('/users/one/{id}', [UserController::class, 'getOne'])->name('user.getOne');
+
 
 
     Route::get('/report', [ReportController::class, 'index'])->name('report');

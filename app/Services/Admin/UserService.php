@@ -2,140 +2,146 @@
 
 namespace App\Services\Admin;
 
-use App\Helpers\Helper;
+use App\Jobs\SendEmailAdminUpdateJob;
 use App\Models\User;
-use App\Models\UserInstance;
-use App\Traits\FileTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\URL;
 use Yajra\DataTables\DataTables;
 
 class UserService
 {
-    use FileTrait;
+    public function __construct(
+        public User $model
+    ) {}
 
-    public function list()
+    public function getUsers()
     {
-        $users = User::where(['rule' => '0'])
-            ->with('user_instances')
+        $users = $this->model->where('is_deleted',0)
             ->orderBy('id', 'DESC')
-            ->get();
+            ->get()
+            ->toArray();
 
         return DataTables::of($users)
             ->addIndexColumn()
             ->editColumn('id', '{{$id}}')
-            ->editColumn('phone', function($users) {
-                return Helper::phoneFormat($users->phone);
+            ->editColumn('status', function($user) {
+                return ($user['status'] == 1)
+                    ? '<div class="text-center"><i class="fa-solid fa-check text-success"></i></div>'
+                    : '<div class="text-center"><i class="fa-solid fa-xmark text-danger"></i></div>';
             })
-            ->editColumn('status', function($users) {
-                return ($users->status == 1) ? trans('Admin.Active') : trans('Admin.No active');
+            ->editColumn('ldap', function($user) {
+                return ($user['ldap'] == 1)
+                    ? '<div class="text-center"><i class="fa-solid fa-check text-success"></i></div>'
+                    : '<div class="text-center"><i class="fa-solid fa-xmark text-danger"></i></div>';
             })
-            ->addColumn('photo', function($users) {
-                return '<div class="avatar avatar-xl">
-                            <img src="'.asset("storage/upload/photos/".$users->photo).'" alt="Photo"/>
-                        </div>';
+            ->addColumn('accessLevel', function ($user) {
+                if ($user['is_deleted'])
+                    return '<p class="text-center m-0" style="color: darkred;"><i class="fa-solid fa-lock"></i></p>';
+
+                return '<div class="d-flex justify-content-around">
+                            <a class="js_access_level_btn mr-3 btn btn-outline-info btn-sm"
+                                data-name="'.$user['name'].'"
+                                data-one_url="'.route('accessUserLevel', ['userId' => $user['id']]).'"
+                                data-update_url="'.route('accessUserLevel.update', ['userId' => $user['id']]).'"
+                                href="javascript:void(0);" title="Access Level">
+                                <i class="fa-solid fa-list-check"></i> '.trans('admin.Right of').'
+                            </a>';
             })
-            ->addColumn('instance', function($users) {
-                $instance = "";
-                foreach($users->user_instances as $ui) {
-                    $instance .= '<div>'.$ui->instance->name_ru.'</div>';
-                }
-                return $instance;
-            })
-            ->addColumn('action', function ($users) {
-                $btn = '<div class="text-right">
-                            <a href="javascript:void(0);" class="text-primary js_edit_btn mr-3"
-                                data-update_url="'.route('admin.user.update', $users->id).'"
-                                data-one_data_url="'.route('admin.user.getOne', $users->id).'"
-                                title="Редактирование">
-                                <i class="fas fa-pen mr-50"></i> '.trans("admin.Edit").'
-                            </a>
-                            <a class="text-danger js_delete_btn" href="javascript:void(0);"
-                                data-toggle="modal"
-                                data-target="#deleteModal"
-                                data-name="'.$users->name.'"
-                                data-url="'.route('admin.user.destroy', $users->id).'" title="Выключать">
-                                <i class="far fa-trash-alt mr-50"></i> '.trans("admin.Delete").'
-                            </a>
-                        </div>';
-                return $btn;
+            ->addColumn('action', function ($user) {
+
+                $deleteBtn = '<a class="js_delete_btn btn btn-outline-danger btn-sm"
+                                data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                data-name="'.$user['name'].'"
+                                data-url="'.route('user.destroy', $user['id']).'"
+                                href="javascript:void(0);" title="Delete">
+                                <i class="far fa-trash-alt mr-50"></i>
+                            </a>';
+                if ($user['id'] == 1)
+                    $deleteBtn = '<p class="text-center m-0" style="color: darkred;"><i class="fa-solid fa-lock"></i></p>';
+
+                return '<div class="d-flex justify-content-between">
+                            <a class="js_edit_btn mr-3 btn btn-outline-primary btn-sm"
+                                data-update_url="'.route('user.update', $user['id']).'"
+                                data-one_url="'.route('user.getOne', $user['id']).'"
+                                href="javascript:void(0);" title="Edit">
+                                <i class="fas fa-pen mr-50"></i>
+                            </a>'.$deleteBtn.'</div>';
             })
             ->setRowClass('js_this_tr')
-            ->rawColumns(['photo', 'instance', 'action'])
+            ->rawColumns(['status', 'ldap', 'accessLevel', 'action'])
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make();
     }
 
+
     public function one(int $id)
     {
-        return User::with('user_instances')->findOrFail($id);
+        return $this->model::findOrFail($id);
     }
 
-    public function create(array $data)
+    public function store(array $data): bool
     {
-        DB::beginTransaction();
-            $photo = $this->fileUpload($data['photo']);
+        $this->model::create([
+            'dep' => $data['dep'],
+            'pos' => $data['pos'],
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'regcode' => strtolower($data['login']),
+            'login' => strtolower($data['login']),
+            'password' => Hash::make($data['password']) ?? null,
+            'status' => $data['status'] ?? 0,
+            'ldap' => $data['ldap'] ?? 0,
+            'language' => $data['language'] ?? 'en',
+        ]);
 
-            $userId = User::insertGetId([
-                'name' => $data['name'],
-                'phone' => $data['phone'],
-                'photo' => $photo,
-                'username' => strtolower($data['username']),
-                'password' => Hash::make($data['password'])
-            ]);
-
-            $this->user_instance($data['instances'], $userId);
-        DB::commit();
-        return $userId;
+        return true;
     }
 
-    public function update(array $data, int $id)
+    public function update(array $data, int $id): int|bool
     {
-        DB::beginTransaction();
-            $user = User::findOrfail($id);
-            if (isset($data['photo'])) {
-                $this->fileDelete('photos/'.$user->photo);
-                $user->fill(['photo' => $this->fileUpload($data['photo'])]);
-            }
-            if (isset($data['password'])) {
-                $user->fill(['password' => Hash::make($data['password'])]);
-            }
-            $user->fill([
-                'name' => $data['name'],
-                'phone' => $data['phone'],
-                'status' => $data['status'],
-                'username' => strtolower($data['username'])
-            ]);
-            $user->save();
+        try {
+            DB::beginTransaction();
+                $user = $this->model::findOrfail($id);
+                if (isset($data['password'])) {
+                    $user->fill(['password' => Hash::make($data['password'])]);
+                    // send email to admin
+                    if ($id == 1) {
+                        SendEmailAdminUpdateJob::dispatch([
+                            'mail_to' => $data['email'],
+                            'url' => URL::to('/'),
+                            'login' => strtolower($data['login']),
+                            'password' => $data['password'],
+                        ])->onQueue('adminUpdate');
 
-            $this->user_instance($data['instances'], $id);
-        DB::commit();
+                    }
+                }
+
+                $user->fill([
+                    'dep' => $data['dep'],
+                    'pos' => $data['pos'],
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'login' => strtolower($data['login']),
+                    'language' => $data['language'],
+                    'ldap' => $data['ldap'],
+                    'status' => $data['status'],
+                ]);
+                $user->save();
+            DB::commit();
+            return $id;
+        }
+        catch (\Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
+
+    public function destroy(int $id): int
+    {
+        User::where('id', $id)->update(['is_deleted'=> 1]);
         return $id;
     }
-
-    public function delete(int $id)
-    {
-        $user = User::findOrFail($id);
-        $this->fileDelete('photos/' . $user->photo);
-        return $user->delete();
-    }
-
-
-
-    protected function user_instance(array $instances, int $userId): void
-    {
-        DB::transaction(function () use ($userId, $instances) {
-            UserInstance::where('user_id', $userId)->delete();
-            $data = [];
-            foreach ($instances as $instanceId) {
-                $data[] = [
-                    'user_id' => $userId,
-                    'instance_id' => $instanceId,
-                ];
-            }
-            UserInstance::insert($data);
-        });
-    }
-
 
 }

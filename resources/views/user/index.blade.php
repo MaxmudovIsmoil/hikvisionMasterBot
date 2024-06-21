@@ -3,7 +3,7 @@
 @section('content')
     <div class="content">
         <div class="content-header">
-            <a data-store_url="{{ route('master.store') }}"
+            <a data-store_url="{{ route('user.store') }}"
                class="btn btn-outline-primary btn-sm addBtn js_add_btn">
                 <i class="fas fa-user-plus"></i>&nbsp; Qo'shish
             </a>
@@ -15,75 +15,71 @@
                         <div class="card-datatable">
                             <table class="table" id="datatable">
                                 <thead>
-                                    <tr>
-                                        <th>№</th>
-                                        <th>Kasbi</th>
-                                        <th>FISH</th>
-                                        <th>Rasm</th>
-                                        <th>Telefon raqam</th>
-                                        <th>Manzil</th>
-                                        <th>Status</th>
-                                        <th class="text-right">Harakat</th>
-                                    </tr>
+                                <tr>
+                                    <th>№</th>
+                                    <th>Kasbi</th>
+                                    <th>FISH</th>
+                                    <th>Telefon raqam</th>
+                                    <th>Manzil</th>
+                                    <th>Status</th>
+                                    <th class="text-right">Harakat</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Kamerachi</td>
-                                        <td>Shaxriyor Aka</td>
-                                        <td>img</td>
-                                        <td>(94) 422-00-44</td>
-                                        <td>Temurmalik 77B</td>
-                                        <td>faol</td>
-                                        <td>
-                                            <div class="d-flex justify-content-around">
-                                                <a class="btn btn-outline-info btn-sm">
-                                                    <i class="fas fa-pen"></i> edit
-                                                </a>
-                                                <a class="btn btn-outline-danger btn-sm">
-                                                    <i class="fas fa-trash-alt"></i> delete
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Montajchi</td>
-                                        <td>Sanjar Aka</td>
-                                        <td>photo</td>
-                                        <td>(99) 229-53-55</td>
-                                        <td>Dang'ara</td>
-                                        <td>no faol</td>
-                                        <td>
-                                            <div class="d-flex justify-content-around">
-                                                <a class="btn btn-outline-info btn-sm">
-                                                    <i class="fas fa-pen"></i> edit
-                                                </a>
-                                                <a class="btn btn-outline-danger btn-sm">
-                                                    <i class="fas fa-trash-alt"></i> delete
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Universal</td>
-                                        <td>Shaxboz aka</td>
-                                        <td>photo</td>
-                                        <td>(90) 565-40-26</td>
-                                        <td>Bozor</td>
-                                        <td>faol</td>
-                                        <td>
-                                            <div class="d-flex justify-content-around">
-                                                <a class="btn btn-outline-info btn-sm">
-                                                    <i class="fas fa-pen"></i> edit
-                                                </a>
-                                                <a class="btn btn-outline-danger btn-sm">
-                                                    <i class="fas fa-trash-alt"></i> delete
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Kamerachi</td>
+                                    <td>Shaxriyor Aka</td>
+                                    <td>(94) 422-00-44</td>
+                                    <td>Degrezlik, Alisher Navoiy 24</td>
+                                    <td>faol</td>
+                                    <td>
+                                        <div class="d-flex justify-content-around">
+                                            <a class="btn btn-outline-info btn-sm">
+                                                <i class="fas fa-pen"></i> edit
+                                            </a>
+                                            <a class="btn btn-outline-danger btn-sm">
+                                                <i class="fas fa-trash-alt"></i> delete
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Montajchi</td>
+                                    <td>Sanjar Aka</td>
+                                    <td>(99) 229-53-55</td>
+                                    <td>Archazor Nurafson ko'chasi 37</td>
+                                    <td>no faol</td>
+                                    <td>
+                                        <div class="d-flex justify-content-around">
+                                            <a class="btn btn-outline-info btn-sm">
+                                                <i class="fas fa-pen"></i> edit
+                                            </a>
+                                            <a class="btn btn-outline-danger btn-sm">
+                                                <i class="fas fa-trash-alt"></i> delete
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Universal</td>
+                                    <td>Shaxboz aka</td>
+                                    <td>(90) 565-40-26</td>
+                                    <td>Chorsu Namuna mahallasi 102</td>
+                                    <td>faol</td>
+                                    <td>
+                                        <div class="d-flex justify-content-around">
+                                            <a class="btn btn-outline-info btn-sm">
+                                                <i class="fas fa-pen"></i> edit
+                                            </a>
+                                            <a class="btn btn-outline-danger btn-sm">
+                                                <i class="fas fa-trash-alt"></i> delete
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -92,7 +88,7 @@
             </div>
         </div>
 
-        @include('master.add_edit_modal')
+        @include('user.add_edit_modal')
     </div>
 @endsection
 
@@ -157,7 +153,7 @@
 
             $(document).on('click', '.js_add_btn', function (e) {
                 e.preventDefault();
-                modal.find('.modal-title').html('{{__("admin.Add user")}}')
+                modal.find('.modal-title').html("Hodim qo'shish");
                 form_clear(form);
                 let url = $(this).data('store_url');
                 form.attr('action', url);
@@ -166,7 +162,7 @@
 
             $(document).on('click', '.js_edit_btn', function (e) {
                 e.preventDefault();
-                modal.find('.modal-title').html('{{__("admin.Edit user")}}')
+                modal.find('.modal-title').html("Hodim Tahrirlash")
                 let status = form.find('.js_status option')
                 let url = $(this).data('one_data_url')
                 let update_url = $(this).data('update_url')

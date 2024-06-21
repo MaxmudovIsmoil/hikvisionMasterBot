@@ -2279,7 +2279,7 @@ briefcase:
       - business
       - luggage
       - office
-      - work
+      - report
   styles:
     - solid
   unicode: f0b1
@@ -2394,7 +2394,7 @@ building:
       - city
       - company
       - office
-      - work
+      - report
   styles:
     - solid
     - regular
@@ -7568,7 +7568,7 @@ first-order:
   changes:
     - '4.6'
     - 5.0.0
-  label: First Order
+  label: First Service
   search:
     terms: []
   styles:
@@ -7578,7 +7578,7 @@ first-order:
 first-order-alt:
   changes:
     - 5.0.12
-  label: Alternate First Order
+  label: Alternate First Service
   search:
     terms: []
   styles:
@@ -10977,7 +10977,7 @@ jedi-order:
   changes:
     - 5.0.12
     - 5.7.0
-  label: Jedi Order
+  label: Jedi Service
   search:
     terms:
       - star wars
@@ -11376,7 +11376,7 @@ laptop-house:
       - device
       - office
       - remote
-      - work from home
+      - report from home
   styles:
     - solid
   unicode: e066

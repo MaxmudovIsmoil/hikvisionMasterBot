@@ -2,28 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\GroupRequest;
-use App\Services\Admin\GroupService;
+use App\Http\Controllers\Controller;
+//use App\Http\Controllers\MailController;
+use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
+use App\Services\Admin\UserService;
 use Illuminate\Http\JsonResponse;
 
-class GroupController extends Controller
+class UserController extends Controller
 {
     public function __construct(
-        public GroupService $service
+        public UserService $service
     ) {}
-
 
     public function index()
     {
-        return view('group.index');
+        return view('user.index');
     }
 
-    public function getGroups()
+    public function getUsers()
     {
-        return $this->service->getGroups();
+        return $this->service->getUsers();
     }
 
-    public function getOne(int $id): object
+    public function getOne(int $id)
     {
         try {
             return response()->success($this->service->one($id));
@@ -33,7 +35,7 @@ class GroupController extends Controller
         }
     }
 
-    public function store(GroupRequest $request): JsonResponse
+    public function store(UserStoreRequest $request)
     {
         try {
             $user = $this->service->store($request->validated());
@@ -44,7 +46,7 @@ class GroupController extends Controller
         }
     }
 
-    public function update(GroupRequest $request, int $id): JsonResponse
+    public function update(UserUpdateRequest $request, int $id): JsonResponse
     {
         try {
             $result = $this->service->update($request->validated(), $id);
@@ -64,5 +66,4 @@ class GroupController extends Controller
             return response()->fail($e->getMessage());
         }
     }
-
 }

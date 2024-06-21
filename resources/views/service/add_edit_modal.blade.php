@@ -1,81 +1,49 @@
 <!-- Modal -->
-<div class="modal fade text-left static" id="add_edit_modal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade text-left static" id="add_edit_modal" tabindex="-1" role="dialog" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">{{__("admin.Instance")}}</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h4 class="modal-title">Ish joylash</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="" method="post" class="js_add_edit_form" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-12">
-                            <label>: </label>
-                            <div class="form-group">
-                                <select name="instances[]" class="form-control select2 js_instance" multiple>
-                                    @foreach([1,2,3,4] as $u)
-                                        <option value="1">$u</option>
-                                    @endforeach
-                                </select>
-                                <div class="invalid-feedback">Status fail!</div>
-                            </div>
+                        <div class="col-md-6 mb-2">
+                            <label for="blanka">Blanka raqami:</label>
+                            <input type="text" class="form-control" id="blanka" name="blanka">
+                            <div class="invalid-feedback">Blanka raqamini kiriting!</div>
                         </div>
-                        <div class="col-md-6">
-                            <label>{{__("admin.Name")}}: </label>
-                            <div class="form-group">
-                                <input type="text" name="name" class="form-control js_name" />
-                                <div class="invalid-feedback">Name fail!</div>
-                            </div>
+                        <div class="col-md-6 mb-2">
+                            <label for="fio">F.I.O:</label>
+                            <input type="text" class="form-control js_fio" id="fio" name="fio">
+                            <div class="invalid-feedback">F.I.O ni kiriting!</div>
                         </div>
-                        <div class="col-md-6">
-                            <label>{{__("admin.Phone")}}: </label>
-                            <div class="form-group">
-                                <input type="number" name="phone" class="form-control js_phone" placeholder="901004050"/>
-                                <div class="invalid-feedback">phone fail!</div>
-                            </div>
+                        <div class="col-md-6 mb-2">
+                            <label for="area">Hudud:</label>
+                            <input type="text" class="form-control" id="area" name="area">
+                            <div class="invalid-feedback">Hududni kiriting!</div>
                         </div>
-                        <div class="col-md-8">
-                            <label>{{__("admin.Photo")}}: </label>
-                            <div class="form-group">
-                                <div class="custom-file">
-                                    <input type="file" id="photo" name="photo" class="custom-file-input js_photo" />
-                                    <label for="photo" class="custom-file-label">{{__("admin.file")}}</label>
-                                    <div class="invalid-feedback">Photo fail!</div>
-                                </div>
-                            </div>
+                        <div class="col-md-6 mb-2">
+                            <label for="address">Manzil:</label>
+                            <input type="text" class="form-control" id="address" name="address">
+                            <div class="invalid-feedback">Manzilni kiriting!</div>
                         </div>
-                        <div class="col-md-4">
-                            <label>{{__("admin.Status")}}: </label>
-                            <div class="form-group">
-                                <select name="status" class="form-control js_status">
-                                    <option value="1">{{__("admin.Active")}}</option>
-                                    <option value="0">{{__("admin.No active")}}</option>
-                                </select>
-                                <div class="invalid-feedback">status fail!</div>
-                            </div>
+                        <div class="col-md-6 mb-2">
+                            <label for="location">Geo locatsiya:</label>
+                            <input type="text" class="form-control" id="location" name="location">
+                            <div class="invalid-feedback">Geo locatsiyani kiriting!</div>
                         </div>
-                        <div class="col-md-6">
-                            <label>{{__("admin.Login")}}: </label>
-                            <div class="form-group">
-                                <input type="text" name="username" class="form-control js_username" />
-                                <div class="invalid-feedback">Username fail!</div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label>{{__("admin.Password")}}: </label>
-                            <div class="form-group">
-                                <input type="password" name="password" class="form-control js_password" />
-                                <div class="invalid-feedback">Password fail!</div>
-                            </div>
+                        <div class="col-md-12 mb-2">
+                            <label for="description">Ish haqida ma'lumot</label>
+                            <textarea class="form-control" id="description"  name="description" rows="3"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">{{__("admin.Save")}}</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__("admin.Close")}}</button>
+                    <button type="submit" class="btn btn-primary">Jo'natish</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
                 </div>
             </form>
         </div>

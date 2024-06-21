@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('works', function (Blueprint $table) {
+        Schema::create('group_balls', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('typeWorkId');
-            $table->string('name');
-            $table->string('description');
-            $table->timestamps();
-            $table->foreign('typeWorkId')->references('id')->on('type_works')->onDelete('restrict');
+            $table->text('text')->nullable();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->softDeletes();
         });
     }
 
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('works');
+        Schema::dropIfExists('group_balls');
     }
 };

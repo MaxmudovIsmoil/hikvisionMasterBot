@@ -5,7 +5,7 @@
         <div class="content-header">
             <a data-store_url="{{ route('group.store') }}"
                class="btn btn-outline-primary btn-sm addBtn js_add_btn">
-                <i class="fas fa-user-plus"></i>&nbsp; Qo'shish
+                <i class="fas fa-plus"></i>&nbsp; Qo'shish
             </a>
         </div>
         <div class="content-body">
@@ -13,68 +13,19 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-datatable">
-                            <table class="table" id="datatable">
+                            <table class="table" id="groupDatatable">
                                 <thead>
-                                <tr>
-                                    <th>№</th>
-                                    <th>Nomi</th>
-                                    <th>Soni</th>
-                                    <th>Ball</th>
-                                    <th>Telefon raqam</th>
-                                    <th>Status</th>
-                                    <th class="text-right">Harakat</th>
-                                </tr>
+                                    <tr>
+                                        <th>№</th>
+                                        <th>Nomi</th>
+                                        <th>Darajasi</th>
+                                        <th>Ballari</th>
+                                        <th>Soni</th>
+                                        <th>Status</th>
+                                        <th class="text-right">Harakat</th>
+                                    </tr>
                                 </thead>
-                                <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Terminal</td>
-                                    <td>Terminal o'rnatish, sozlash</td>
-                                    <td>faol</td>
-                                    <td>
-                                        <div class="d-flex justify-content-around">
-                                            <a class="btn btn-outline-info btn-sm">
-                                                <i class="fas fa-pen"></i> edit
-                                            </a>
-                                            <a class="btn btn-outline-danger btn-sm">
-                                                <i class="fas fa-trash-alt"></i> delete
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Domofon</td>
-                                    <td>O'rnatish, tuzatish, ..,</td>
-                                    <td>no faol</td>
-                                    <td>
-                                        <div class="d-flex justify-content-around">
-                                            <a class="btn btn-outline-info btn-sm">
-                                                <i class="fas fa-pen"></i> edit
-                                            </a>
-                                            <a class="btn btn-outline-danger btn-sm">
-                                                <i class="fas fa-trash-alt"></i> delete
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Kamera</td>
-                                    <td>Lokal sozlash, Masofadan ulanishni sozlash</td>
-                                    <td>faol</td>
-                                    <td>
-                                        <div class="d-flex justify-content-around">
-                                            <a class="btn btn-outline-info btn-sm">
-                                                <i class="fas fa-pen"></i> edit
-                                            </a>
-                                            <a class="btn btn-outline-danger btn-sm">
-                                                <i class="fas fa-trash-alt"></i> delete
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
+                                <tbody></tbody>
                             </table>
                         </div>
                     </div>
@@ -82,190 +33,201 @@
             </div>
         </div>
 
-        @include('service.add_edit_modal')
     </div>
+
+    @include('group.add_edit_modal')
+
 @endsection
 
-@section('script')
+
+@push('script')
+{{--    <script src="{{ asset('assets/js/access-level.js') }}"></script>--}}
     <script>
-        function form_clear(form) {
-            form.find('.js_name').val('')
-            form.find('.js_phone').val('')
-            form.find('.js_username').val('')
-            form.find('.js_password').val('')
-            form.find('.js_photo').val('')
-            let status = form.find('.js_status option');
+        function formClear(form) {
+            form.find('input[name="name"]').val('');
+            form.find('input[name="_method"]').remove();
+            let status = $('select option')
             $.each(status, function (i, item) {
-                $(item).removeAttr('selected');
+                $(item).prop('checked', false)
             });
-            form.find('.js_instance').val(null).trigger('change')
         }
+        var modal = $('#add_edit_modal');
 
-        $(document).ready(function () {
-            var modal = $(document).find('#add_edit_modal');
-            var deleteModal = $('#deleteModal')
-            var form = modal.find('.js_add_edit_form');
+        var groupDatatable = $('#groupDatatable').DataTable({
+            scrollY: '70vh',
+            scrollCollapse: true,
+            paging: false,
+            lengthChange: false,
+            searching: true,
+            ordering: true,
+            info: false,
+            autoWidth: true,
+            language: {
+                search: "",
+                searchPlaceholder: "Search",
+            },
+            processing: true,
+            serverSide: true,
+            ajax: {
+                "url": '{{ route("getGroups") }}',
+            },
+            columns: [
+                {data: 'DT_RowIndex'},
+                {data: 'name', name: 'name'},
+                {data: 'level', name: 'count'},
+                {data: 'ball', name: 'count'},
+                {data: 'count', name: 'count'},
+                {data: 'status', name: 'status'},
+                {data: 'action', name: 'action', orderable: false, searchable: false}
+            ]
+        });
 
-            var table = $('#datatable').DataTable({
-                paging: true,
-                pageLength: 20,
-                lengthChange: false,
-                searching: true,
-                ordering: true,
-                info: true,
-                autoWidth: false,
-                language: {
-                    search: "",
-                    searchPlaceholder: " Поиск...",
-                    sLengthMenu: "Кўриш _MENU_ тадан",
-                    // sInfo: "Показаны с _START_ по _END_ из _TOTAL_ записей",
-                    // emptyTable: "Информация недоступна",
-                    // sInfoFiltered: "(Отфильтровано из _MAX_ записей)",
-                    // sZeroRecords: "Информация не найдена",
-                    // oPaginate: {
-                    //     sNext: "Следующий",
-                    //     sPrevious: "Предыдущий",
-                    // },
+        $(document).on('click', '.js_add_btn', function () {
+            let url = $(this).data('url')
+            let form = modal.find('.js_add_edit_form')
+
+            // formClear(form);
+            modal.find('.modal-title').html('Add group');
+            form.attr('action', url);
+            modal.modal('show');
+        })
+
+
+        $(document).on('click', '.js_edit_btn', function () {
+            let one_url = $(this).data('one_url');
+            let update_url = $(this).data('update_url');
+            let form = modal.find('.js_add_edit_form');
+            formClear(form);
+
+            modal.find('.modal-title').html('Edit group');
+            form.attr('action', update_url);
+            form.append('<input type="hidden" name="_method" value="PUT">');
+
+            $.ajax({
+                type: 'GET',
+                url: one_url,
+                dataType: 'JSON',
+                success: (response) => {
+                    // console.log('response: ', response);
+                    if (response.success) {
+                        form.find('.js_name').val(response.data.name);
+                        let status = form.find('.js_status option')
+                        $.each(status, function (i, item) {
+                            if (response.data.status === $(item).val()) {
+                                $(item).attr('selected', true);
+                            }
+                        })
+                    }
+                    modal.modal('show');
                 },
-                processing: false,
-                serverSide: false,
-                {{--ajax: {--}}
-                {{--    "url": '{{ route("admin.getUsers") }}',--}}
-                {{--},--}}
-                {{--columns: [--}}
-                {{--    {data: 'DT_RowIndex'},--}}
-                {{--    {data: 'photo'},--}}
-                {{--    {data: 'instance', name: 'instance'},--}}
-                {{--    {data: 'name'},--}}
-                {{--    {data: 'phone'},--}}
-                {{--    {data: 'username'},--}}
-                {{--    {data: 'status'},--}}
-                {{--    {data: 'action', name: 'action', orderable: false, searchable: false}--}}
-                {{--]--}}
-            });
-
-
-            $(document).on('click', '.js_add_btn', function (e) {
-                e.preventDefault();
-                modal.find('.modal-title').html('{{__("admin.Add user")}}')
-                form_clear(form);
-                let url = $(this).data('store_url');
-                form.attr('action', url);
-                modal.modal('show');
-            });
-
-            $(document).on('click', '.js_edit_btn', function (e) {
-                e.preventDefault();
-                modal.find('.modal-title').html('{{__("admin.Edit user")}}')
-                let status = form.find('.js_status option')
-                let url = $(this).data('one_data_url')
-                let update_url = $(this).data('update_url')
-                form.attr('action', update_url)
-                form_clear(form);
-
-                $.ajax({
-                    url: url,
-                    type: "GET",
-                    dataType: "json",
-                    success: (response) => {
-                        form.append("<input type='hidden' name='_method' value='PUT'>");
-                        if (response.success) {
-                            let instance_array = [];
-                            for (let i = 0; i < response.data.user_instances.length; i++) {
-                                instance_array[i] = response.data.user_instances[i].instance_id;
-                            }
-                            form.find('.js_instance').val(instance_array)
-                            form.find('.js_instance').trigger('change')
-
-                            form.find('.js_name').val(response.data.name)
-                            form.find('.js_phone').val(response.data.phone)
-                            form.find('.js_username').val(response.data.username)
-                            $.each(status, function (i, item) {
-                                if (response.data.status === $(item).val()) {
-                                    $(item).attr('selected', true);
-                                }
-                            })
-                            modal.modal('show')
-                        }
-                    },
-                    error: (response) => {
-                        // console.log('error: ',response)
-                    }
-                });
-            })
-
-            $(document).on('submit', '.js_add_edit_form', function (e) {
-                e.preventDefault();
-                let instance = form.find('.js_instance');
-                let name = form.find('.js_name')
-                let phone = form.find('.js_phone')
-                let photo = form.find('.js_photo')
-                let username = form.find('.js_username')
-                let password = form.find('.js_password')
-
-                $.ajax({
-                    url: $(this).attr('action'),
-                    type: "POST",
-                    data: new FormData(this),
-                    dataType: "JSON",
-                    contentType: false,
-                    processData: false,
-                    success: (response) => {
-                        // console.log(response)
-                        if (response.success) {
-                            modal.modal('hide')
-                            form_clear(form)
-                            table.draw();
-                        }
-                    },
-                    error: (response) => {
-                        if (typeof response.responseJSON.error !== 'undefined') {
-                            instance.addClass('is-invalid');
-                            instance.siblings('.invalid-feedback').html('{{ __('Admin.instance_fail') }}');
-                        }
-                        if (typeof response.responseJSON.errors !== 'undefined') {
-                            if (response.responseJSON.errors.name) {
-                                name.addClass('is-invalid');
-                                name.siblings('.invalid-feedback').html(response.responseJSON.errors.name[0]);
-                            }
-                            if (response.responseJSON.errors.phone) {
-                                phone.addClass('is-invalid');
-                                phone.siblings('.invalid-feedback').html(response.responseJSON.errors.phone[0]);
-                            }
-                            if (response.responseJSON.errors.username) {
-                                username.addClass('is-invalid');
-                                username.siblings('.invalid-feedback').html(response.responseJSON.errors.username[0]);
-                            }
-                            if (response.responseJSON.errors.password) {
-                                password.addClass('is-invalid');
-                                password.siblings('.invalid-feedback').html(response.responseJSON.errors.password[0]);
-                            }
-                            if (response.responseJSON.errors.photo) {
-                                photo.addClass('is-invalid');
-                                photo.siblings('.invalid-feedback').html(response.responseJSON.errors.photo[0]);
-                            }
-                        }
-                        // console.log('error: ', response);
-                    }
-                });
-            });
-
-
-            $(document).on("click", ".js_delete_btn", function () {
-                let name = $(this).data('name')
-                let url = $(this).data('url')
-
-                deleteModal.find('.modal-title').html(name)
-
-                let form = deleteModal.find('#js_modal_delete_form')
-                form.attr('action', url)
-                deleteModal.modal('show');
-            });
-
-            $(document).on('submit', '#js_modal_delete_form', function (e) {
-                e.preventDefault()
-                delete_function(deleteModal, $(this), table);
+                error: (response) => {
+                    console.log('error: ', response)
+                }
             });
         });
+
+
+        $('.js_add_edit_form').on('submit', function (e) {
+            e.preventDefault()
+            let form = $(this)
+            let action = form.attr('action')
+
+            $.ajax({
+                url: action,
+                type: "POST",
+                dataType: "json",
+                data: form.serialize(),
+                success: (response) => {
+                    //console.log('response: ', response);
+                    if (response.success) {
+                        modal.modal('hide');
+                        groupDatatable.draw();
+                    }
+                    else {
+                        let errors = response.errors;
+                        handleFieldError(form, errors, 'name');
+                    }
+                }
+            })
+        });
+
+        // $(document).on('submit', '#js_modal_delete_form', function (e) {
+        //     e.preventDefault();
+        //     const deleteModal = $('#deleteModal');
+        //     const $this = $(this);
+        //     // delete_function(deleteModal, $this, groupDatatable);
+        // });
+        //
+        //
+        //
+        // $(document).on("click", ".js_recovery_btn", function () {
+        //
+        //     let name = $(this).data('name')
+        //     let url = $(this).data('url')
+        //     recoveryModal.find('.modal-title').html(name)
+        //
+        //     let form = recoveryModal.find('#js_modal_recovery_form')
+        //     form.attr('action', url)
+        //     recoveryModal.modal('show');
+        // });
+        //
+        // $(document).on('submit', '#js_modal_recovery_form', function (e) {
+        //     e.preventDefault();
+        //     const $this = $(this);
+        //     delete_function(recoveryModal, $this, groupDatatable);
+        // });
+
+
+        // // Access Level
+        // const accessLevelModal = $('#accessLevelModal');
+        // $(document).on('click', '.js_access_level_btn', function(e) {
+        //     e.preventDefault();
+        //     let name = $(this).data('name');
+        //     let one_url = $(this).data('one_url');
+        //     let update_url = $(this).data('update_url');
+        //     let form = accessLevelModal.find('.js_access_level_form');
+        //     form.attr('action', update_url);
+        //
+        //     $.ajax({
+        //         type: 'GET',
+        //         url: one_url,
+        //         dataType: 'JSON',
+        //         success: (response) => {
+        //             // console.log('response: ', response);
+        //             if (response.success) {
+        //                 drawAccessLevelTable(response.data.menu, response.data.btn);
+        //             }
+        //             accessLevelModal.find('.modal-title').text(name);
+        //             accessLevelModal.modal('show');
+        //         },
+        //         error: (response) => {
+        //             console.log('error: ', response)
+        //         }
+        //     });
+        // });
+        //
+        // $(document).on('submit', '.js_access_level_form', function(e) {
+        //     e.preventDefault();
+        //     let form = $(this);
+        //     let action = form.attr('action');
+        //
+        //     $.ajax({
+        //         url: action,
+        //         type: "POST",
+        //         dataType: "json",
+        //         data: form.serialize(),
+        //         success: (response) => {
+        //             // console.log('response: ', response);
+        //             if (response.success) {
+        //                 accessLevelModal.modal('hide');
+        //                 // groupDatatable.draw();
+        //             }
+        //         },
+        //         error: (error) => {
+        //             console.log('Error: ', error);
+        //         }
+        //     })
+        // });
     </script>
-@endsection
+{{--    <script src="{{ asset('assets/js/group.js') }}"></script>--}}
+@endpush

@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('type_works', function (Blueprint $table) {
+        Schema::create('category_installations', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->unsignedBigInteger('creatorId')->nullable();
-            $table->enum('status', [1, 0])->default(1);
+            $table->integer('status')->default(1);
+            $table->unsignedBigInteger('creator_id')->nullable();
+            $table->unsignedBigInteger('updater_id')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
             $table->softDeletes();
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('type_works');
+        Schema::dropIfExists('category_installations');
     }
 };

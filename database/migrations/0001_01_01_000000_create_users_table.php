@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('photo')->nullable();
             $table->string('username')->unique();
             $table->enum('status', [1, 0])->default(1)->comment('1-active,0-no active');
-            $table->enum('isMaster', [1, 0])->default(1)->comment('1-master, 0-admin');
+            $table->tinyInteger('role')->default(2)->comment('1-Admin, 2-user');
             $table->string('password')->nullable();
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();

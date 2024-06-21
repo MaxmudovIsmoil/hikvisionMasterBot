@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Group;
+use App\Models\GroupDetail;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -20,9 +22,11 @@ class DatabaseSeeder extends Seeder
             'name' => 'admin',
             'username' => 'admin',
             'password' => Hash::make(123),
-            'isMaster' => '0',
+            'role' => 1,
             'status' => 1,
-            'email' => 'test@example.com',
+            'email' => 'admin@example.com',
         ]);
+
+        Group::factory()->create();
     }
 }

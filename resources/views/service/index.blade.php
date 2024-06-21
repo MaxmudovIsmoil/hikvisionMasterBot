@@ -5,8 +5,15 @@
         <div class="content-header">
             <a data-store_url="{{ route('service.store') }}"
                class="btn btn-outline-primary btn-sm addBtn js_add_btn">
-                <i class="fas fa-user-plus"></i>&nbsp; Qo'shish
+                <i class="fas fa-plus"></i>&nbsp; Qo'shish
             </a>
+{{--                        <div class="status-btn-group">--}}
+{{--                            <a href="#" class="btn btn-sm btn-secondary">Barchasi</a>--}}
+{{--                            <a href="#" class="btn btn-sm btn-info">Yangi</a>--}}
+{{--                            <a href="#" class="btn btn-sm btn-warning">Jarayonda</a>--}}
+{{--                            <a href="#" class="btn btn-sm btn-success">Yopilgan</a>--}}
+{{--                            <a href="#" class="btn btn-sm btn-danger">Bekor qilingan</a>--}}
+{{--                        </div>--}}
         </div>
         <div class="content-body">
             <div class="row">
@@ -17,57 +24,84 @@
                                 <thead>
                                 <tr>
                                     <th>№</th>
-                                    <th>Nomi</th>
-                                    <th>Tavsif</th>
+                                    <th>Blanka Raqami</th>
+                                    <th>Fish</th>
+                                    <th>Huhud</th>
+                                    <th>Manzil</th>
+                                    <th>Geo lokatsiya</th>
                                     <th>Status</th>
                                     <th class="text-right">Harakat</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
+                                <tr style="background: #ffebb0e6;">
                                     <td>1</td>
-                                    <td>Terminal</td>
-                                    <td>Terminal o'rnatish, sozlash</td>
-                                    <td>faol</td>
+                                    <td>102</td>
+                                    <td>Hamidov Olimjon</td>
+                                    <td>Charhiy</td>
+                                    <td>Namuna mahallasi 51</td>
+                                    <td>Link</td>
+                                    <td>
+                                        <span class="badge rounded-pill bg-warning">Jarayonda</span>
+                                    </td>
                                     <td>
                                         <div class="d-flex justify-content-around">
-                                            <a class="btn btn-outline-info btn-sm">
-                                                <i class="fas fa-pen"></i> edit
+                                            <a class="btn btn-info btn-sm text-white" title="See">
+                                                <i class="fas fa-eye"></i>
                                             </a>
-                                            <a class="btn btn-outline-danger btn-sm">
-                                                <i class="fas fa-trash-alt"></i> delete
+                                            <a class="btn btn-primary btn-sm js_add_btn" title="Edit">
+                                                <i class="fas fa-pen"></i>
+                                            </a>
+                                            <a class="btn btn-danger btn-sm" title="Delete">
+                                                <i class="fas fa-trash-alt"></i>
                                             </a>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr style="background: #cefee8;">
                                     <td>2</td>
-                                    <td>Domofon</td>
-                                    <td>O'rnatish, tuzatish, ..,</td>
-                                    <td>no faol</td>
+                                    <td>13</td>
+                                    <td>Yoshchiyev Tohirjon</td>
+                                    <td>Chorsu</td>
+                                    <td>Pokiza mahallasi 14</td>
+                                    <td>Link</td>
+                                    <td>
+                                        <span class="badge rounded-pill bg-success">Yopilgan</span>
+                                    </td>
                                     <td>
                                         <div class="d-flex justify-content-around">
-                                            <a class="btn btn-outline-info btn-sm">
-                                                <i class="fas fa-pen"></i> edit
+                                            <a class="btn btn-info btn-sm text-white" title="See">
+                                                <i class="fas fa-eye"></i>
                                             </a>
-                                            <a class="btn btn-outline-danger btn-sm">
-                                                <i class="fas fa-trash-alt"></i> delete
+                                            <a class="btn btn-primary btn-sm js_add_btn" title="Edit">
+                                                <i class="fas fa-pen"></i>
+                                            </a>
+                                            <a class="btn btn-danger btn-sm" title="Delete">
+                                                <i class="fas fa-trash-alt"></i>
                                             </a>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr style="background: #93baf3eb;">
                                     <td>3</td>
-                                    <td>Kamera</td>
-                                    <td>Lokal sozlash, Masofadan ulanishni sozlash</td>
-                                    <td>faol</td>
+                                    <td>139</td>
+                                    <td>Sobirov Ilhomjon</td>
+                                    <td>Archazor</td>
+                                    <td>Ilg'or kochasi 53</td>
+                                    <td>Link</td>
+                                    <td>
+                                        <span class="badge rounded-pill bg-primary">Yangi</span>
+                                    </td>
                                     <td>
                                         <div class="d-flex justify-content-around">
-                                            <a class="btn btn-outline-info btn-sm">
-                                                <i class="fas fa-pen"></i> edit
+                                            <a class="btn btn-info btn-sm text-white" title="See">
+                                                <i class="fas fa-eye"></i>
                                             </a>
-                                            <a class="btn btn-outline-danger btn-sm">
-                                                <i class="fas fa-trash-alt"></i> delete
+                                            <a class="btn btn-primary btn-sm js_add_btn" title="Edit">
+                                                <i class="fas fa-pen"></i>
+                                            </a>
+                                            <a class="btn btn-danger btn-sm" title="Delete">
+                                                <i class="fas fa-trash-alt"></i>
                                             </a>
                                         </div>
                                     </td>
@@ -127,25 +161,12 @@
                 },
                 processing: false,
                 serverSide: false,
-                {{--ajax: {--}}
-                {{--    "url": '{{ route("admin.getUsers") }}',--}}
-                {{--},--}}
-                {{--columns: [--}}
-                {{--    {data: 'DT_RowIndex'},--}}
-                {{--    {data: 'photo'},--}}
-                {{--    {data: 'instance', name: 'instance'},--}}
-                {{--    {data: 'name'},--}}
-                {{--    {data: 'phone'},--}}
-                {{--    {data: 'username'},--}}
-                {{--    {data: 'status'},--}}
-                {{--    {data: 'action', name: 'action', orderable: false, searchable: false}--}}
-                {{--]--}}
             });
 
 
             $(document).on('click', '.js_add_btn', function (e) {
                 e.preventDefault();
-                modal.find('.modal-title').html('{{__("admin.Add user")}}')
+                modal.find('.modal-title').html("Ish joylash");
                 form_clear(form);
                 let url = $(this).data('store_url');
                 form.attr('action', url);

@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Ish joylash</h4>
+                <h4 class="modal-title">Hodim qo'shish</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="" method="post" class="js_add_edit_form" enctype="multipart/form-data">
@@ -11,9 +11,9 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6 mb-2">
-                            <label for="blanka">Blanka raqami:</label>
-                            <input type="text" class="form-control" id="blanka" name="blanka">
-                            <div class="invalid-feedback">Blanka raqamini kiriting!</div>
+                            <label for="job">Kasbi:</label>
+                            <input type="text" class="form-control" id="job" name="job">
+                            <div class="invalid-feedback">Kasbini kiriting!</div>
                         </div>
                         <div class="col-md-6 mb-2">
                             <label for="fio">F.I.O:</label>
@@ -21,9 +21,9 @@
                             <div class="invalid-feedback">F.I.O ni kiriting!</div>
                         </div>
                         <div class="col-md-6 mb-2">
-                            <label for="area">Hudud:</label>
-                            <input type="text" class="form-control" id="area" name="area">
-                            <div class="invalid-feedback">Hududni kiriting!</div>
+                            <label for="raqam">Telefon raqam:</label>
+                            <input type="text" class="form-control" id="raqam" name="raqam">
+                            <div class="invalid-feedback">Telefon raqam kiriting!</div>
                         </div>
                         <div class="col-md-6 mb-2">
                             <label for="address">Manzil:</label>
@@ -31,18 +31,11 @@
                             <div class="invalid-feedback">Manzilni kiriting!</div>
                         </div>
                         <div class="col-md-6 mb-2">
-                            <label for="location">Geo locatsiya:</label>
-                            <input type="text" class="form-control" id="location" name="location">
-                            <div class="invalid-feedback">Geo locatsiyani kiriting!</div>
-                        </div>
-                        <div class="col-md-6 mb-2">
-                            <label for="area">Hizmat narxi:</label>
-                            <input type="text" class="form-control" id="area" name="area">
-                            <div class="invalid-feedback">Hizmat narxini kiriting!</div>
-                        </div>
-                        <div class="col-md-12 mb-2">
-                            <label for="description">Ish haqida ma'lumot</label>
-                            <textarea class="form-control" id="description"  name="description" rows="3"></textarea>
+                            <label for="status">Status:</label>
+                            <select class="form-select" name="status" aria-label="status">
+                                <option value="1">Faol</option>
+                                <option value="0">No faol</option>
+                            </select>
                         </div>
                     </div>
                 </div>

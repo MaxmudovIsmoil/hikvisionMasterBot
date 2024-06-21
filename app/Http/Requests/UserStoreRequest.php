@@ -2,19 +2,17 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Validation\Rule;
 
-class UserUpdateRequest extends FormRequest
+class UserStoreRequest extends FormRequest
 {
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
@@ -22,9 +20,8 @@ class UserUpdateRequest extends FormRequest
             'dep' => 'required',
             'pos' => 'required',
             'name' => 'required|string|max:255',
-            'email'=> ['required', 'email', Rule::unique('users', 'email')->ignore($this->user)],
-            'login'=> ['required', Rule::unique('users', 'login')->ignore($this->user)],
-//            'username' => 'required|unique:users,username,' . $this->user,
+            'email' => 'required|email|unique:users,email',
+            'login' => 'required|unique:users,login',
             'password' => 'sometimes',
             'language' => 'required',
             'ldap' => 'required',

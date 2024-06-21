@@ -24,7 +24,7 @@ class User extends Authenticatable
         'photo',
         'username',
         'status',
-        'isMaster',
+        'role',
         'password',
         'email'
     ];
@@ -50,5 +50,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function group()
+    {
+        return $this->hasOne(GroupUser::class, 'user_id', 'id');
     }
 }

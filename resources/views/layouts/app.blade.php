@@ -4,27 +4,33 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{{ config('app.name') }}</title>
     <link rel="stylesheet" href="{{ asset('assets/bootstrap-5.0.2/css/bootstrap.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('assets/datatable/dataTables.bootstrap5.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('assets/datatable/jquery.dataTables.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('assets/fontawesome-free-5.15/css/all.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
-    <title>{{ config('app.name') }}</title>
+    @stack('style')
 </head>
 <body>
     <div>
         <div class="topBar">
             <div class="logo">
-                <img src="{{ asset('assets/images/logo-black.png') }}" alt="Logo">
+                <img src="{{ asset('assets/images/logo-black.png') }}" alt="Logo"/>
             </div>
             <div class="search search-div">
-                <input type="text" name="search" placeholder="Qidirish...">
-                <label for="search"><i class="fas fa-search"></i></label>
+{{--                <input type="text" name="search" placeholder="Qidirish...">--}}
+{{--                <label for="search"><i class="fas fa-search"></i></label>--}}
             </div>
             <i class="fas fa-bell"></i>
-            <div class="user user-div">
+            <div class="user user-div js_user_profile">
                 <img class="dropdown-toggle" src="{{ asset('assets/images/user.png') }}" alt="Admin">
             </div>
+            <ul class="dropdown-menu ul-profile">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
 
         </div>
         <div class="sidebar">
@@ -49,14 +55,20 @@
                 </li>
                 <li class="@if(Request::is('group')) active @endif">
                     <a href="{{ route('group.index') }}">
-                        <i class="fas fa-group"></i>
+                        <i class="fas fa-user-friends"></i>
                         <div>Guruh</div>
                     </a>
                 </li>
-                <li class="@if(Request::is('master')) active @endif">
-                    <a href="{{ route('master.index') }}">
+                <li class="@if(Request::is('user')) active @endif">
+                    <a href="{{ route('user.index') }}">
                         <i class="fas fa-users"></i>
                         <div>Hodimlar</div>
+                    </a>
+                </li>
+                <li class="@if(Request::is('install-category')) active @endif">
+                    <a href="{{ route('installCategory.index') }}">
+                        <i class="fas fa-list-alt"></i>
+                        <div>установка kategoya</div>
                     </a>
                 </li>
                 <li class="@if(Request::is('report')) active @endif">
@@ -78,12 +90,15 @@
             @yield('content')
         </div>
     </div>
+
+
     <script src="{{ asset('assets/js/jquery3.7.min.js') }}"></script>
     <script src="{{ asset('assets/popper/popper.min.js') }}"></script>
-    <script src="{{ asset('assets/bootstrap-5.0.2/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/bootstrap-5.0.2/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/datatable/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('assets/bootstrap-5.0.2/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/datatable/jquery.dataTables.min.js') }}"></script>
-    @yield('script')
+    <script src="{{ asset('assets/datatable/dataTables.bootstrap5.min.js') }}"></script>
+
+    @stack('script')
 </body>
 </html>
