@@ -6,6 +6,7 @@ use App\Models\Group;
 use App\Models\GroupDetail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Opcodes\LogViewer\Logs\Log;
 use Yajra\DataTables\Facades\DataTables;
 
 class GroupService
@@ -18,6 +19,7 @@ class GroupService
     public function getGroups()
     {
         $groups = $this->group
+            ->withCount('user')
             ->get()
             ->toArray();
 
@@ -27,7 +29,7 @@ class GroupService
             ->editColumn('status', function($group) {
                 return $group['status']
                     ? '<div class="text-center"><i class="fas fa-check text-success"></i></div>'
-                    : '<div class="text-center"><i class="fas fa-xmark text-danger"></i></div>';
+                    : '<div class="text-center"><i class="fas fa-times text-danger"></i></div>';
             })
             ->addColumn('action', function ($group) {
                 return '<div class="d-flex justify-content-around">
@@ -52,7 +54,7 @@ class GroupService
                         </div>';
             })
             ->setRowClass('js_this_tr')
-            ->rawColumns(['status', 'action'])
+            ->rawColumns(['status', 'action', 'user'])
             ->setRowAttr(['data-id' => '{{ $id }}'])
             ->make();
     }
@@ -71,11 +73,12 @@ class GroupService
                 'level' => $data['level'],
                 'status' => $data['status']
             ]);
-            for ($i = 0; $i <= count($data['key']); $i++) {
+
+            for ($i = 0; $i < count($data['key']); $i++) {
                 $this->detail::create([
                     'group_id' => $groupId,
                     'key' => $data['key'][$i],
-                    'va' => $data['va'][$i],
+                    'va' => $data['val'][$i],
                     'creator_id' => Auth::id(),
                     'updater_id' => Auth::id(),
                 ]);

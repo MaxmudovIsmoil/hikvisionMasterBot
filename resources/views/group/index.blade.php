@@ -3,7 +3,7 @@
 @section('content')
     <div class="content">
         <div class="content-header">
-            <a data-store_url="{{ route('group.store') }}"
+            <a data-url="{{ route('group.store') }}"
                class="btn btn-outline-primary btn-sm addBtn js_add_btn">
                 <i class="fas fa-plus"></i>&nbsp; Qo'shish
             </a>
@@ -41,16 +41,10 @@
 
 
 @push('script')
-{{--    <script src="{{ asset('assets/js/access-level.js') }}"></script>--}}
+    <script src="{{ asset('assets/js/group.js') }}"></script>
     <script>
-        function formClear(form) {
-            form.find('input[name="name"]').val('');
-            form.find('input[name="_method"]').remove();
-            let status = $('select option')
-            $.each(status, function (i, item) {
-                $(item).prop('checked', false)
-            });
-        }
+        $('.js_user').select2();
+
         var modal = $('#add_edit_modal');
 
         var groupDatatable = $('#groupDatatable').DataTable({
@@ -59,7 +53,6 @@
             paging: false,
             lengthChange: false,
             searching: true,
-            ordering: true,
             info: false,
             autoWidth: true,
             language: {
@@ -74,9 +67,9 @@
             columns: [
                 {data: 'DT_RowIndex'},
                 {data: 'name', name: 'name'},
-                {data: 'level', name: 'count'},
-                {data: 'ball', name: 'count'},
-                {data: 'count', name: 'count'},
+                {data: 'level', name: 'level'},
+                {data: 'ball', name: 'ball'},
+                {data: 'user_count', name: 'user_count'},
                 {data: 'status', name: 'status'},
                 {data: 'action', name: 'action', orderable: false, searchable: false}
             ]
@@ -86,8 +79,8 @@
             let url = $(this).data('url')
             let form = modal.find('.js_add_edit_form')
 
-            // formClear(form);
-            modal.find('.modal-title').html('Add group');
+            formClear(form);
+            modal.find('.modal-title').html('Group qo\'shish');
             form.attr('action', url);
             modal.modal('show');
         })
@@ -138,14 +131,32 @@
                 dataType: "json",
                 data: form.serialize(),
                 success: (response) => {
-                    //console.log('response: ', response);
+                    // console.log('response: ', response);
                     if (response.success) {
                         modal.modal('hide');
                         groupDatatable.draw();
                     }
                     else {
                         let errors = response.errors;
+                        console.log("errors: ", errors)
+
                         handleFieldError(form, errors, 'name');
+                        handleFieldError(form, errors, 'level');
+                        handleFieldError(form, errors, 'ball');
+
+                        let length = $('.js_div_detail').length;
+                        for(let i = 0; i <= length; i++) {
+                            if (errors['key.'+i]) {
+                                form.find(`.js_key${i}`).addClass('is-invalid');
+                                // form.find(`.js_key${i}`).siblings('.invalid-feedback').html(errors['key.'+i]);
+                            }
+
+                            if (errors['val.'+i]) {
+                                form.find(`.js_val${i}`).addClass('is-invalid');
+                                // form.find(`.js_val${i}`).siblings('.invalid-feedback').html(errors['val.'+i]);
+                            }
+
+                        }
                     }
                 }
             })

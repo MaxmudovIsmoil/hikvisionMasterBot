@@ -12,10 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('group_users', function (Blueprint $table) {
-            $table->id();
             $table->unsignedBigInteger('group_id');
             $table->unsignedBigInteger('user_id');
-            $table->timestamps();
         });
     }
 

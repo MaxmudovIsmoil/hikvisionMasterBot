@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\GroupRequest;
+use App\Models\User;
 use App\Services\Admin\GroupService;
 use Illuminate\Http\JsonResponse;
 
@@ -15,8 +16,15 @@ class GroupController extends Controller
 
     public function index()
     {
-        return view('group.index');
+        $users = User::select('id', 'name')
+            ->where('role', 2)
+            ->whereNull('deleted_at')
+            ->get()
+            ->toArray();
+
+        return view('group.index', compact('users'));
     }
+
 
     public function getGroups()
     {
@@ -35,6 +43,7 @@ class GroupController extends Controller
 
     public function store(GroupRequest $request): JsonResponse
     {
+//        return response()->json($request->validated());
         try {
             $user = $this->service->store($request->validated());
             return response()->success($user);

@@ -24,4 +24,9 @@ class Group extends Model
         return $this->hasMany(GroupDetail::class, 'group_id', 'id')
             ->where('deleted_at', null);
     }
+
+    public function user()
+    {
+        return $this->hasMany(GroupUser::class, 'group_id', 'id');
+    }
 }

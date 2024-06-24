@@ -18,7 +18,8 @@ class UserService
 
     public function getUsers()
     {
-        $users = $this->model->where('is_deleted',0)
+        $users = $this->model->where('role', 2)
+            ->whereNull('deleted_at')
             ->orderBy('id', 'DESC')
             ->get()
             ->toArray();
@@ -29,7 +30,7 @@ class UserService
             ->editColumn('status', function($user) {
                 return ($user['status'] == 1)
                     ? '<div class="text-center"><i class="fa-solid fa-check text-success"></i></div>'
-                    : '<div class="text-center"><i class="fa-solid fa-xmark text-danger"></i></div>';
+                    : '<div class="text-center"><i class="fa-solid fa-times text-danger"></i></div>';
             })
             ->editColumn('ldap', function($user) {
                 return ($user['ldap'] == 1)

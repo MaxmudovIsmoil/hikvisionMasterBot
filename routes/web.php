@@ -59,8 +59,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/group-ball', [GroupController::class, 'index'])->name('groupBall');
 
     // Users
-    Route::get('/sub/users', [UserController::class, 'index'])->name('users');
-    Route::resource('user', UserController::class)->except(['create', 'create', 'edit', 'show']);
+    Route::resource('user', UserController::class)->except(['create', 'edit', 'show']);
     Route::get('/get-users', [UserController::class, 'getUsers'])->name('getUsers');
     Route::get('/users/one/{id}', [UserController::class, 'getOne'])->name('user.getOne');
 

@@ -12,47 +12,58 @@
                     <div class="row">
                         <div class="col-md-6 mb-2">
                             <label for="groupName">Guruh nomi:</label>
-                            <input type="text" class="form-control" id="groupName" name="name">
+                            <input type="text" class="form-control js_name" id="groupName" name="name">
                             <div class="invalid-feedback">Guruh nomini kiriting!</div>
                         </div>
                         <div class="col-md-6 mb-2">
                             <label for="user">Hodim biriktisih:</label>
-                            <select class="form-select" id="user" name="user">
-                                <option>Olimjon</option>
-                                <option>Alijon</option>
-                                <option>Asrorbek</option>
+                            <select class="js_user" id="user" name="user[]" style="width: 100%;" multiple="multiple">
+                                @foreach($users as $user)
+                                    <option value="{{$user['id']}}">{{ $user['name'] }}</option>
+                                @endforeach
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                                <option value="">4</option>
                             </select>
                             <div class="invalid-feedback">Hodimni tanlang!</div>
                         </div>
                         <div class="col-md-6 mb-2">
+                            <label for="level">Guruh darajasi:</label>
+                            <input type="text" class="form-control js_level" id="level" name="level">
+                            <div class="invalid-feedback">Guruh darajsini kiriting!</div>
+                        </div>
+                        <div class="col-md-3 mb-2">
                             <label for="ball">Ball:</label>
-                            <input type="text" class="form-control" id="ball" name="ball">
+                            <input type="text" class="form-control js_ball" id="ball" name="ball">
                             <div class="invalid-feedback">Balni kiriting!</div>
                         </div>
-                        <div class="col-md-6 mb-2">
-                            <label for="masterLevel">usta darajasi:</label>
-                            <input type="text" class="form-control" id="masterLevel" name="masterLevel">
-                            <div class="invalid-feedback">Usta darajsini kiriting!</div>
+                        <div class="col-md-3 mb-2">
+                            <label for="status">Status:</label>
+                            <select class="form-select js_status" id="status" name="status">
+                                <option value="1">Faol</option>
+                                <option value="0">No faol</option>
+                            </select>
+                            <div class="invalid-feedback">Hodimni tanlang!</div>
                         </div>
-
                         <div class="col-md-12">
-                            <div class="row">
+                            <div class="row js_div_detail">
                                 <div class="col-md-6 mb-2">
-                                    <label for="masterLevelColumn">Ustun:</label>
-                                    <input type="text" class="form-control" id="masterLevelColumn" name="masterLevelColumn">
-                                    <div class="invalid-feedback">Usta darajsini kiriting!</div>
+                                    <label for="key0">Ustun:</label>
+                                    <input type="text" class="form-control js_key0" id="key0" name="key[]">
+                                    <div class="invalid-feedback">Malumotni kiriting!</div>
                                 </div>
                                 <div class="col-md-6 mb-2">
-                                    <label for="masterLevelVal">Qiymati:</label>
-                                    <input type="text" class="form-control" id="masterLevelVal" name="masterLevelVal">
-                                    <div class="invalid-feedback">Usta darajsini kiriting!</div>
+                                    <label for="val0">Qiymati:</label>
+                                    <input type="text" class="form-control js_val0" id="val0" name="val[]">
+                                    <div class="invalid-feedback">Malumotni kiriting!</div>
                                 </div>
                             </div>
                             <div class="add-btn-div d-flex justify-content-center mt-2">
-                                <a href="javascript:void(0);" class="btn btn-outline-primary btn-sm">
+                                <a href="javascript:void(0);" class="btn btn-outline-primary btn-sm js_plus_btn">
                                     <i class="fas fa-plus"></i>
                                 </a>
-                                <a href="javascript:void(0);" class="btn btn-outline-danger btn-sm">
+                                <a href="javascript:void(0);" class="btn btn-outline-danger btn-sm js_minus_btn">
                                     <i class="fas fa-minus"></i>
                                 </a>
                             </div>
@@ -60,7 +71,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Jo'natish</button>
+                    <button type="submit" class="btn btn-success">Saqlash</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
                 </div>
             </form>
