@@ -22,6 +22,7 @@ class Installation extends Model
         'longitude',
         'price',
         'description',
+        'status',
         'creator_id',
         'updater_id',
         'deleter_id'

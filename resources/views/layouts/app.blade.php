@@ -44,8 +44,8 @@
                         <div>Dashboard</div>
                     </a>
                 </li>
-                <li class="@if(Request::is('install')) active @endif">
-                    <a href="{{ route('install.index') }}">
+                <li class="@if(Request::is('install/*')) active @endif">
+                    <a href="{{ route('install.index', 0) }}">
                         <i class="fas fa-stream"></i>
                         <div>установка</div>
                     </a>
@@ -69,7 +69,7 @@
                     </a>
                 </li>
                 <li class="@if(Request::is('install-category')) active @endif">
-                    <a href="{{ route('installCategory.index') }}">
+                    <a href="{{ route('categoryInstall.index') }}">
                         <i class="fas fa-list-alt"></i>
                         <div>установка kategoya</div>
                     </a>
@@ -92,7 +92,10 @@
         <div class="main">
             @yield('content')
         </div>
+
+        @include('layouts.deleteModal')
     </div>
+
 
 
     <script src="{{ asset('assets/js/jquery3.7.min.js') }}"></script>
@@ -107,6 +110,7 @@
     <script src="{{ asset('assets/select2/select2.min.js') }}"></script>
     <script src="{{ asset('assets/jquery-ui/jQueryUi.min.js') }}"></script>
 
+    <script src="{{ asset('assets/js/delete_function.js') }}"></script>
     <script src="{{ asset('assets/js/functions.js') }}"></script>
     @stack('script')
 </body>

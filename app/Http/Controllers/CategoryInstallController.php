@@ -2,30 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserStoreRequest;
-use App\Http\Requests\UserUpdateRequest;
-use App\Services\UserService;
+use App\Http\Requests\CategoryInstallRequest;
+use App\Services\CategoryInstallService;
 use Illuminate\Http\JsonResponse;
 
-//use App\Http\Controllers\MailController;
-
-class UserController extends Controller
+class CategoryInstallController extends Controller
 {
     public function __construct(
-        public UserService $service
+        public CategoryInstallService $service
     ) {}
 
     public function index()
     {
-        return view('user.index');
+        return view('categoryInstall.index');
     }
 
-    public function getUsers()
+
+    public function all()
     {
-        return $this->service->getUsers();
+        return $this->service->all();
     }
 
-    public function getOne(int $id)
+    public function getOne(int $id): object
     {
         try {
             return response()->success($this->service->one($id));
@@ -35,8 +33,9 @@ class UserController extends Controller
         }
     }
 
-    public function store(UserStoreRequest $request)
+    public function store(CategoryInstallRequest $request): JsonResponse
     {
+//        return response()->json($request->validated());
         try {
             $user = $this->service->store($request->validated());
             return response()->success($user);
@@ -46,7 +45,7 @@ class UserController extends Controller
         }
     }
 
-    public function update(UserUpdateRequest $request, int $id): JsonResponse
+    public function update(CategoryInstallRequest $request, int $id): JsonResponse
     {
         try {
             $result = $this->service->update($request->validated(), $id);
@@ -66,4 +65,5 @@ class UserController extends Controller
             return response()->fail($e->getMessage());
         }
     }
+
 }

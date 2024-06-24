@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\InstallCategoryController;
+use App\Http\Controllers\CategoryInstallController;
+use App\Http\Controllers\GroupBallController;
 use App\Http\Controllers\InstallController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ServiceController;
@@ -32,14 +33,16 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard');
 
     // установка
-    Route::get('/install-category', [InstallCategoryController::class, 'index'])->name('installCategory.index');
-    Route::post('/install-category/store/', [InstallCategoryController::class, 'store'])->name('installCategory.store');
-    Route::put('/install-category/update/{id}', [InstallCategoryController::class, 'update'])->name('installCategory.update');
-    Route::delete('/install-category/delete/{id}', [InstallCategoryController::class, 'destroy'])->name('installCategory.destroy');
+    Route::get('/category-install', [CategoryInstallController::class, 'index'])->name('categoryInstall.index');
+    Route::get('/category-install/all', [CategoryInstallController::class, 'all'])->name('getCategoryInstall');
+    Route::get('/category-install/get/{id}', [CategoryInstallController::class, 'getOne'])->name('categoryInstall.getOne');
+    Route::post('/category-install/create/', [CategoryInstallController::class, 'store'])->name('categoryInstall.store');
+    Route::put('/category-install/update/{id}', [CategoryInstallController::class, 'update'])->name('categoryInstall.update');
+    Route::delete('/category-install/delete/{id}', [CategoryInstallController::class, 'destroy'])->name('categoryInstall.destroy');
 
 
     // установка
-    Route::get('/install', [InstallController::class, 'index'])->name('install.index');
+    Route::get('/install/{id}', [InstallController::class, 'index'])->name('install.index');
     Route::post('/install/store/', [InstallController::class, 'store'])->name('install.store');
     Route::put('/install/update/{id}', [InstallController::class, 'update'])->name('install.update');
     Route::delete('/install/delete/{id}', [InstallController::class, 'destroy'])->name('install.destroy');
@@ -56,13 +59,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/group/one/{id}', [GroupController::class, 'getOne'])->name('group.getOne');
 
     // Group ball send text admin to telegram
-    Route::get('/group-ball', [GroupController::class, 'index'])->name('groupBall');
+    Route::get('/group-ball', [GroupBallController::class, 'index'])->name('groupBall');
+    Route::get('/group-ball/all', [GroupBallController::class, 'get'])->name('getGroupBall');
+    Route::get('/group-ball/get/{id}', [GroupBallController::class, 'getOne'])->name('groupBall.getOne');
+    Route::put('/group-ball/update/{id}', [GroupBallController::class, 'update'])->name('groupBall.update');
 
     // Users
     Route::resource('user', UserController::class)->except(['create', 'edit', 'show']);
     Route::get('/get-users', [UserController::class, 'getUsers'])->name('getUsers');
     Route::get('/users/one/{id}', [UserController::class, 'getOne'])->name('user.getOne');
-
 
 
     Route::get('/report', [ReportController::class, 'index'])->name('report');

@@ -2,63 +2,68 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\InstallRequest;
+use App\Models\CategoryInstallation;
+use App\Models\Installation;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class InstallController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function __construct(
+        public Installation $modal
+    ) {}
+
+    public function index(int $id = 0)
     {
-        return view('install.index');
+        $category = CategoryInstallation::where('status', 1)->whereNull('deleted_at')->get()->toArray();
+
+        $installs = Installation::whereNull('deleted_at')->get();
+
+        return view('install.index', compact('category', 'installs'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function getOne(int $id): object
     {
-        //
+        try {
+            return response()->success($this->modal::findOrfail($id));
+        }
+        catch (\Exception $e) {
+            return response()->fail($e->getMessage());
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(InstallRequest $request): JsonResponse
     {
-        //
+//        return response()->json($request->validated());
+        try {
+            $user = $this->modal->store($request->validated());
+            return response()->success($user);
+        }
+        catch (\Exception $e) {
+            return response()->fail($e->getMessage());
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function update(InstallRequest $request, int $id): JsonResponse
     {
-        //
+        try {
+            $result = $this->modal->update($request->validated(), $id);
+            return response()->success($result);
+        }
+        catch(\Exception $e) {
+            return response()->fail($e->getMessage());
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function destroy(int $id)
     {
-        //
+        try {
+            return response()->success($this->modal->destroy($id));
+        }
+        catch (\Exception $e) {
+            return response()->fail($e->getMessage());
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

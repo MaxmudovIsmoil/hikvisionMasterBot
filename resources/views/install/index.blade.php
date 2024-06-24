@@ -3,10 +3,10 @@
 @section('content')
     <div class="content">
         <div class="service-btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-sm btn-outline-primary mb-1"><i class="fas fa-list"></i> Barchasi</button>
-            <button type="button" class="btn btn-sm btn-outline-primary mb-1">Terminal</button>
-            <button type="button" class="btn btn-sm btn-outline-primary mb-1">Domofon</button>
-            <button type="button" class="btn btn-sm btn-primary mb-1">Kamera</button>
+            <a href="{{ route('install.index', 0) }}" class="btn btn-sm btn-primary mb-1"><i class="fas fa-list"></i> Barchasi</a>
+            @foreach($category as $cat)
+                <a href="{{ route('install.index', $cat['id']) }}" class="btn btn-sm btn-outline-primary mb-1">{{ $cat['name'] }}</a>
+            @endforeach
         </div>
         <div class="content-header">
             <a data-store_url="{{ route('install.store') }}"
@@ -28,44 +28,46 @@
                         <div class="card-datatable">
                             <table class="table" id="datatable">
                                 <thead>
-                                <tr>
-                                    <th>№</th>
-                                    <th>Blanka Raqami</th>
-                                    <th>Fish</th>
-                                    <th>Huhud</th>
-                                    <th>Manzil</th>
-                                    <th>Geo lokatsiya</th>
-                                    <th>Xizmat narxi</th>
-                                    <th>Status</th>
-                                    <th class="text-right">Harakat</th>
-                                </tr>
+                                    <tr>
+                                        <th>№</th>
+                                        <th>Blanka Raqami</th>
+                                        <th>Fish</th>
+                                        <th>Huhud</th>
+                                        <th>Manzil</th>
+                                        <th>Geo lokatsiya</th>
+                                        <th>Xizmat narxi</th>
+                                        <th>Status</th>
+                                        <th class="text-right">Harakat</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                    <tr style="background: #ffebb0e6;">
-                                        <td>1</td>
-                                        <td>12</td>
-                                        <td>Aliyev Olimjon</td>
-                                        <td>Charhiy</td>
-                                        <td>Nurafshon ko'chasi 102</td>
-                                        <td>Link</td>
-                                        <td>520 000 so'm</td>
-                                        <td>
-                                            <span class="badge rounded-pill bg-warning">Jarayonda</span>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex justify-content-around">
-                                                <a class="btn btn-info btn-sm text-white" title="See">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <a class="btn btn-primary btn-sm js_add_btn" title="Edit">
-                                                    <i class="fas fa-pen"></i>
-                                                </a>
-                                                <a class="btn btn-danger btn-sm" title="Delete">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    @foreach($installs as $install)
+                                        <tr style="background: #ffebb0e6;">
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>12</td>
+                                            <td>Aliyev Olimjon</td>
+                                            <td>Charhiy</td>
+                                            <td>Nurafshon ko'chasi 102</td>
+                                            <td>Link</td>
+                                            <td>520 000 so'm</td>
+                                            <td>
+                                                <span class="badge rounded-pill bg-warning">Jarayonda</span>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex justify-content-around">
+                                                    <a class="btn btn-info btn-sm text-white" title="See">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                    <a class="btn btn-primary btn-sm js_add_btn" title="Edit">
+                                                        <i class="fas fa-pen"></i>
+                                                    </a>
+                                                    <a class="btn btn-danger btn-sm" title="Delete">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                     <tr style="background: #cefee8;">
                                         <td>2</td>
                                         <td>13</td>
@@ -194,8 +196,8 @@
                     //     sPrevious: "Предыдущий",
                     // },
                 },
-                processing: false,
-                serverSide: false,
+                // processing: false,
+                // serverSide: false,
             });
 
 

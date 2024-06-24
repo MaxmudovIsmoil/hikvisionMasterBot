@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('ball')->nullable();
             $table->string('level')->nullable();
             $table->enum('status', [1, 0])->default(1);
+            $table->string('phone')->nullable();
+            $table->string('chatId')->nullable();
             $table->unsignedBigInteger('creator_id')->nullable();
             $table->unsignedBigInteger('updater_id')->nullable();
             $table->timestamp('created_at')->useCurrent();

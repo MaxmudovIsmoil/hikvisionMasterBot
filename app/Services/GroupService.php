@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Services\Admin;
+namespace App\Services;
 
 use App\Models\Group;
 use App\Models\GroupDetail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Opcodes\LogViewer\Logs\Log;
 use Yajra\DataTables\Facades\DataTables;
 
 class GroupService

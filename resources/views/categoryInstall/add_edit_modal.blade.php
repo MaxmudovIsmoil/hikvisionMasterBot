@@ -6,18 +6,18 @@
                 <h4 class="modal-title">Kategoriya</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="" method="post" class="js_add_edit_form" enctype="multipart/form-data">
+            <form action="" method="post" class="js_add_edit_form">
                 @csrf
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6 mb-2">
                             <label for="name">Nomi:</label>
-                            <input type="text" class="form-control" id="name" name="name">
+                            <input type="text" class="form-control js_name" id="name" name="name">
                             <div class="invalid-feedback">Nomini kiriting!</div>
                         </div>
                         <div class="col-md-6 mb-2">
                             <label for="fio">Status:</label>
-                            <select name="status" class="form-select" aria-label="Status">
+                            <select name="status" class="form-select js_status" aria-label="Status">
                                 <option value="1">Faol</option>
                                 <option value="0">No faol</option>
                             </select>

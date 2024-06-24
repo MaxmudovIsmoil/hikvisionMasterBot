@@ -8,19 +8,19 @@ use Illuminate\Support\Facades\Storage;
 trait FileTrait
 {
 
-    public function fileUpload(object $file, string $path = 'photos'): string
+    public function fileUpload(object $file): string
     {
         if($file) {
             $fileName = time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs("upload/" . $path, $fileName, 'public');
+            $file->storeAs("upload/files", $fileName, 'public');
         }
         return $fileName ?? "";
     }
 
 
-    public function fileDelete(string $filePath): void
+    public function fileDelete(string $file): void
     {
-        $filePath = "public/upload/" . $filePath;
+        $filePath = "public/upload/files/" . $file;
 
         if (Storage::exists($filePath)) {
             Storage::delete($filePath);

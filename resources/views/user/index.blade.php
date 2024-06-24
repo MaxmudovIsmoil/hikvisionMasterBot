@@ -15,15 +15,15 @@
                         <div class="card-datatable">
                             <table class="table" id="userDatatable">
                                 <thead>
-                                <tr>
-                                    <th>№</th>
-                                    <th>Nomi</th>
-                                    <th>Darajasi</th>
-                                    <th>Ballari</th>
-                                    <th>Soni</th>
-                                    <th>Status</th>
-                                    <th class="text-right">Harakat</th>
-                                </tr>
+                                    <tr>
+                                        <th>№</th>
+                                        <th>Ism</th>
+                                        <th>Telefon raqam</th>
+                                        <th>Yashsh mazil</th>
+                                        <th>Resume</th>
+                                        <th>Status</th>
+                                        <th class="text-right">Harakat</th>
+                                    </tr>
                                 </thead>
                                 <tbody></tbody>
                             </table>
@@ -47,7 +47,7 @@
 
         var modal = $('#add_edit_modal');
 
-        var userDatatable = $('#groupDatatable').DataTable({
+        var userDatatable = $('#userDatatable').DataTable({
             scrollY: '70vh',
             scrollCollapse: true,
             paging: false,
@@ -66,11 +66,11 @@
             },
             columns: [
                 {data: 'DT_RowIndex'},
-                {data: 'name', name: 'name'},
-                {data: 'level', name: 'level'},
-                {data: 'ball', name: 'ball'},
-                {data: 'user_count', name: 'user_count'},
-                {data: 'status', name: 'status'},
+                {data: 'name'},
+                {data: 'phone'},
+                {data: 'address'},
+                {data: 'resume'},
+                {data: 'status'},
                 {data: 'action', name: 'action', orderable: false, searchable: false}
             ]
         });

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\GroupRequest;
 use App\Models\User;
-use App\Services\Admin\GroupService;
+use App\Services\GroupService;
 use Illuminate\Http\JsonResponse;
 
 class GroupController extends Controller

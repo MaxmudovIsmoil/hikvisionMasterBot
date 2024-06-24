@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Group;
+use App\Models\GroupBall;
 use App\Models\GroupDetail;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -28,5 +29,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Group::factory()->create();
+        GroupBall::factory()->create();
     }
 }
