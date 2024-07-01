@@ -28,3 +28,24 @@ $(document).on('click', '.js_minus_btn', function () {
         $(document).find('.js_div_detail').last().remove();
     }
 })
+
+function groupDetailSet(detail) {
+
+    const details = detail.map((data, i) => {
+        const { key, val } = data;
+        return `<div class="row js_div_detail">
+                  <div class="col-md-6 mb-2">
+                      <label for="key${i}">Ustun:</label>
+                      <input type="text" class="form-control js_key${i}" id="key${i}" name="key[]" value="${key}">
+                      <div class="invalid-feedback">Malumotni kiriting!</div>
+                  </div>
+                  <div class="col-md-6 mb-2">
+                      <label for="val${i}">Qiymati:</label>
+                      <input type="text" class="form-control js_val${i}" id="val'+item+'" name="val[]" value="${val}">
+                      <div class="invalid-feedback">Malumotni kiriting!</div>
+                  </div>
+                </div>`;
+    });
+
+    $(document).find('.js_div_detail').html(details);
+}

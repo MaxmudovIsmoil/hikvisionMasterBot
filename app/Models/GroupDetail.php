@@ -13,7 +13,7 @@ class GroupDetail extends Model
     protected $fillable = [
         'group_id',
         'key',
-        'value',
+        'val',
         'status',
         'creator_id',
         'updater_id',

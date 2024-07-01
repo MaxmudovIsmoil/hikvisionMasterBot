@@ -1,5 +1,4 @@
 function formClear(form) {
-    $(form).find('input[name="name"]').val('');
     $(form).find('input[type="text"]').val('');
     $(form).find('input[name="_method"]').remove();
     $('select option').prop('selected', false);
@@ -9,7 +8,7 @@ function handleFieldError(form, errors, errorKey) {
     let element = form.find(`.js_${errorKey}`);
     if (errors[errorKey]) {
         element.addClass('is-invalid');
-        // element.siblings('.invalid-feedback').html(errors[errorKey][0]);
+        element.siblings('.invalid-feedback').html(errors[errorKey][0]);
     }
 }
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\GroupBallRequest;
-use App\Http\Requests\GroupRequest;
+use App\Http\Requests\GroupStoreRequest;
 use App\Models\GroupBall;
 use App\Models\User;
 use App\Services\GroupService;

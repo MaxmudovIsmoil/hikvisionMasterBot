@@ -3,9 +3,9 @@
 @section('content')
     <div class="content">
         <div class="service-btn-group" role="group" aria-label="Basic example">
-            <a href="{{ route('install.index', 0) }}" class="btn btn-sm btn-primary mb-1"><i class="fas fa-list"></i> Barchasi</a>
+            <a href="{{ route('install.index', 0) }}" class="btn btn-sm mb-1 @if(Request::is('install/0')) btn-primary @else btn-outline-primary @endif"><i class="fas fa-list"></i> Barchasi</a>
             @foreach($category as $cat)
-                <a href="{{ route('install.index', $cat['id']) }}" class="btn btn-sm btn-outline-primary mb-1">{{ $cat['name'] }}</a>
+                <a href="{{ route('install.index', $cat['id']) }}" class="btn btn-sm mb-1 @if(Request::is('install/'.$cat['id']) == $cat['id']) btn-primary @else btn-outline-primary @endif">{{ $cat['name'] }}</a>
             @endforeach
         </div>
         <div class="content-header">
@@ -13,13 +13,6 @@
                class="btn btn-outline-primary btn-sm addBtn js_add_btn">
                 <i class="fas fa-plus"></i>&nbsp; Qo'shish
             </a>
-{{--            <div class="status-btn-group">--}}
-{{--                <a href="#" class="btn btn-sm btn-secondary">Barchasi</a>--}}
-{{--                <a href="#" class="btn btn-sm btn-info">Yangi</a>--}}
-{{--                <a href="#" class="btn btn-sm btn-warning">Jarayonda</a>--}}
-{{--                <a href="#" class="btn btn-sm btn-success">Yopilgan</a>--}}
-{{--                <a href="#" class="btn btn-sm btn-danger">Bekor qilingan</a>--}}
-{{--            </div>--}}
         </div>
         <div class="content-body">
             <div class="row">

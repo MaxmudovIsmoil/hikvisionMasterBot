@@ -6,36 +6,57 @@
                 <h4 class="modal-title">Hodim qo'shish</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="" method="post" class="js_add_edit_form" enctype="multipart/form-data">
+            <form action="" method="post" class="js_add_edit_form">
                 @csrf
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6 mb-2">
-                            <label for="job">Kasbi:</label>
-                            <input type="text" class="form-control" id="job" name="job">
+                            <label for="job">Kasbi</label>
+                            <input type="text" class="form-control js_job" id="job" name="job">
                             <div class="invalid-feedback">Kasbini kiriting!</div>
                         </div>
                         <div class="col-md-6 mb-2">
-                            <label for="fio">F.I.O:</label>
-                            <input type="text" class="form-control js_fio" id="fio" name="fio">
+                            <label for="fio">F.I.O</label>
+                            <input type="text" class="form-control js_name" id="fio" name="name">
                             <div class="invalid-feedback">F.I.O ni kiriting!</div>
                         </div>
                         <div class="col-md-6 mb-2">
-                            <label for="raqam">Telefon raqam:</label>
-                            <input type="text" class="form-control" id="raqam" name="raqam">
+                            <label for="phone">Telefon raqam</label>
+                            <input type="text" class="form-control js_phone" name="phone" placeholder="901234567" aria-label="phone" >
                             <div class="invalid-feedback">Telefon raqam kiriting!</div>
                         </div>
                         <div class="col-md-6 mb-2">
-                            <label for="address">Manzil:</label>
-                            <input type="text" class="form-control" id="address" name="address">
+                            <label for="address">Manzil</label>
+                            <input type="text" class="form-control js_address" aria-label="address" name="address">
                             <div class="invalid-feedback">Manzilni kiriting!</div>
                         </div>
                         <div class="col-md-6 mb-2">
-                            <label for="status">Status:</label>
+                            <label for="status">Status</label>
                             <select class="form-select" name="status" aria-label="status">
                                 <option value="1">Faol</option>
                                 <option value="0">No faol</option>
                             </select>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <label for="status">Role</label>
+                            <select class="form-select js_role" name="role" aria-label="role">
+                                <option value="3">Mater</option>
+                                <option value="2">User</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row js_div_login d-none">
+                                <div class="col-md-6 mb-2">
+                                    <label for="username">Login</label>
+                                    <input type="text" class="form-control js_username" name="username" aria-label="username">
+                                    <div class="invalid-feedback">Malumotni kiriting!</div>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <label for="password">Parol</label>
+                                    <input type="text" class="form-control js_password" name="password" aria-label="password">
+                                    <div class="invalid-feedback">Malumotni kiriting!</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -38,7 +38,7 @@
             scrollCollapse: true,
             paging: false,
             lengthChange: false,
-            searching: true,
+            searching: false,
             info: false,
             autoWidth: true,
             language: {
@@ -52,7 +52,7 @@
             },
             columns: [
                 {data: 'text'},
-                {data: 'action', name: 'action', orderable: false, searchable: false}
+                {data: 'action', orderable: false, searchable: false}
             ]
         });
 
@@ -72,7 +72,7 @@
                 url: one_url,
                 dataType: 'JSON',
                 success: (response) => {
-                    console.log('response: ', response);
+                    // console.log('response: ', response);
                     if (response.success) {
                         form.find('#text').html(response.data.text);
                     }
@@ -96,7 +96,7 @@
                 dataType: "json",
                 data: form.serialize(),
                 success: (response) => {
-                    console.log('response: ', response);
+                    // console.log('response: ', response);
                     if (response.success) {
                         modal.modal('hide');
                         datatable.draw();

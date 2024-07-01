@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('group_details', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('group_id')->nullable();
-            $table->string('key')->nullable();
-            $table->string('val')->nullable();
+            $table->string('key')->default('');
+            $table->string('val')->default('');
             $table->enum('status', [1, 0])->default(1);
             $table->unsignedBigInteger('creator_id')->nullable();
             $table->unsignedBigInteger('updater_id')->nullable();

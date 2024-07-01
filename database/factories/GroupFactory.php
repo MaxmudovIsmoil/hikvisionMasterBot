@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+use Ramsey\Uuid\Type\Integer;
 
 
 /**
@@ -22,12 +24,20 @@ class GroupFactory extends Factory
      */
     public function definition(): array
     {
+        $group = [
+            'A group',
+            'B group',
+            'C group',
+        ];
+
+        $level = ['middle', 'senior', 'junior'];
         return [
-            'name' => 'A group',
-            'level' => 'middle',
-            'ball' => 250,
-            'count' => 3,
+            'name' => $group[array_rand($group)],
+            'level' => $level[array_rand($level)],
+            'ball' => rand(min: 100, max: 350),
+            'count' => rand(1, 6),
             'status' => 1,
+            'phone' => rand(900000000, 999999999),
         ];
     }
 

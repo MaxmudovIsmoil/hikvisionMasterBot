@@ -138,7 +138,7 @@
             var deleteModal = $('#deleteModal')
             var form = modal.find('.js_add_edit_form');
 
-            var table = $('#datatable').DataTable({
+            var datatable = $('#datatable').DataTable({
                 paging: true,
                 pageLength: 20,
                 lengthChange: false,

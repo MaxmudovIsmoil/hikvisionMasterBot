@@ -59,10 +59,10 @@
                 "url": '{{ route("getCategoryInstall") }}',
             },
             columns: [
-                {data: 'DT_RowIndex'},
+                {data: 'DT_RowIndex', orderable: false, searchable: false},
                 {data: 'name'},
                 {data: 'status'},
-                {data: 'action', name: 'action', orderable: false, searchable: false}
+                {data: 'action', orderable: false, searchable: false}
             ]
         });
 

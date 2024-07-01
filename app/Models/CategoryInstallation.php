@@ -11,13 +11,14 @@ class CategoryInstallation extends Model
 {
     use HasFactory, SoftDeletes;
 
-    public $table = 'category_installations';
+    protected $table = 'category_installations';
     protected $fillable = [
         'name',
         'description',
         'status',
         'creator_id',
-        'updater_id'
+        'updater_id',
+        'deleted_at'
     ];
 
 //    public $timestamps = false;

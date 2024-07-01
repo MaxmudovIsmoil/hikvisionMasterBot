@@ -7,7 +7,6 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
 
-//use App\Http\Controllers\MailController;
 
 class UserController extends Controller
 {
@@ -37,6 +36,7 @@ class UserController extends Controller
 
     public function store(UserStoreRequest $request)
     {
+//        return response()->json(['res' =>$request->all()]);
         try {
             $user = $this->service->store($request->validated());
             return response()->success($user);

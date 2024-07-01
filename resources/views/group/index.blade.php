@@ -13,11 +13,12 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-datatable">
-                            <table class="table" id="groupDatatable">
+                            <table class="table" id="datatable">
                                 <thead>
                                     <tr>
                                         <th>№</th>
                                         <th>Nomi</th>
+                                        <th>Telefon raqam</th>
                                         <th>Darajasi</th>
                                         <th>Ballari</th>
                                         <th>Soni</th>
@@ -43,11 +44,11 @@
 @push('script')
     <script src="{{ asset('assets/js/group.js') }}"></script>
     <script>
-        $('.js_user').select2();
 
         var modal = $('#add_edit_modal');
+        var deleteModal = $('#deleteModal');
 
-        var groupDatatable = $('#groupDatatable').DataTable({
+        var datatable = $('#datatable').DataTable({
             scrollY: '70vh',
             scrollCollapse: true,
             paging: false,
@@ -65,8 +66,9 @@
                 "url": '{{ route("getGroups") }}',
             },
             columns: [
-                {data: 'DT_RowIndex'},
+                {data: 'DT_RowIndex', orderable: false, searchable: false},
                 {data: 'name', name: 'name'},
+                {data: 'phone', name: 'phone'},
                 {data: 'level', name: 'level'},
                 {data: 'ball', name: 'ball'},
                 {data: 'user_count', name: 'user_count'},
@@ -104,12 +106,28 @@
                     // console.log('response: ', response);
                     if (response.success) {
                         form.find('.js_name').val(response.data.name);
+                        form.find('.js_address').val(response.data.address);
+                        form.find('.js_phone').val(response.data.phone);
+                        form.find('.js_ball').val(response.data.ball);
+                        form.find('.js_level').val(response.data.level);
                         let status = form.find('.js_status option')
-                        $.each(status, function (i, item) {
-                            if (response.data.status === $(item).val()) {
-                                $(item).attr('selected', true);
+                        status.val(response.data.status);
+
+                        let users = form.find('.js_user option');
+                        let userMap = {};
+                        users.each(function () {
+                            let userId = $(this).val();
+                            userMap[userId] = $(this);
+                        });
+
+                        $.each(response.data.user, function (i, user) {
+                            let userId = user['user_id'];
+                            if (userMap[userId]) {
+                                userMap[userId].attr('selected', true);
                             }
-                        })
+                        });
+
+                        groupDetailSet(response.data.detail);
                     }
                     modal.modal('show');
                 },
@@ -131,10 +149,10 @@
                 dataType: "json",
                 data: form.serialize(),
                 success: (response) => {
-                    // console.log('response: ', response);
+                    console.log('response: ', response);
                     if (response.success) {
                         modal.modal('hide');
-                        groupDatatable.draw();
+                        datatable.draw();
                     }
                     else {
                         let errors = response.errors;
@@ -162,83 +180,9 @@
             })
         });
 
-        // $(document).on('submit', '#js_modal_delete_form', function (e) {
-        //     e.preventDefault();
-        //     const deleteModal = $('#deleteModal');
-        //     const $this = $(this);
-        //     // delete_function(deleteModal, $this, groupDatatable);
-        // });
-        //
-        //
-        //
-        // $(document).on("click", ".js_recovery_btn", function () {
-        //
-        //     let name = $(this).data('name')
-        //     let url = $(this).data('url')
-        //     recoveryModal.find('.modal-title').html(name)
-        //
-        //     let form = recoveryModal.find('#js_modal_recovery_form')
-        //     form.attr('action', url)
-        //     recoveryModal.modal('show');
-        // });
-        //
-        // $(document).on('submit', '#js_modal_recovery_form', function (e) {
-        //     e.preventDefault();
-        //     const $this = $(this);
-        //     delete_function(recoveryModal, $this, groupDatatable);
-        // });
-
-
-        // // Access Level
-        // const accessLevelModal = $('#accessLevelModal');
-        // $(document).on('click', '.js_access_level_btn', function(e) {
-        //     e.preventDefault();
-        //     let name = $(this).data('name');
-        //     let one_url = $(this).data('one_url');
-        //     let update_url = $(this).data('update_url');
-        //     let form = accessLevelModal.find('.js_access_level_form');
-        //     form.attr('action', update_url);
-        //
-        //     $.ajax({
-        //         type: 'GET',
-        //         url: one_url,
-        //         dataType: 'JSON',
-        //         success: (response) => {
-        //             // console.log('response: ', response);
-        //             if (response.success) {
-        //                 drawAccessLevelTable(response.data.menu, response.data.btn);
-        //             }
-        //             accessLevelModal.find('.modal-title').text(name);
-        //             accessLevelModal.modal('show');
-        //         },
-        //         error: (response) => {
-        //             console.log('error: ', response)
-        //         }
-        //     });
-        // });
-        //
-        // $(document).on('submit', '.js_access_level_form', function(e) {
-        //     e.preventDefault();
-        //     let form = $(this);
-        //     let action = form.attr('action');
-        //
-        //     $.ajax({
-        //         url: action,
-        //         type: "POST",
-        //         dataType: "json",
-        //         data: form.serialize(),
-        //         success: (response) => {
-        //             // console.log('response: ', response);
-        //             if (response.success) {
-        //                 accessLevelModal.modal('hide');
-        //                 // groupDatatable.draw();
-        //             }
-        //         },
-        //         error: (error) => {
-        //             console.log('Error: ', error);
-        //         }
-        //     })
-        // });
+        $(document).on('submit', '#js_modal_delete_form', function (e) {
+            e.preventDefault()
+            delete_function(deleteModal, $(this), datatable);
+        });
     </script>
-{{--    <script src="{{ asset('assets/js/group.js') }}"></script>--}}
 @endpush

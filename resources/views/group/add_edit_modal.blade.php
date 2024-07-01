@@ -10,42 +10,49 @@
                 @csrf
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-6 mb-2">
-                            <label for="groupName">Guruh nomi:</label>
-                            <input type="text" class="form-control js_name" id="groupName" name="name">
-                            <div class="invalid-feedback">Guruh nomini kiriting!</div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-12 mb-2">
+                                    <label for="groupName">Guruh nomi:</label>
+                                    <input type="text" class="form-control js_name" id="groupName" name="name">
+                                    <div class="invalid-feedback">Guruh nomini kiriting!</div>
+                                </div>
+                                <div class="col-md-12 mb-2">
+                                    <label for="phone">Telefon raqam:</label>
+                                    <input type="number" class="form-control js_phone" id="phone" name="phone" placeholder="901234567">
+                                    <div class="invalid-feedback">Telefon raqamni kiriting!</div>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <label for="ball">Ball:</label>
+                                    <input type="number" class="form-control js_ball" id="ball" name="ball">
+                                    <div class="invalid-feedback">Balni kiriting!</div>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <label for="status">Status:</label>
+                                    <select class="form-select js_status" id="status" name="status">
+                                        <option value="1">Faol</option>
+                                        <option value="0">No faol</option>
+                                    </select>
+                                    <div class="invalid-feedback">Hodimni tanlang!</div>
+                                </div>
+                                <div class="col-md-12 mb-2">
+                                    <label for="level">Guruh darajasi:</label>
+                                    <input type="text" class="form-control js_level" id="level" name="level">
+                                    <div class="invalid-feedback">Guruh darajsini kiriting!</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-6 mb-2">
+                        <div class="col-md-6">
                             <label for="user">Hodim biriktisih:</label>
-                            <select class="js_user" id="user" name="user[]" style="width: 100%;" multiple="multiple">
+                            <select class="js_user" id="user" name="user[]" style="width: 100%; height: 245px;" multiple="multiple" aria-label="user">
                                 @foreach($users as $user)
-                                    <option value="{{$user['id']}}">{{ $user['name'] }}</option>
+                                    <option value="{{$user['id']}}" style="padding: 3px 5px;">{{ $user['name'] }}</option>
                                 @endforeach
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                                <option value="">4</option>
                             </select>
                             <div class="invalid-feedback">Hodimni tanlang!</div>
                         </div>
-                        <div class="col-md-6 mb-2">
-                            <label for="level">Guruh darajasi:</label>
-                            <input type="text" class="form-control js_level" id="level" name="level">
-                            <div class="invalid-feedback">Guruh darajsini kiriting!</div>
-                        </div>
-                        <div class="col-md-3 mb-2">
-                            <label for="ball">Ball:</label>
-                            <input type="text" class="form-control js_ball" id="ball" name="ball">
-                            <div class="invalid-feedback">Balni kiriting!</div>
-                        </div>
-                        <div class="col-md-3 mb-2">
-                            <label for="status">Status:</label>
-                            <select class="form-select js_status" id="status" name="status">
-                                <option value="1">Faol</option>
-                                <option value="0">No faol</option>
-                            </select>
-                            <div class="invalid-feedback">Hodimni tanlang!</div>
-                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-12">
                             <div class="row js_div_detail">
                                 <div class="col-md-6 mb-2">

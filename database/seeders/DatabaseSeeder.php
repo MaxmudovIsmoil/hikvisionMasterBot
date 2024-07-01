@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\CategoryInstallation;
 use App\Models\Group;
 use App\Models\GroupBall;
-use App\Models\GroupDetail;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -17,9 +16,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
         User::factory()->create([
+            'job' => 'administrator',
             'name' => 'admin',
             'username' => 'admin',
             'password' => Hash::make(123),
@@ -28,7 +26,15 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@example.com',
         ]);
 
-        Group::factory()->create();
+        User::factory(20)->create();
+
+        Group::factory(5)->create();
         GroupBall::factory()->create();
+        CategoryInstallation::insert([
+            ['name' => 'Kamera'],
+            ['name' => 'Domofon'],
+            ['name' => 'Turniket'],
+            ['name' => 'Terminal']
+        ]);
     }
 }

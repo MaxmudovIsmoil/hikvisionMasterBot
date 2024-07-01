@@ -17,8 +17,9 @@ return new class extends Migration
             $table->integer('count')->nullable();
             $table->string('ball')->nullable();
             $table->string('level')->nullable();
+            $table->integer('star')->nullable();
             $table->enum('status', [1, 0])->default(1);
-            $table->string('phone')->nullable();
+            $table->string('phone')->unique()->nullable();
             $table->string('chatId')->nullable();
             $table->unsignedBigInteger('creator_id')->nullable();
             $table->unsignedBigInteger('updater_id')->nullable();

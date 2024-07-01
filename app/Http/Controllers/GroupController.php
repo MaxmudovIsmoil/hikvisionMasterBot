@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\GroupRequest;
+use App\Http\Requests\GroupStoreRequest;
+use App\Http\Requests\GroupUpdateRequest;
 use App\Models\User;
 use App\Services\GroupService;
 use Illuminate\Http\JsonResponse;
@@ -41,7 +42,7 @@ class GroupController extends Controller
         }
     }
 
-    public function store(GroupRequest $request): JsonResponse
+    public function store(GroupStoreRequest $request): JsonResponse
     {
 //        return response()->json($request->validated());
         try {
@@ -53,8 +54,9 @@ class GroupController extends Controller
         }
     }
 
-    public function update(GroupRequest $request, int $id): JsonResponse
+    public function update(GroupUpdateRequest $request, int $id): JsonResponse
     {
+//        return response()->json($request->validated());
         try {
             $result = $this->service->update($request->validated(), $id);
             return response()->success($result);

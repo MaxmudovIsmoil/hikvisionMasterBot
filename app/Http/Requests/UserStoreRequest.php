@@ -16,16 +16,39 @@ class UserStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'dep' => 'required',
-            'pos' => 'required',
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'login' => 'required|unique:users,login',
-            'password' => 'sometimes',
-            'language' => 'required',
-            'ldap' => 'required',
+        $rules = [
+            'job' => 'required',
+            'name' => 'required',
+            'phone' => 'required|min:7|max:13',
+            'address' => 'sometimes',
             'status' => 'required',
+            'role' => 'required',
+            'username' => 'sometimes',
+            'password' => 'sometimes',
+        ];
+
+        if ($this->input(key: 'role') == 2) {
+            $rules['username'] = 'required|unique:users,username';
+            $rules['password'] = 'required|min:3';
+        }
+
+//        $this->sometimes('username', 'required|unique:users,username', function ($input) {
+//            return $input->role == 2;
+//        });
+//        $this->sometimes('password', 'required|min:3', function ($input) {
+//            return $input->role == 2;
+//        });
+
+        return $rules;
+    }
+
+    public function messages()
+    {
+        return [
+            'username.required' => 'The username is required.',
+            'username.unique' => 'The username is already exists.',
+            'password.required' => 'The password is required.',
+            'password.min' => 'The password field must be at least :min characters.',
         ];
     }
 

@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>{{ config('app.name') }}</title>
-    <link rel="stylesheet" href="{{ asset('assets/bootstrap-5.0.2/css/bootstrap.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap-5.3.3/css/bootstrap.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('assets/datepicker/gijgo.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/datatable/dataTables.bootstrap5.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('assets/datatable/jquery.dataTables.min.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('assets/select2/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/fontawesome-free-5.15/css/all.min.css') }}"/>
+{{--    <link rel="stylesheet" href="{{ asset('assets/select2/select2.min.css') }}">--}}
     <link rel="stylesheet" href="{{ asset('assets/jquery-ui/jQueryUi.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
     @stack('style')
@@ -68,7 +68,7 @@
                         <div>Hodimlar</div>
                     </a>
                 </li>
-                <li class="@if(Request::is('install-category')) active @endif">
+                <li class="@if(Request::is('category-install')) active @endif">
                     <a href="{{ route('categoryInstall.index') }}">
                         <i class="fas fa-list-alt"></i>
                         <div>установка kategoya</div>
@@ -101,13 +101,12 @@
     <script src="{{ asset('assets/js/jquery3.7.min.js') }}"></script>
     <script src="{{ asset('assets/popper/popper.min.js') }}"></script>
     <script src="{{ asset('assets/datepicker/gijgo.min.js') }}"></script>
-    <script src="{{ asset('assets/bootstrap-5.0.2/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/bootstrap-5.0.2/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/bootstrap-5.3.3/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/bootstrap-5.3.3/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/datatable/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/datatable/dataTables.bootstrap5.min.js') }}"></script>
 
-{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/js/select2.min.js" integrity="sha512-9p/L4acAjbjIaaGXmZf0Q2bV42HetlCLbv8EP0z3rLbQED2TAFUlDvAezy7kumYqg5T8jHtDdlm1fgIsr5QzKg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>--}}
-    <script src="{{ asset('assets/select2/select2.min.js') }}"></script>
+{{--    <script src="{{ asset('assets/select2/select2.min.js') }}"></script>--}}
     <script src="{{ asset('assets/jquery-ui/jQueryUi.min.js') }}"></script>
 
     <script src="{{ asset('assets/js/delete_function.js') }}"></script>
