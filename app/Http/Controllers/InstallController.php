@@ -6,7 +6,6 @@ use App\Http\Requests\InstallRequest;
 use App\Models\CategoryInstallation;
 use App\Models\Installation;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class InstallController extends Controller
 {
@@ -16,9 +15,14 @@ class InstallController extends Controller
 
     public function index(int $id = 0)
     {
-        $category = CategoryInstallation::where('status', 1)->whereNull('deleted_at')->get()->toArray();
+        $category = CategoryInstallation::where('status', 1)
+            ->whereNull('deleted_at')
+            ->get()
+            ->toArray();
 
-        $installs = Installation::whereNull('deleted_at')->get();
+        $installs = Installation::whereNull('deleted_at')
+            ->get()
+            ->toArray();
 
         return view('install.index', compact('category', 'installs'));
     }

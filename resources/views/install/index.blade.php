@@ -189,8 +189,8 @@
                     //     sPrevious: "Предыдущий",
                     // },
                 },
-                // processing: false,
-                // serverSide: false,
+                processing: false,
+                serverSide: false,
             });
 
 
@@ -260,7 +260,7 @@
                     contentType: false,
                     processData: false,
                     success: (response) => {
-                        // console.log(response)
+                        console.log(response)
                         if (response.success) {
                             modal.modal('hide')
                             form_clear(form)

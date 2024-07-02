@@ -1,7 +1,8 @@
 @extends('layouts.app')
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/order.css') }}"/>
-@stop
+
+@push('style')
+{{--    <link rel="stylesheet" href="{{ asset('assets/css/order.css') }}"/>--}}
+@endpush
 @section('content')
     <div class="cards">
         <div class="card-div">
@@ -24,8 +25,8 @@
         </div>
         <div class="card-div">
             <div class="card-content">
-                <div class="number">68</div>
-                <div class="card-name">Hodimlar</div>
+                <div class="number">{{ $groupCount }}</div>
+                <div class="card-name">Guruhlar</div>
             </div>
             <div class="icon-box">
                 <i class="fas fa-users"></i>
@@ -51,14 +52,14 @@
     <div class="chart doughnut-chart">
         <h2>Gruhlar</h2>
         <div>
-            <canvas id="doughnut"></canvas>
+            <canvas id="doughnut" data-url="{{ route('getGroup') }}"></canvas>
         </div>
     </div>
 </div>
 @endsection
 
-@section('script')
+@push('script')
     <script src="{{ asset('assets/js/chart.min.js') }}"></script>
     <script src="{{ asset('assets/js/chart1.js') }}"></script>
     <script src="{{ asset('assets/js/chart2.js') }}"></script>
-@stop
+@endpush

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryInstallController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GroupBallController;
 use App\Http\Controllers\InstallController;
 use App\Http\Controllers\ReportController;
@@ -28,9 +29,10 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::prefix('dashboard')->group(function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/get-group', [DashboardController::class, 'getGroup'])->name('getGroup');
+    });
 
     // установка
     Route::get('/category-install', [CategoryInstallController::class, 'index'])->name('categoryInstall.index');

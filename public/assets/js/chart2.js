@@ -1,31 +1,50 @@
-var ctx2 = document.getElementById('doughnut').getContext('2d');
-var myChart2 = new Chart(ctx2, {
-    type: 'doughnut',
-    data: {
-        labels: ['Guruh-1', 'Guruh-2', 'Guruh-3', 'Guruh-4'],
+function loadData() {
+    let ctx2 = document.getElementById('doughnut').getContext('2d');
+    let url = document.getElementById('doughnut').getAttribute('data-url');
+    fetch(url).then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(response => {
+            // Do something with the JSON data
+            if (response.success) {
+                // let length = response.data.map(group => group.name).length;
+                let groups = response.data.map(group => group.name);
+                let groupUsersCount = response.data.map(group => group.user_count);
 
-        datasets: [{
-            label: 'Employees',
-            data: [42, 12, 8, 6],
-            backgroundColor: [
-                'rgba(41, 155, 99, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(120, 46, 139,1)'
+                let backgroundColor = [];
+                let borderColor = [];
+                for (let i = 0; i < groups.length; i++) {
+                    let color = `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 1)`;
+                    backgroundColor.push(color);
+                    borderColor.push(color);
+                }
+                new Chart(ctx2, {
+                    type: 'doughnut',
+                    data: {
+                        labels: groups,
+                        datasets: [{
+                            label: 'Employees',
+                            data: groupUsersCount,
+                            backgroundColor: backgroundColor,
+                            borderColor: borderColor,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true
+                    }
+                });
 
-            ],
-            borderColor: [
-                'rgba(41, 155, 99, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(120, 46, 139,1)'
+            }
+            console.log('response:', response);
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+}
 
-            ],
-            borderWidth: 1
-        }]
+loadData();
 
-    },
-    options: {
-        responsive: true
-    }
-});
