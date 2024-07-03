@@ -16,3 +16,9 @@ function handleFieldError(form, errors, errorKey) {
 $(document).on('input', 'input', function () {
     $(this).removeClass('is-invalid');
 })
+
+
+$(document).on('change', '.jsCheckAll', function () {
+    let isChecked = $(this).is(':checked');
+    $('.jsCheckOne').prop('checked', isChecked);
+})

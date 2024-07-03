@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->text('location')->nullable();
-            $table->integer('status')->nullable();
+            $table->enum('status', \App\Enums\OrderStatus::toArray())->nullable();
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
             $table->text('description')->default('');

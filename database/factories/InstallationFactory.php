@@ -21,8 +21,11 @@ class InstallationFactory extends Factory
      */
     public function definition(): array
     {
+        $category = [1, 2, 3, 4];
+        $status = [1, 2, 3, 4, 5, 6, 7, 8];
+
         return [
-            'category_id' => 1,
+            'category_id' =>  $category[array_rand($category)],
             'blanka_number' => fake()->name(),
             'address' => fake()->name(),
             'phone' => rand(900000000, 999999999),
@@ -30,7 +33,7 @@ class InstallationFactory extends Factory
             'location' => fake()->name,
             'latitude' => fake()->name,
             'longitude' => fake()->name,
-            'status' => 1,
+            'status' => $status[array_rand($status)],
             'price' => rand(100000, 500000),
         ];
     }

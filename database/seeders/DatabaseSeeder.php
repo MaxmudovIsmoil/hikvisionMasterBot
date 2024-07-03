@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Terminal']
         ]);
 
-        Installation::factory()->count(1000)->create();
-        Service::factory()->count(500)->create();
+        Installation::factory()->count(500)->create();
+        Service::factory()->count(300)->create();
     }
 }

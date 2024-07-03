@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\InstallRequest;
-use App\Models\CategoryInstallation;
-use App\Models\Installation;
 use App\Services\InstallService;
 use Illuminate\Http\JsonResponse;
-use Yajra\DataTables\DataTables;
 
 class InstallController extends Controller
 {
@@ -17,10 +14,13 @@ class InstallController extends Controller
 
     public function index()
     {
-//        $r = $this->service->getInstall($id = 0);
-//        dd($r);
         $category = $this->service->category();
-        return view('install.index', compact('category'));
+        $groups = $this->service->groups();
+        $allCount = $this->service->install(id: 0)->count();
+
+        return view('install.index',
+            compact('category', 'groups', 'allCount')
+        );
     }
 
     public function getInstall(int $id = 0)
@@ -45,7 +45,7 @@ class InstallController extends Controller
 
     public function store(InstallRequest $request): JsonResponse
     {
-//        return response()->json($request->validated());
+        return response()->json($request->validated());
         try {
             $user = $this->service->store($request->validated());
             return response()->success($user);
@@ -57,6 +57,7 @@ class InstallController extends Controller
 
     public function update(InstallRequest $request, int $id): JsonResponse
     {
+        return response()->json($request->validated());
         try {
             $result = $this->service->update($request->validated(), $id);
             return response()->success($result);

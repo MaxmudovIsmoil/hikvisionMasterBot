@@ -1,9 +1,9 @@
 <!-- Modal -->
-<div class="modal fade text-left static" id="add_edit_modal" tabindex="-1" role="dialog" data-bs-backdrop="static" aria-hidden="true">
+<div class="modal fade text-left static" id="show_modal" tabindex="-1" role="dialog" data-bs-backdrop="static" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Ish joylash</h4>
+                <h4 class="modal-title">Ko'rish</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="" method="post" class="js_add_edit_form">

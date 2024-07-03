@@ -3,9 +3,16 @@
 @section('content')
     <div class="content">
         <div class="service-btn-group" role="group" aria-label="Basic example">
-            <a href="{{ route('install.index', 0) }}" class="btn btn-sm js_cat_btn mb-1 @if(Request::is('install/0')) btn-primary @else btn-outline-primary @endif"><i class="fas fa-list"></i> Barchasi</a>
+            <a href="{{ route("getInstall", 0) }}" class="btn btn-sm js_cat_btn mb-1 btn-primary">
+                <i class="fas fa-list"></i> Barchasi
+                <span class="badge bg-success">{{ $allCount }}</span>
+            </a>
             @foreach($category as $cat)
-                <a href="{{ route('install.index', $cat['id']) }}" class="btn btn-sm js_cat_btn mb-1 @if(Request::is('install/'.$cat['id']) == $cat['id']) btn-primary @else btn-outline-primary @endif">{{ $cat['name'] }}</a>
+                <a href="{{ route("getInstall", $cat['id']) }}"
+                   class="btn btn-sm js_cat_btn mb-1 @if(Request::is('install/get/'.$cat['id']) == $cat['id']) btn-primary @else btn-outline-primary @endif">
+                    {{ $cat['name'] }}
+                    <span class="badge bg-success">{{ $cat['install_count'] }}</span>
+                </a>
             @endforeach
         </div>
         <div class="content-header">
@@ -25,7 +32,7 @@
                                         <th>№</th>
                                         <th>Blanka Raqami</th>
                                         <th>Manzil</th>
-                                        <th>Geo lokatsiya</th>
+                                        <th>Tefeon raqam</th>
                                         <th>Xizmat narxi</th>
                                         <th>Status</th>
                                         <th class="text-right">Harakat</th>
@@ -40,85 +47,93 @@
         </div>
 
         @include('install.add_edit_modal')
+
+        @include('install.show_modal')
     </div>
 @endsection
 
 @push('script')
     <script>
-        function form_clear(form) {
-            form.find('.js_name').val('')
-            form.find('.js_phone').val('')
-            form.find('.js_username').val('')
-            form.find('.js_password').val('')
-            form.find('.js_photo').val('')
-            let status = form.find('.js_status option');
-            $.each(status, function (i, item) {
-                $(item).removeAttr('selected');
-            });
-            form.find('.js_instance').val(null).trigger('change')
-        }
-
-        function table(url) {
-            return $('#datatable').DataTable({
-                // scrollY: '70vh',
-                // scrollCollapse: true,
-                // paging: true,
-                // pageLength: 100,
-                // lengthChange: false,
-                // searching: true,
-                // info: false,
-                // autoWidth: true,
-                // language: {
-                //     search: "",
-                //     searchPlaceholder: "Search",
-                // },
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    "url": url,
-                },
-                columns: [
-                    { data: 'DT_RowIndex' },
-                    { data: 'blanka_number' },
-                    { data: 'address' },
-                    { data: 'area' },
-                    { data: 'phone' },
-                    { data: 'price' },
-                    { data: 'status' },
-                    { data: 'action', name: 'action', orderable: false, searchable: false }
-                ],
-                // search: {
-                //     "regex": true
-                // }
-            });
-        }
-
         $(document).ready(function () {
             var modal = $(document).find('#add_edit_modal');
             var deleteModal = $('#deleteModal')
             var form = modal.find('.js_add_edit_form');
 
-            var datatable = table('{{ route("getInstall", [0]) }}');
-
+            var table = $('#datatable').DataTable({
+                scrollY: '60vh',
+                scrollCollapse: true,
+                paging: true,
+                pageLength: 100,
+                lengthChange: false,
+                searching: true,
+                info: false,
+                autoWidth: true,
+                language: {
+                    search: "",
+                    searchPlaceholder: "Search",
+                },
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    "url": "{{ route('getInstall', 0) }}",
+                },
+                columns: [
+                    { data: 'DT_RowIndex' },
+                    { data: 'blanka_number' },
+                    { data: 'address' },
+                    { data: 'phone' },
+                    { data: 'price' },
+                    { data: 'status' },
+                    { data: 'action', name: 'action', orderable: false, searchable: false }
+                ]
+            });
 
             $(document).on('click', '.js_cat_btn', function (e) {
                 e.preventDefault();
                 let url = $(this).attr('href');
-                console.log('url: ', url);
+                $(this).siblings('.btn-primary')
+                    .removeClass('btn-primary')
+                    .addClass('btn-outline-primary');
+                $(this)
+                    .removeClass('btn-outline-primary')
+                    .addClass('btn-primary');
 
-                // modal.find('.modal-title').html("Ish joylash");
-                // form_clear(form);
-                // let url = $(this).data('store_url');
-                // form.attr('action', url);
-                // modal.modal('show');
+                table.destroy();
+                table = $('#datatable').DataTable({
+                    scrollY: '60vh',
+                    scrollCollapse: true,
+                    paging: true,
+                    pageLength: 100,
+                    lengthChange: false,
+                    searching: true,
+                    info: false,
+                    autoWidth: true,
+                    language: {
+                        search: "",
+                        searchPlaceholder: "Search",
+                    },
+                    processing: true,
+                    serverSide: true,
+                    ajax: {
+                        "url": url,
+                    },
+                    columns: [
+                        { data: 'DT_RowIndex' },
+                        { data: 'blanka_number' },
+                        { data: 'address' },
+                        { data: 'phone' },
+                        { data: 'price' },
+                        { data: 'status' },
+                        { data: 'action', name: 'action', orderable: false, searchable: false }
+                    ]
+                });;
             });
-
 
 
             $(document).on('click', '.js_add_btn', function (e) {
                 e.preventDefault();
                 modal.find('.modal-title').html("Ish joylash");
-                form_clear(form);
+                formClear(form);
                 let url = $(this).data('store_url');
                 form.attr('action', url);
                 modal.modal('show');
@@ -126,12 +141,12 @@
 
             $(document).on('click', '.js_edit_btn', function (e) {
                 e.preventDefault();
-                modal.find('.modal-title').html('{{__("admin.Edit user")}}')
+                modal.find('.modal-title').html('Taxrirlash')
                 let status = form.find('.js_status option')
                 let url = $(this).data('one_data_url')
                 let update_url = $(this).data('update_url')
                 form.attr('action', update_url)
-                form_clear(form);
+                formClear(form);
 
                 $.ajax({
                     url: url,
@@ -140,38 +155,37 @@
                     success: (response) => {
                         form.append("<input type='hidden' name='_method' value='PUT'>");
                         if (response.success) {
-                            let instance_array = [];
-                            for (let i = 0; i < response.data.user_instances.length; i++) {
-                                instance_array[i] = response.data.user_instances[i].instance_id;
-                            }
-                            form.find('.js_instance').val(instance_array)
-                            form.find('.js_instance').trigger('change')
+                            // let instance_array = [];
+                            // for (let i = 0; i < response.data.user_instances.length; i++) {
+                            //     instance_array[i] = response.data.user_instances[i].instance_id;
+                            // }
+                            // form.find('.js_instance').val(instance_array)
+                            // form.find('.js_instance').trigger('change')
+                            let category = form.find('.js_category_id option')
+                            category.val(response.data.category_id);
+
+                            let group = form.find('.js_group option')
+                            group.val(response.data.group);
 
                             form.find('.js_name').val(response.data.name)
-                            form.find('.js_phone').val(response.data.phone)
-                            form.find('.js_username').val(response.data.username)
-                            $.each(status, function (i, item) {
-                                if (response.data.status === $(item).val()) {
-                                    $(item).attr('selected', true);
-                                }
-                            })
+                            form.find('.js_blanka_number').val(response.data.blanka_number)
+                            form.find('.js_address').val(response.data.address)
+                            form.find('.js_area').val(response.data.area)
+                            form.find('.js_location').val(response.data.location)
+                            form.find('.js_price').val(response.data.price);
+                            form.find('.js_description').val(response.data.description);
+
                             modal.modal('show')
                         }
                     },
                     error: (response) => {
-                        // console.log('error: ',response)
+                        console.log('error: ',response)
                     }
                 });
             })
 
             $(document).on('submit', '.js_add_edit_form', function (e) {
                 e.preventDefault();
-                let instance = form.find('.js_instance');
-                let name = form.find('.js_name')
-                let phone = form.find('.js_phone')
-                let photo = form.find('.js_photo')
-                let username = form.find('.js_username')
-                let password = form.find('.js_password')
 
                 $.ajax({
                     url: $(this).attr('action'),
@@ -184,53 +198,35 @@
                         console.log(response)
                         if (response.success) {
                             modal.modal('hide')
-                            form_clear(form)
+                            formClear(form)
                             table.draw();
+                        }
+                        else {
+                            handleFieldError(form, errors, 'category_id');
+                            handleFieldError(form, errors, 'blanka_number');
+                            handleFieldError(form, errors, 'name');
+                            handleFieldError(form, errors, 'area');
+                            handleFieldError(form, errors, 'address');
+                            handleFieldError(form, errors, 'location');
+                            handleFieldError(form, errors, 'price');
+                            handleFieldError(form, errors, 'description');
                         }
                     },
                     error: (response) => {
-                        if (typeof response.responseJSON.error !== 'undefined') {
-                            instance.addClass('is-invalid');
-                            instance.siblings('.invalid-feedback').html('{{ __('Admin.instance_fail') }}');
-                        }
-                        if (typeof response.responseJSON.errors !== 'undefined') {
-                            if (response.responseJSON.errors.name) {
-                                name.addClass('is-invalid');
-                                name.siblings('.invalid-feedback').html(response.responseJSON.errors.name[0]);
-                            }
-                            if (response.responseJSON.errors.phone) {
-                                phone.addClass('is-invalid');
-                                phone.siblings('.invalid-feedback').html(response.responseJSON.errors.phone[0]);
-                            }
-                            if (response.responseJSON.errors.username) {
-                                username.addClass('is-invalid');
-                                username.siblings('.invalid-feedback').html(response.responseJSON.errors.username[0]);
-                            }
-                            if (response.responseJSON.errors.password) {
-                                password.addClass('is-invalid');
-                                password.siblings('.invalid-feedback').html(response.responseJSON.errors.password[0]);
-                            }
-                            if (response.responseJSON.errors.photo) {
-                                photo.addClass('is-invalid');
-                                photo.siblings('.invalid-feedback').html(response.responseJSON.errors.photo[0]);
-                            }
-                        }
-                        // console.log('error: ', response);
+                        console.log('error: ', response);
                     }
                 });
             });
 
 
-            $(document).on("click", ".js_delete_btn", function () {
-                let name = $(this).data('name')
-                let url = $(this).data('url')
-
-                deleteModal.find('.modal-title').html(name)
-
-                let form = deleteModal.find('#js_modal_delete_form')
-                form.attr('action', url)
-                deleteModal.modal('show');
-            });
+            // $(document).on("click", ".js_delete_btn", function () {
+            //     let name = $(this).data('name')
+            //     let url = $(this).data('url')
+            //     deleteModal.find('.modal-title').html(name)
+            //     let form = deleteModal.find('#js_modal_delete_form')
+            //     form.attr('action', url)
+            //     deleteModal.modal('show');
+            // });
 
             $(document).on('submit', '#js_modal_delete_form', function (e) {
                 e.preventDefault()

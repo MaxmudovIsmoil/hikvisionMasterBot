@@ -16,17 +16,9 @@ class Helper
     }
 
 
-    public static function businessHours(string $start, string $end):string
+    public static function moneyFormat(string $sum = ''): string
     {
-        $startDate = strtotime(date('Y-m-d', strtotime($start)));
-        $endDate = strtotime(date('Y-m-d', strtotime($end)));
-
-        $start_working_hour = strtotime(env('START_WORKING_HOUR'));
-        $start_dinner_hour = strtotime(env('START_DINNER_HOUR'));
-        $end_dinner_hour = strtotime(ENV('END_DINNER_HOUR'));
-        $end_working_hour = strtotime(ENV('END_WORKING_HOUR'));
-
-        return '1';
+        return number_format($sum, 0, '.', ' ');
     }
 
 

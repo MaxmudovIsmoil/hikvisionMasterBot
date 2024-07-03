@@ -22,14 +22,15 @@ class InstallRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'category_id' => 'required',
             'blanka_number' => 'required',
+            'name' => 'required',
             'area' => 'required',
             'address' => 'required',
             'location' => 'required',
-            'latitude' => 'required',
-            'price' => 'required',
+            'price' => 'required|numeric',
             'description' => 'required',
-            'status' => 'required',
+            'group.*' => 'required'
         ];
     }
 }

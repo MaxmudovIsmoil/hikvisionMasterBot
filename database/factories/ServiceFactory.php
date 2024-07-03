@@ -22,6 +22,7 @@ class ServiceFactory extends Factory
      */
     public function definition(): array
     {
+        $status = [1, 2, 3, 4, 5, 6, 7, 8];
         return [
             'blanka_number' => fake()->name(),
             'address' => fake()->name(),
@@ -30,7 +31,7 @@ class ServiceFactory extends Factory
             'location' => fake()->name,
             'latitude' => fake()->name,
             'longitude' => fake()->name,
-            'status' => 1,
+            'status' => $status[array_rand($status)],
         ];
     }
 

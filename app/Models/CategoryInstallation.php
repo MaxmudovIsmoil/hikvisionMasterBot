@@ -23,4 +23,8 @@ class CategoryInstallation extends Model
 
 //    public $timestamps = false;
 
+    public function install()
+    {
+        return $this->hasMany(Installation::class, 'category_id', 'id');
+    }
 }
