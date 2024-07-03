@@ -5,32 +5,38 @@ namespace App\Http\Controllers;
 use App\Http\Requests\InstallRequest;
 use App\Models\CategoryInstallation;
 use App\Models\Installation;
+use App\Services\InstallService;
 use Illuminate\Http\JsonResponse;
+use Yajra\DataTables\DataTables;
 
 class InstallController extends Controller
 {
     public function __construct(
-        public Installation $modal
+        public InstallService $service,
     ) {}
 
-    public function index(int $id = 0)
+    public function index()
     {
-        $category = CategoryInstallation::where('status', 1)
-            ->whereNull('deleted_at')
-            ->get()
-            ->toArray();
+//        $r = $this->service->getInstall($id = 0);
+//        dd($r);
+        $category = $this->service->category();
+        return view('install.index', compact('category'));
+    }
 
-        $installs = Installation::whereNull('deleted_at')
-            ->get()
-            ->toArray();
-
-        return view('install.index', compact('category', 'installs'));
+    public function getInstall(int $id = 0)
+    {
+        try {
+            return $this->service->getInstall($id);
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     public function getOne(int $id): object
     {
         try {
-            return response()->success($this->modal::findOrfail($id));
+            return response()->success($this->service::one($id));
         }
         catch (\Exception $e) {
             return response()->fail($e->getMessage());
@@ -41,7 +47,7 @@ class InstallController extends Controller
     {
 //        return response()->json($request->validated());
         try {
-            $user = $this->modal->store($request->validated());
+            $user = $this->service->store($request->validated());
             return response()->success($user);
         }
         catch (\Exception $e) {
@@ -52,7 +58,7 @@ class InstallController extends Controller
     public function update(InstallRequest $request, int $id): JsonResponse
     {
         try {
-            $result = $this->modal->update($request->validated(), $id);
+            $result = $this->service->update($request->validated(), $id);
             return response()->success($result);
         }
         catch(\Exception $e) {
@@ -63,7 +69,7 @@ class InstallController extends Controller
     public function destroy(int $id)
     {
         try {
-            return response()->success($this->modal->destroy($id));
+            return response()->success($this->service->destroy($id));
         }
         catch (\Exception $e) {
             return response()->fail($e->getMessage());

@@ -3,14 +3,14 @@
 @section('content')
     <div class="content">
         <div class="service-btn-group" role="group" aria-label="Basic example">
-            <a href="{{ route('install.index', 0) }}" class="btn btn-sm mb-1 @if(Request::is('install/0')) btn-primary @else btn-outline-primary @endif"><i class="fas fa-list"></i> Barchasi</a>
+            <a href="{{ route('install.index', 0) }}" class="btn btn-sm js_cat_btn mb-1 @if(Request::is('install/0')) btn-primary @else btn-outline-primary @endif"><i class="fas fa-list"></i> Barchasi</a>
             @foreach($category as $cat)
-                <a href="{{ route('install.index', $cat['id']) }}" class="btn btn-sm mb-1 @if(Request::is('install/'.$cat['id']) == $cat['id']) btn-primary @else btn-outline-primary @endif">{{ $cat['name'] }}</a>
+                <a href="{{ route('install.index', $cat['id']) }}" class="btn btn-sm js_cat_btn mb-1 @if(Request::is('install/'.$cat['id']) == $cat['id']) btn-primary @else btn-outline-primary @endif">{{ $cat['name'] }}</a>
             @endforeach
         </div>
         <div class="content-header">
             <a data-store_url="{{ route('install.store') }}"
-               class="btn btn-outline-primary btn-sm addBtn js_add_btn">
+               class="btn btn-outline-primary btn-sm addBtn js_add_btn" style="opacity: 1;">
                 <i class="fas fa-plus"></i>&nbsp; Qo'shish
             </a>
         </div>
@@ -24,8 +24,6 @@
                                     <tr>
                                         <th>№</th>
                                         <th>Blanka Raqami</th>
-                                        <th>Fish</th>
-                                        <th>Huhud</th>
                                         <th>Manzil</th>
                                         <th>Geo lokatsiya</th>
                                         <th>Xizmat narxi</th>
@@ -33,110 +31,7 @@
                                         <th class="text-right">Harakat</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @foreach($installs as $install)
-                                        <tr style="background: #ffebb0e6;">
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>12</td>
-                                            <td>Aliyev Olimjon</td>
-                                            <td>Charhiy</td>
-                                            <td>Nurafshon ko'chasi 102</td>
-                                            <td>Link</td>
-                                            <td>520 000 so'm</td>
-                                            <td>
-                                                <span class="badge rounded-pill bg-warning">Jarayonda</span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex justify-content-around">
-                                                    <a class="btn btn-info btn-sm text-white" title="See">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                    <a class="btn btn-primary btn-sm js_add_btn" title="Edit">
-                                                        <i class="fas fa-pen"></i>
-                                                    </a>
-                                                    <a class="btn btn-danger btn-sm" title="Delete">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    <tr style="background: #cefee8;">
-                                        <td>2</td>
-                                        <td>13</td>
-                                        <td>Tohirov Shohruh</td>
-                                        <td>Chorsu</td>
-                                        <td>Namuna mahallasi 35</td>
-                                        <td>Link</td>
-                                        <td>360 000 so'm</td>
-                                        <td>
-                                            <span class="badge rounded-pill bg-success">Yopilgan</span>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex justify-content-around">
-                                                <a class="btn btn-info btn-sm text-white" title="See">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <a class="btn btn-primary btn-sm js_add_btn" title="Edit">
-                                                    <i class="fas fa-pen"></i>
-                                                </a>
-                                                <a class="btn btn-danger btn-sm" title="Delete">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr style="background: #93baf3eb;">
-                                        <td>3</td>
-                                        <td>15</td>
-                                        <td>Ergashev Shokirjon</td>
-                                        <td>Archazor</td>
-                                        <td>Furqat kochasi 27</td>
-                                        <td>Link</td>
-                                        <td>750 000 so'm</td>
-                                        <td>
-                                            <span class="badge rounded-pill bg-primary">Yangi</span>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex justify-content-around">
-                                                <a class="btn btn-info btn-sm text-white" title="See">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <a class="btn btn-primary btn-sm js_add_btn" title="Edit">
-                                                    <i class="fas fa-pen"></i>
-                                                </a>
-                                                <a class="btn btn-danger btn-sm" title="Delete">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr style="background: #ff3e5057;">
-                                        <td>4</td>
-                                        <td>17</td>
-                                        <td>Qodirov Abbosxon</td>
-                                        <td>Archazor</td>
-                                        <td>Uzumzor ko'chasi 87</td>
-                                        <td>Link</td>
-                                        <td>450 000 so'm</td>
-                                        <td>
-                                            <span class="badge rounded-pill bg-danger">Bekor qilindi</span>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex justify-content-around">
-                                                <a class="btn btn-info btn-sm text-white" title="See">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <a class="btn btn-primary btn-sm js_add_btn" title="Edit">
-                                                    <i class="fas fa-pen"></i>
-                                                </a>
-                                                <a class="btn btn-danger btn-sm" title="Delete">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                <tbody></tbody>
                             </table>
                         </div>
                     </div>
@@ -148,7 +43,7 @@
     </div>
 @endsection
 
-@section('script')
+@push('script')
     <script>
         function form_clear(form) {
             form.find('.js_name').val('')
@@ -163,35 +58,61 @@
             form.find('.js_instance').val(null).trigger('change')
         }
 
+        function table(url) {
+            return $('#datatable').DataTable({
+                // scrollY: '70vh',
+                // scrollCollapse: true,
+                // paging: true,
+                // pageLength: 100,
+                // lengthChange: false,
+                // searching: true,
+                // info: false,
+                // autoWidth: true,
+                // language: {
+                //     search: "",
+                //     searchPlaceholder: "Search",
+                // },
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    "url": url,
+                },
+                columns: [
+                    { data: 'DT_RowIndex' },
+                    { data: 'blanka_number' },
+                    { data: 'address' },
+                    { data: 'area' },
+                    { data: 'phone' },
+                    { data: 'price' },
+                    { data: 'status' },
+                    { data: 'action', name: 'action', orderable: false, searchable: false }
+                ],
+                // search: {
+                //     "regex": true
+                // }
+            });
+        }
+
         $(document).ready(function () {
             var modal = $(document).find('#add_edit_modal');
             var deleteModal = $('#deleteModal')
             var form = modal.find('.js_add_edit_form');
 
-            var table = $('#datatable').DataTable({
-                paging: true,
-                pageLength: 20,
-                lengthChange: false,
-                searching: true,
-                ordering: true,
-                info: true,
-                autoWidth: false,
-                language: {
-                    search: "",
-                    searchPlaceholder: " Поиск...",
-                    sLengthMenu: "Кўриш _MENU_ тадан",
-                    // sInfo: "Показаны с _START_ по _END_ из _TOTAL_ записей",
-                    // emptyTable: "Информация недоступна",
-                    // sInfoFiltered: "(Отфильтровано из _MAX_ записей)",
-                    // sZeroRecords: "Информация не найдена",
-                    // oPaginate: {
-                    //     sNext: "Следующий",
-                    //     sPrevious: "Предыдущий",
-                    // },
-                },
-                processing: false,
-                serverSide: false,
+            var datatable = table('{{ route("getInstall", [0]) }}');
+
+
+            $(document).on('click', '.js_cat_btn', function (e) {
+                e.preventDefault();
+                let url = $(this).attr('href');
+                console.log('url: ', url);
+
+                // modal.find('.modal-title').html("Ish joylash");
+                // form_clear(form);
+                // let url = $(this).data('store_url');
+                // form.attr('action', url);
+                // modal.modal('show');
             });
+
 
 
             $(document).on('click', '.js_add_btn', function (e) {
@@ -317,4 +238,4 @@
             });
         });
     </script>
-@endsection
+@endpush

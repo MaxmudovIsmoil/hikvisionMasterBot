@@ -5,7 +5,10 @@ namespace Database\Seeders;
 use App\Models\CategoryInstallation;
 use App\Models\Group;
 use App\Models\GroupBall;
+use App\Models\Installation;
+use App\Models\Service;
 use App\Models\User;
+use Database\Factories\InstallationFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -28,6 +31,7 @@ class DatabaseSeeder extends Seeder
 
         User::factory(20)->create();
 
+
         Group::factory(5)->create();
         GroupBall::factory()->create();
         CategoryInstallation::insert([
@@ -36,5 +40,8 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Turniket'],
             ['name' => 'Terminal']
         ]);
+
+        Installation::factory()->count(1000)->create();
+        Service::factory()->count(500)->create();
     }
 }

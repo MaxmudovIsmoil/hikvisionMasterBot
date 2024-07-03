@@ -3,8 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
-use Ramsey\Uuid\Type\Integer;
 
 
 /**
@@ -12,11 +10,6 @@ use Ramsey\Uuid\Type\Integer;
  */
 class GroupFactory extends Factory
 {
-    /**
-     * The current password being used by the factory.
-     */
-    protected static ?string $password;
-
     /**
      * Define the model's default state.
      *

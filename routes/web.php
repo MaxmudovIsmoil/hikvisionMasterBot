@@ -44,7 +44,9 @@ Route::middleware('auth')->group(function () {
 
 
     // установка
-    Route::get('/install/{id}', [InstallController::class, 'index'])->name('install.index');
+    Route::get('/install', [InstallController::class, 'index'])->name('install.index');
+    Route::get('/install/{id}/get', [InstallController::class, 'getInstall'])->name('getInstall');
+    Route::get('/install/one/{id}', [InstallController::class, 'getOne'])->name('install.getOne');
     Route::post('/install/store/', [InstallController::class, 'store'])->name('install.store');
     Route::put('/install/update/{id}', [InstallController::class, 'update'])->name('install.update');
     Route::delete('/install/delete/{id}', [InstallController::class, 'destroy'])->name('install.destroy');

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name') }}</title>
     <link rel="stylesheet" href="{{ asset('assets/bootstrap-5.3.3/css/bootstrap.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('assets/datepicker/gijgo.min.css') }}">
@@ -44,8 +45,8 @@
                         <div>Dashboard</div>
                     </a>
                 </li>
-                <li class="@if(Request::is('install/*')) active @endif">
-                    <a href="{{ route('install.index', 0) }}">
+                <li class="@if(Request::is('install')) active @endif">
+                    <a href="{{ route('install.index') }}">
                         <i class="fas fa-stream"></i>
                         <div>установка</div>
                     </a>

@@ -44,11 +44,11 @@ enum OrderStatus: int
     public function getLabelText(): string
     {
         return match ($this) {
-            self::PROCESSING => trans('admin.In Processing'),
-            self::ACCEPTED => trans('admin.Accepted'),
-            self::GO_BACK => trans('admin.Go back'),
-            self::DECLINED => trans('admin.Declined'),
-            self::COMPLETED => trans('admin.Completed'),
+            self::PROCESSING => 'In Processing',
+            self::ACCEPTED => 'Accepted',
+            self::GO_BACK => 'Go back',
+            self::DECLINED => 'Declined',
+            self::COMPLETED => 'Completed',
         };
     }
 }

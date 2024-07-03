@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\OrderStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,7 +11,7 @@ class Installation extends Model
 {
     use HasFactory, SoftDeletes;
 
-//    protected $table = 'installations';
+    protected $table = 'installations';
 
     protected $fillable = [
         'category_id',
@@ -32,4 +33,20 @@ class Installation extends Model
     {
         return $this->hasOne(CategoryInstallation::class, 'id', 'category_id');
     }
+
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'status' => OrderStatus::class,
+        ];
+    }
+
+
+
 }

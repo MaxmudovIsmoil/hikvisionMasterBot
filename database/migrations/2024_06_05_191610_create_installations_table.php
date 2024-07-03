@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id');
             $table->string('blanka_number')->nullable();
             $table->string('area')->nullable();
+            $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->text('location')->nullable();
             $table->string('latitude')->nullable();

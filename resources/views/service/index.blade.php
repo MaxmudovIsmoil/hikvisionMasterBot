@@ -118,7 +118,7 @@
     </div>
 @endsection
 
-@section('script')
+@push('script')
     <script>
         function form_clear(form) {
             form.find('.js_name').val('')
@@ -287,4 +287,4 @@
             });
         });
     </script>
-@endsection
+@endpush

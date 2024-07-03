@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('blanka_number')->nullable();
             $table->string('area')->nullable();
+            $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->text('location')->nullable();
+            $table->integer('status')->nullable();
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
             $table->text('description')->default('');
