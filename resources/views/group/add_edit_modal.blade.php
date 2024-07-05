@@ -43,13 +43,17 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="user">Hodim biriktisih:</label>
-                            <select class="js_user" id="user" name="user[]" style="width: 100%; height: 245px;" multiple="multiple" aria-label="user">
-                                @foreach($users as $user)
-                                    <option value="{{$user['id']}}" style="padding: 3px 5px;">{{ $user['name'] }}</option>
+                            <p class="mb-0">Hodimlar</p>
+                            <div class="check-list">
+                                @foreach($users as $u)
+                                    <div class="form-check">
+                                        <input class="form-check-input jsCheckOne" type="checkbox" name="user[]" value="{{ $u['id'] }}" id="check{{$u['id']}}">
+                                        <label class="form-check-label" for="check{{$u['id']}}">
+                                            {{ $u['name'] }}
+                                        </label>
+                                    </div>
                                 @endforeach
-                            </select>
-                            <div class="invalid-feedback">Hodimni tanlang!</div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -85,4 +89,3 @@
         </div>
     </div>
 </div>
-

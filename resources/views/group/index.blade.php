@@ -103,7 +103,7 @@
                 url: one_url,
                 dataType: 'JSON',
                 success: (response) => {
-                    // console.log('response: ', response);
+                    console.log('response: ', response);
                     if (response.success) {
                         form.find('.js_name').val(response.data.name);
                         form.find('.js_address').val(response.data.address);
@@ -113,17 +113,17 @@
                         let status = form.find('.js_status option')
                         status.val(response.data.status);
 
-                        let users = form.find('.js_user option');
-                        let userMap = {};
-                        users.each(function () {
-                            let userId = $(this).val();
-                            userMap[userId] = $(this);
-                        });
 
-                        $.each(response.data.user, function (i, user) {
-                            let userId = user['user_id'];
-                            if (userMap[userId]) {
-                                userMap[userId].attr('selected', true);
+                        let users = form.find('.jsCheckOne');
+                        let userResponses = response.data.user.reduce((acc, userRes) => {
+                            acc[userRes['user_id']] = true;
+                            return acc;
+                        }, {});
+
+                        users.each(function () {
+                            let userId = parseFloat($(this).val());
+                            if (userResponses[userId]) {
+                                $(this).prop('checked', true);
                             }
                         });
 
