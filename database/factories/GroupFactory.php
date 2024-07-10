@@ -17,16 +17,9 @@ class GroupFactory extends Factory
      */
     public function definition(): array
     {
-        $group = [
-            'A group',
-            'B group',
-            'C group',
-        ];
-
-        $level = ['middle', 'senior', 'junior'];
         return [
-            'name' => $group[array_rand($group)],
-            'level' => $level[array_rand($level)],
+            'name' => fake()->name,
+            'level' => fake()->name,
             'ball' => rand(min: 100, max: 350),
             'count' => rand(1, 6),
             'status' => 1,

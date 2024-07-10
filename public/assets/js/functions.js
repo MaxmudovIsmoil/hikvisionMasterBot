@@ -23,3 +23,4 @@ $(document).on('change', '.jsCheckAll', function () {
     let isChecked = $(this).is(':checked');
     $('.jsCheckOne').prop('checked', isChecked);
 })
+

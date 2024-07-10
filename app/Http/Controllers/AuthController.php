@@ -6,6 +6,7 @@ use App\Exceptions\UnauthorizedException;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UserProfileRequest;
 use App\Services\AuthService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 

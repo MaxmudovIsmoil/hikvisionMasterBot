@@ -13,6 +13,9 @@ use SergiX44\Nutgram\Nutgram;
 |
 */
 
+// Route::post('/webhook', 'WebHookCommand');
+
+
 //$bot->onCommand('start', function (Nutgram $bot) {
 //    return $bot->sendMessage('Hello, world!');
 //})->description('The start command!');

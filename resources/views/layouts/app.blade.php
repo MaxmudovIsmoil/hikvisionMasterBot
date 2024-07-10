@@ -27,13 +27,25 @@
 {{--                <label for="search"><i class="fas fa-search"></i></label>--}}
             </div>
             <i class="fas fa-bell"></i>
-            <div class="user user-div js_user_profile">
+            <div class="user user-profile js_user_profile">
                 <img class="dropdown-toggle" src="{{ asset('assets/images/user.png') }}" alt="Admin">
             </div>
-            <ul class="dropdown-menu ul-profile">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <ul class="ul-profile d-none">
+                <li>
+                    <a class="dropdown-item jsProfileBtn" href="javascript:void(0);">
+                        <i class="fas fa-user-cog"></i> Parolni o'zgartirish
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#"
+                       onclick="event.preventDefault();
+                       document.getElementById('logout-form').submit();"
+                        ><i class="fas fa-sign-out-alt"></i> Chiqish
+                    </a>
+                </li>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
             </ul>
 
         </div>
@@ -95,6 +107,8 @@
         </div>
 
         @include('layouts.deleteModal')
+        @include('layouts.profileModal')
+        @include('layouts.successModal')
     </div>
 
 
@@ -110,6 +124,7 @@
 {{--    <script src="{{ asset('assets/select2/select2.min.js') }}"></script>--}}
     <script src="{{ asset('assets/jquery-ui/jQueryUi.min.js') }}"></script>
 
+    <script src="{{ asset('assets/js/profile.js') }}"></script>
     <script src="{{ asset('assets/js/delete_function.js') }}"></script>
     <script src="{{ asset('assets/js/functions.js') }}"></script>
     @stack('script')

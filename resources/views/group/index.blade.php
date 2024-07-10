@@ -103,7 +103,7 @@
                 url: one_url,
                 dataType: 'JSON',
                 success: (response) => {
-                    console.log('response: ', response);
+                    // console.log('response: ', response);
                     if (response.success) {
                         form.find('.js_name').val(response.data.name);
                         form.find('.js_address').val(response.data.address);

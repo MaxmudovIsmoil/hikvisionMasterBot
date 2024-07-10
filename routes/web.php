@@ -76,12 +76,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/report', [ReportController::class, 'index'])->name('report');
 
-
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
     // user profile
     Route::post('/user/profile', [AuthController::class, 'profile'])->name('user.profile');
 });
 
+Route::get('/test', [\App\Http\Controllers\TelegramController::class, 'test']);
 
 
-// Route::post('/webhook', 'WebHookController');

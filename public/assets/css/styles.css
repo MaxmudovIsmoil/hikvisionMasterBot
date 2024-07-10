@@ -2,7 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'poppins', sans-serif;
+    font-family: 'poppins', sans-serif;!important;
 }
 
 .topBar {
@@ -90,17 +90,17 @@
 
 .sidebar ul li:hover {
     background: #fff;
-    transition: 1s;
+    transition: .7s;
 }
 
 .sidebar ul li.active {
     background: #fff;
-    transition: 1s;
+    transition: .7s;
 }
 
 .sidebar ul li.active a {
     color: #299B63;
-    transition: 1s;
+    transition: .7s;
 }
 
 .sidebar ul li:hover a {
@@ -368,4 +368,35 @@ div.main {
 }
 .check-list .check0 {
     border-bottom: 1px solid lightgray;
+}
+
+.user-profile img {
+    cursor: pointer;
+}
+
+
+.topBar {
+    position: relative;
+}
+.ul-profile {
+    position: absolute;
+    border: 1px solid rgba(203, 202, 202, 0.8);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.08);
+    list-style: none;
+    padding: 0;
+    top: 60px;
+    left: 90%;
+    background: #299b63;
+    border-radius: 5px;
+    z-index: 1;
+    color: white;
+}
+.ul-profile li {
+    padding: 5px 10px;
+}
+
+.ul-profile li:hover {
+    background: white;
+    color: #299b63;
+    transition: .5s;
 }

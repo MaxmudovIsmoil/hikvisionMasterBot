@@ -14,7 +14,7 @@
                             <div class="row">
                                 <div class="col-6 mb-2">
                                     <label for="cat">Kategoriya:</label>
-                                    <select class="form-select js_category_id" id="category_id" name="category_id" aria-label="cat">
+                                    <select class="form-select js_category_id" aria-label="category_id" name="category_id" aria-label="cat">
                                         @foreach($category as $cat)
                                             <option value="{{$cat['id']}}">{{ $cat['name'] }}</option>
                                         @endforeach
@@ -57,14 +57,14 @@
                             <p class="mb-0">Guruhlar</p>
                             <div class="check-list">
                                 <div class="form-check check0">
-                                    <input class="form-check-input jsCheckAll" type="checkbox" value="0" name="group[]" id="check0" checked>
+                                    <input class="form-check-input jsCheckAll" type="checkbox" value="0" name="group[]" id="check0">
                                     <label class="form-check-label" for="check0">
                                         Barcha guruhlar
                                     </label>
                                 </div>
                                 @foreach($groups as $g)
                                     <div class="form-check">
-                                        <input class="form-check-input jsCheckOne" type="checkbox" name="group[]" value="{{ $g['id'] }}" id="check{{$g['id']}}" checked>
+                                        <input class="form-check-input jsCheckOne" type="checkbox" name="group[]" value="{{ $g['id'] }}" id="check{{$g['id']}}">
                                         <label class="form-check-label" for="check{{$g['id']}}">
                                             {{ $g['name'] }}
                                         </label>

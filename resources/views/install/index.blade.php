@@ -126,7 +126,7 @@
                         { data: 'status' },
                         { data: 'action', name: 'action', orderable: false, searchable: false }
                     ]
-                });;
+                });
             });
 
 
@@ -155,12 +155,7 @@
                     success: (response) => {
                         form.append("<input type='hidden' name='_method' value='PUT'>");
                         if (response.success) {
-                            // let instance_array = [];
-                            // for (let i = 0; i < response.data.user_instances.length; i++) {
-                            //     instance_array[i] = response.data.user_instances[i].instance_id;
-                            // }
-                            // form.find('.js_instance').val(instance_array)
-                            // form.find('.js_instance').trigger('change')
+
                             let category = form.find('.js_category_id option')
                             category.val(response.data.category_id);
 
@@ -202,6 +197,7 @@
                             table.draw();
                         }
                         else {
+                            let errors = response.errors;
                             handleFieldError(form, errors, 'category_id');
                             handleFieldError(form, errors, 'blanka_number');
                             handleFieldError(form, errors, 'name');
