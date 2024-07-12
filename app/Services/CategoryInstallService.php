@@ -2,15 +2,14 @@
 
 namespace App\Services;
 
-use App\Models\CategoryInstallation;
+use App\Models\CategoryInstall;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class CategoryInstallService
 {
     public function __construct(
-        public CategoryInstallation $modal,
+        public CategoryInstall $modal,
     ) {}
 
     public function all()

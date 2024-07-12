@@ -2,18 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\Installation;
+use App\Models\Install;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Installation>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Install>
  */
-class InstallationFactory extends Factory
+class InstallFactory extends Factory
 {
 
-    protected $model = Installation::class;
+    protected $model = Install::class;
     /**
      * Define the model's default state.
      *
@@ -27,6 +27,7 @@ class InstallationFactory extends Factory
         return [
             'category_id' =>  $category[array_rand($category)],
             'blanka_number' => fake()->name(),
+            'name' => fake()->name(),
             'address' => fake()->name(),
             'phone' => rand(900000000, 999999999),
             'area' => fake()->name,

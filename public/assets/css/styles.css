@@ -400,3 +400,25 @@ div.main {
     color: #299b63;
     transition: .5s;
 }
+
+.fw-400 {
+    font-weight: 400;!important;
+}
+
+.fw-500 {
+    font-weight: 500;!important;
+}
+
+.fw-600 {
+    font-weight: 600;!important;
+}
+
+.size-14 {
+    font-size: 14px!important;
+}
+.size-13 {
+    font-size: 13px!important;
+}
+.size-12 {
+    font-size: 12px!important;
+}

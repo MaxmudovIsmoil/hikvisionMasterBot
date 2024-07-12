@@ -2,87 +2,82 @@
 <div class="modal fade text-left static" id="show_modal" tabindex="-1" role="dialog" data-bs-backdrop="static" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="padding-bottom: 8px; padding-top: 8px;">
                 <h4 class="modal-title">Ko'rish</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="" method="post" class="js_add_edit_form">
-                @csrf
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="row">
-                                <div class="col-6 mb-2">
-                                    <label for="cat">Kategoriya:</label>
-                                    <select class="form-select js_category_id" id="category_id" name="category_id" aria-label="cat">
-                                        @foreach($category as $cat)
-                                            <option value="{{$cat['id']}}">{{ $cat['name'] }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback">Hodimni tanlang!</div>
-                                </div>
-                                <div class="col-md-6 mb-2">
-                                    <label for="blanka">Blanka raqami:</label>
-                                    <input type="text" class="form-control js_blanka" aria-label="blanka" name="blanka_number">
-                                    <div class="invalid-feedback">Blanka raqamini kiriting!</div>
-                                </div>
-                                <div class="col-md-6 mb-2">
-                                    <label for="name">F.I.O:</label>
-                                    <input type="text" class="form-control js_name" aria-label="name" name="name">
-                                    <div class="invalid-feedback">F.I.O ni kiriting!</div>
-                                </div>
-                                <div class="col-md-6 mb-2">
-                                    <label for="area">Hudud:</label>
-                                    <input type="text" class="form-control js_area" aria-label="area" name="area">
-                                    <div class="invalid-feedback">Hududni kiriting!</div>
-                                </div>
-                                <div class="col-md-6 mb-2">
-                                    <label for="address">Manzil:</label>
-                                    <input type="text" class="form-control js_address" aria-label="address" name="address">
-                                    <div class="invalid-feedback">Manzilni kiriting!</div>
-                                </div>
-                                <div class="col-md-6 mb-2">
-                                    <label for="price">Hizmat narxi:</label>
-                                    <input type="number" class="form-control js_price" aria-label="price" name="price">
-                                    <div class="invalid-feedback">Hizmat narxini kiriting!</div>
-                                </div>
-                                <div class="col-md-12 mb-2">
-                                    <label for="location">Geo locatsiya:</label>
-                                    <input type="text" class="form-control js_location" aria-label="location" name="location">
-                                    <div class="invalid-feedback">Geo locatsiyani kiriting!</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <p class="mb-0">Guruhlar</p>
-                            <div class="check-list">
-                                <div class="form-check check0">
-                                    <input class="form-check-input jsCheckAll" type="checkbox" value="0" name="group[]" id="check0" checked>
-                                    <label class="form-check-label" for="check0">
-                                        Barcha guruhlar
-                                    </label>
-                                </div>
-                                @foreach($groups as $g)
-                                    <div class="form-check">
-                                        <input class="form-check-input jsCheckOne" type="checkbox" name="group[]" value="{{ $g['id'] }}" id="check{{$g['id']}}" checked>
-                                        <label class="form-check-label" for="check{{$g['id']}}">
-                                            {{ $g['name'] }}
-                                        </label>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                        <div class="col-md-12 mb-2">
-                            <label for="description">Ish haqida ma'lumot</label>
-                            <textarea class="form-control jd_description" aria-label="description" name="description" rows="3"></textarea>
-                        </div>
+            <div class="modal-body size-13">
+                <div class="row">
+                    <div class="col-md-6">
+                        <table class="table table-bordered table-striped table-hover table-sm">
+                            <tbody>
+                                <tr>
+                                    <td width="27%" class="fw-500">Blanka raqam</td>
+                                    <td>Cell</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-500">F.I.O</td>
+                                    <td>Ismoil</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-500">Hudud, Manzil</td>
+                                    <td>Chorsi, Alisher Navoiy 120</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-500">Telefon raqam</td>
+                                    <td>(91) 568-74-95</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-500">Hizmat narxi</td>
+                                    <td>150 000 <i>(so'm)</i></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-500">Telefon raqam</td>
+                                    <td>(91) 568-74-95</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-500">Lokatisiya</td>
+                                    <td><span>Link</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-500">Izoh</td>
+                                    <td>3 ta kamera va 2 domofon o'rnatish kerak </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <table class="table table-bordered table-striped table-hover table-sm mb-0">
+                            <tbody>
+                                <tr>
+                                    <td width="35%" class="fw-500">Yuborilgan guruhlar</td>
+                                    <td>
+                                        <span>A guruh</span>,
+                                        <span>B guruh</span>,
+                                        <span>C guruh</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-500">Ishni olgan guruh </td>
+                                    <td>A guruh</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-500">Status</td>
+                                    <td>Bajarilmoqda</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-500">To'xtatilgan bo'lsa sabab</td>
+                                    <td>Mijoz xohladi</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Jo'natish</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
-                </div>
-            </form>
+            </div>
+            <div class="modal-footer" style="padding-bottom: 8px; padding-top: 8px;">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Yopish</button>
+            </div>
+
         </div>
     </div>
 </div>

@@ -11,19 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('installations', function (Blueprint $table) {
+        Schema::create('installs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('category_id');
             $table->string('blanka_number')->nullable();
-            $table->string('area')->nullable();
             $table->string('name')->nullable();
             $table->string('phone')->nullable();
             $table->string('phone2')->nullable();
+            $table->string('area')->nullable();
             $table->string('address')->nullable();
             $table->text('location')->nullable();
             $table->integer('price')->nullable();
             $table->enum('status', \App\Enums\OrderStatus::toArray())->nullable();
             $table->text('description')->nullable();
+            $table->json('comment')->nullable(); // admin or group stop this order
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
             $table->unsignedBigInteger('creator_id')->nullable();
@@ -34,7 +35,7 @@ return new class extends Migration
             $table->softDeletes();
             $table->foreign('category_id')
                 ->references('id')
-                ->on('category_installations')
+                ->on('category_installs')
                 ->onDelete('restrict');
         });
     }
@@ -44,6 +45,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('installations');
+        Schema::dropIfExists('installs');
     }
 };

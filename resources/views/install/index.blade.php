@@ -31,6 +31,7 @@
                                     <tr>
                                         <th>№</th>
                                         <th>Blanka Raqami</th>
+                                        <th>F.I.O</th>
                                         <th>Manzil</th>
                                         <th>Tefeon raqam</th>
                                         <th>Xizmat narxi</th>
@@ -80,6 +81,7 @@
                 columns: [
                     { data: 'DT_RowIndex' },
                     { data: 'blanka_number' },
+                    { data: 'name' },
                     { data: 'address' },
                     { data: 'phone' },
                     { data: 'price' },
@@ -120,6 +122,7 @@
                     columns: [
                         { data: 'DT_RowIndex' },
                         { data: 'blanka_number' },
+                        { data: 'name' },
                         { data: 'address' },
                         { data: 'phone' },
                         { data: 'price' },
@@ -181,9 +184,9 @@
 
             $(document).on('submit', '.js_add_edit_form', function (e) {
                 e.preventDefault();
-
+                let form = $(this);
                 $.ajax({
-                    url: $(this).attr('action'),
+                    url: form.attr('action'),
                     type: "POST",
                     data: new FormData(this),
                     dataType: "JSON",
@@ -196,33 +199,29 @@
                             formClear(form)
                             table.draw();
                         }
-                        else {
-                            let errors = response.errors;
-                            handleFieldError(form, errors, 'category_id');
-                            handleFieldError(form, errors, 'blanka_number');
-                            handleFieldError(form, errors, 'name');
-                            handleFieldError(form, errors, 'area');
-                            handleFieldError(form, errors, 'address');
-                            handleFieldError(form, errors, 'location');
-                            handleFieldError(form, errors, 'price');
-                            handleFieldError(form, errors, 'description');
-                        }
                     },
                     error: (response) => {
-                        console.log('error: ', response);
+                        console.log('error: ', response)
+                        let errors = response.responseJSON.errors;
+                        handleFieldError(form, errors, 'blanka_number');
+                        handleFieldError(form, errors, 'name');
+                        handleFieldError(form, errors, 'phone');
+                        handleFieldError(form, errors, 'area');
+                        handleFieldError(form, errors, 'address');
+                        handleFieldError(form, errors, 'price');
+                        handleFieldError(form, errors, 'location');
+                        handleFieldError(form, errors, 'description');
                     }
                 });
             });
 
 
-            // $(document).on("click", ".js_delete_btn", function () {
-            //     let name = $(this).data('name')
-            //     let url = $(this).data('url')
-            //     deleteModal.find('.modal-title').html(name)
-            //     let form = deleteModal.find('#js_modal_delete_form')
-            //     form.attr('action', url)
-            //     deleteModal.modal('show');
-            // });
+            $(document).on("click", ".js_show_btn", function () {
+                let showModal = $('#show_modal');
+                let url = $(this).data('url');
+                // form.attr('action', url)
+                showModal.modal('show');
+            });
 
             $(document).on('submit', '#js_modal_delete_form', function (e) {
                 e.preventDefault()

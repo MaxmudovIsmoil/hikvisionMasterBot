@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\InstallRequest;
 use App\Services\InstallService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 
 class InstallController extends Controller
 {
@@ -45,12 +46,13 @@ class InstallController extends Controller
 
     public function store(InstallRequest $request): JsonResponse
     {
-        return response()->json($request->validated());
+//        return response()->json($request->validated());
         try {
             $user = $this->service->store($request->validated());
             return response()->success($user);
         }
         catch (\Exception $e) {
+            DB::rollBack();
             return response()->fail($e->getMessage());
         }
     }

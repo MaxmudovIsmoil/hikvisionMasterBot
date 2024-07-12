@@ -25,12 +25,13 @@ class InstallRequest extends FormRequest
             'category_id' => 'required',
             'blanka_number' => 'required',
             'name' => 'required',
+            'phone' => 'required|string|min:9|max:13',
             'area' => 'required',
             'address' => 'required',
-            'location' => 'required',
             'price' => 'required|numeric',
+            'location' => 'required',
+            'group.*' => 'required',
             'description' => 'required',
-            'group.*' => 'required'
         ];
     }
 }

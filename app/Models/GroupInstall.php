@@ -6,23 +6,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class OrderFile extends Model
+class GroupInstall extends Model
 {
     use HasFactory, SoftDeletes;
 
-    const STATUS_DEFAULT = 1;
-    const STATUS_UPDATE = 2;
+    protected $table = 'group_installs';
 
     protected $fillable = [
-        'order_id',
-        'user_id',
-        'file',
+        'group_id',
+        'install_id',
         'status',
+        'deleted_at'
     ];
 
-    public function user()
+    public function group()
     {
-        return $this->hasOne(User::class, 'id', 'user_id');
+        return $this->hasOne(Group::class, '', 'id');
     }
-
 }

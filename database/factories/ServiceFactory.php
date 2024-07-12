@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Installation;
+use App\Models\Install;
 use App\Models\Service;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -25,6 +25,7 @@ class ServiceFactory extends Factory
         $status = [1, 2, 3, 4, 5, 6, 7, 8];
         return [
             'blanka_number' => fake()->name(),
+            'name' => fake()->name(),
             'address' => fake()->name(),
             'phone' => rand(900000000, 999999999),
             'area' => fake()->name,

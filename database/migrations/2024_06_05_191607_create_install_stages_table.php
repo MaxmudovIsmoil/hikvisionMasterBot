@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('attachments', function (Blueprint $table) {
+        Schema::create('install_stages', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->integer('stage')->nullable()->unique();
+            $table->string('text')->nullable();
         });
     }
 
@@ -22,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('attachments');
+        Schema::dropIfExists('install_stages');
     }
 };

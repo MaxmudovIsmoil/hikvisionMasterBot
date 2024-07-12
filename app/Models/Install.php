@@ -7,15 +7,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Installation extends Model
+class Install extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'installations';
+//    protected $table = 'installs';
 
     protected $fillable = [
         'category_id',
         'blanka_number',
+        'name',
         'area',
         'address',
         'location',
@@ -23,6 +24,7 @@ class Installation extends Model
         'longitude',
         'price',
         'description',
+        'comment', // admin or group stop this order
         'status',
         'creator_id',
         'updater_id',
@@ -31,9 +33,13 @@ class Installation extends Model
 
     public function category()
     {
-        return $this->hasOne(CategoryInstallation::class, 'id', 'category_id');
+        return $this->hasOne(CategoryInstall::class, 'id', 'category_id');
     }
 
+    public function group_install()
+    {
+        return $this->hasMany(GroupInstall::class, 'install_id', 'id');
+    }
 
     /**
      * Get the attributes that should be cast.

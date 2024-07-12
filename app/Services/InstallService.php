@@ -4,23 +4,26 @@ namespace App\Services;
 
 use App\Enums\OrderStatus;
 use App\Helpers\Helper;
-use App\Models\CategoryInstallation;
+use App\Models\CategoryInstall;
 use App\Models\Group;
-use App\Models\GroupDetail;
-use App\Models\GroupUser;
-use App\Models\Installation;
+use App\Models\GroupInstall;
+use App\Models\Install;
+use App\Models\InstallSendGroup;
+use App\Models\InstallStage;
+use App\Models\InstallStageRun;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class InstallService
 {
     public function __construct(
-        public Installation $install
+        public Install $install
     ) {}
 
     public function category(): array
     {
-        return CategoryInstallation::where('status', 1)
+        return CategoryInstall::where('status', 1)
             ->whereNull('deleted_at')
             ->withCount('install')
             ->get()
@@ -73,28 +76,17 @@ class InstallService
                     $install->status->isAdminNew() || $install->status->isGroupPostponed() ||
                     $install->status->isAdminPostponed() || $install->status->isAdminStopped()
                 ) {
-                    $btn .= '<a class="js_edit_btn mr-3 btn btn-outline-primary btn-sm"
+                    $btn .= '<a class="js_edit_btn mr-3 btn btn-outline-danger btn-sm"
                                 data-update_url="'.route('install.update', $install->id).'"
                                 data-one_url="'.route('install.getOne', $install->id).'"
-                                href="javascript:void(0);" title="Edit">
-                                <i class="fas fa-pen"></i>
-                            </a>
-                            <a class="js_delete_btn btn btn-outline-danger btn-sm"
-                                data-toggle="modal" data-target="#deleteModal"
-                                data-name="'.$install->blanka_number.'"
-                                data-url="'.route('install.destroy', $install->id).'"
-                                href="javascript:void(0);" title="Delete">
-                                <i class="far fa-trash-alt"></i>
+                                href="javascript:void(0);" title="To\'tatish">
+                                <i class="fas fa-times"></i> To\'xtatish
                             </a>';
                 }
                 else {
                     $btn .= '<a class="mr-3 btn btn-outline-secondary btn-sm"
                                 href="javascript:void(0);" title="Edit">
-                                <i class="fas fa-lock"></i>
-                            </a>
-                            <a class="btn btn-outline-secondary btn-sm"
-                                href="javascript:void(0);" title="Delete">
-                                <i class="fas fa-lock"></i>
+                                <i class="fas fa-lock"></i> To\'xtatish
                             </a>';
                 }
 
@@ -108,29 +100,50 @@ class InstallService
 
     public function one(int $id)
     {
-        return $this->install::with(['category'])->findOrFail($id);
+        return $this->install::with(['category', 'group_install'])->findOrFail($id);
     }
 
     public function store(array $data): bool
     {
-        $this->install::insertGetId([
-            'category_id' => $data['category_id'],
-            'name' => $data['name'],
-            'area' => $data['area'],
-            'address' => $data['address'],
-            'location' => $data['location'],
-            'price' => $data['price'],
-            'status' => OrderStatus::adminNew->value
-        ]);
+        DB::beginTransaction();
+            $installId = $this->install::insertGetId([
+                'category_id' => $data['category_id'],
+                'blanka_number' => $data['blanka_number'],
+                'name' => $data['name'],
+                'phone' => $data['phone'],
+                'area' => $data['area'],
+                'address' => $data['address'],
+                'location' => $data['location'],
+                'price' => $data['price'],
+                'status' => OrderStatus::adminNew->value,
+                'creator_id' => Auth::id(),
+            ]);
 
-        // bot -> send for groups
-        if (in_array(0, $data['group'])) {
-            // all send groups
-        }
-        else {
-            // any send groups
-        }
+            foreach (InstallStage::get() as $stage) {
+                InstallStageRun::create([
+                    'install_id' => $installId,
+                    'stage' => $stage->stage,
+                    'text' => $stage->text,
+                ]);
+            }
 
+            foreach ($data['group'] as $groupId) {
+                if ($groupId != 0) {
+                    InstallSendGroup::create([
+                        'group_id' => $groupId,
+                        'install_id' => $installId,
+                        'status' => OrderStatus::adminNew->value
+                    ]);
+                }
+            }
+            // bot -> send for groups
+//            if (in_array(0, $data['group'])) {
+//                // all send groups
+//            }
+//            else {
+//                // any send groups
+//            }
+        DB::commit();
         return true;
     }
 
@@ -138,11 +151,15 @@ class InstallService
     {
         $install = $this->install::findOrFail($id);
         $install->fill([
+            'category_id' => $data['category_id'],
             'name' => $data['name'],
+            'blanka_number' => $data['blanka_number'],
+            'phone' => $data['phone'],
             'area' => $data['area'],
             'address' => $data['address'],
             'location' => $data['location'],
             'price' => $data['price'],
+            'updater_id' => Auth::id()
         ]);
         $install->save();
 

@@ -23,13 +23,18 @@
                                 </div>
                                 <div class="col-md-6 mb-2">
                                     <label for="blanka">Blanka raqami:</label>
-                                    <input type="text" class="form-control js_blanka" aria-label="blanka" name="blanka_number">
+                                    <input type="text" class="form-control js_blanka_number" aria-label="blanka" name="blanka_number">
                                     <div class="invalid-feedback">Blanka raqamini kiriting!</div>
                                 </div>
                                 <div class="col-md-6 mb-2">
                                     <label for="name">F.I.O:</label>
                                     <input type="text" class="form-control js_name" aria-label="name" name="name">
                                     <div class="invalid-feedback">F.I.O ni kiriting!</div>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <label for="phone">Telefon raqam:</label>
+                                    <input type="number" class="form-control js_phone" aria-label="phone" name="phone">
+                                    <div class="invalid-feedback">Telefon raqamni kiriting!</div>
                                 </div>
                                 <div class="col-md-6 mb-2">
                                     <label for="area">Hudud:</label>
@@ -46,7 +51,7 @@
                                     <input type="number" class="form-control js_price" aria-label="price" name="price">
                                     <div class="invalid-feedback">Hizmat narxini kiriting!</div>
                                 </div>
-                                <div class="col-md-12 mb-2">
+                                <div class="col-md-6 mb-2">
                                     <label for="location">Geo locatsiya:</label>
                                     <input type="text" class="form-control js_location" aria-label="location" name="location">
                                     <div class="invalid-feedback">Geo locatsiyani kiriting!</div>
@@ -75,6 +80,7 @@
                         <div class="col-md-12 mb-2">
                             <label for="description">Ish haqida ma'lumot</label>
                             <textarea class="form-control jd_description" aria-label="description" name="description" rows="3"></textarea>
+                            <div class="invalid-feedback">Geo locatsiyani kiriting!</div>
                         </div>
                     </div>
                 </div>

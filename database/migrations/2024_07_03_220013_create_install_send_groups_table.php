@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('group_services', function (Blueprint $table) {
+        Schema::create('install_send_groups', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('service_id');
             $table->unsignedBigInteger('group_id');
+            $table->unsignedBigInteger('install_id');
             $table->enum('status', \App\Enums\OrderStatus::toArray())->nullable();
-            $table->string('comment')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
             $table->softDeletes();
@@ -24,10 +23,10 @@ return new class extends Migration
                 ->references('id')
                 ->on('groups')
                 ->onDelete('restrict');
-            $table->foreign('service_id')
+            $table->foreign('install_id')
                 ->references('id')
-                ->on('services')
-                ->onDelete('restrict');
+                ->on('installs')
+                ->onDelete('cascade');
         });
     }
 
@@ -36,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('group_orders');
+        Schema::dropIfExists('install_send_groups');
     }
 };
