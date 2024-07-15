@@ -36,9 +36,9 @@ class Install extends Model
         return $this->hasOne(CategoryInstall::class, 'id', 'category_id');
     }
 
-    public function group_install()
+    public function sendGroups()
     {
-        return $this->hasMany(GroupInstall::class, 'install_id', 'id');
+        return $this->hasMany(InstallSendGroup::class, 'install_id', 'id');
     }
 
     /**

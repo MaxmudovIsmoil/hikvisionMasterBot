@@ -4,16 +4,9 @@
     <div class="content">
         <div class="content-header">
             <a data-store_url="{{ route('service.store') }}"
-               class="btn btn-outline-primary btn-sm addBtn js_add_btn">
+               class="btn btn-outline-primary btn-sm addBtn js_add_btn" style="opacity: 1;">
                 <i class="fas fa-plus"></i>&nbsp; Qo'shish
             </a>
-{{--                        <div class="status-btn-group">--}}
-{{--                            <a href="#" class="btn btn-sm btn-secondary">Barchasi</a>--}}
-{{--                            <a href="#" class="btn btn-sm btn-info">Yangi</a>--}}
-{{--                            <a href="#" class="btn btn-sm btn-warning">Jarayonda</a>--}}
-{{--                            <a href="#" class="btn btn-sm btn-success">Yopilgan</a>--}}
-{{--                            <a href="#" class="btn btn-sm btn-danger">Bekor qilingan</a>--}}
-{{--                        </div>--}}
         </div>
         <div class="content-body">
             <div class="row">
@@ -22,91 +15,17 @@
                         <div class="card-datatable">
                             <table class="table" id="datatable">
                                 <thead>
-                                <tr>
-                                    <th>№</th>
-                                    <th>Blanka Raqami</th>
-                                    <th>Fish</th>
-                                    <th>Huhud</th>
-                                    <th>Manzil</th>
-                                    <th>Geo lokatsiya</th>
-                                    <th>Status</th>
-                                    <th class="text-right">Harakat</th>
-                                </tr>
+                                    <tr>
+                                        <th>№</th>
+                                        <th>Blanka Raqami</th>
+                                        <th>F.I.O</th>
+                                        <th>Manzil</th>
+                                        <th>Tefeon raqam</th>
+                                        <th>Status</th>
+                                        <th class="text-right">Harakat</th>
+                                    </tr>
                                 </thead>
-                                <tbody>
-                                <tr style="background: #ffebb0e6;">
-                                    <td>1</td>
-                                    <td>102</td>
-                                    <td>Hamidov Olimjon</td>
-                                    <td>Charhiy</td>
-                                    <td>Namuna mahallasi 51</td>
-                                    <td>Link</td>
-                                    <td>
-                                        <span class="badge rounded-pill bg-warning">Jarayonda</span>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex justify-content-around">
-                                            <a class="btn btn-info btn-sm text-white" title="See">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                            <a class="btn btn-primary btn-sm js_add_btn" title="Edit">
-                                                <i class="fas fa-pen"></i>
-                                            </a>
-                                            <a class="btn btn-danger btn-sm" title="Delete">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr style="background: #cefee8;">
-                                    <td>2</td>
-                                    <td>13</td>
-                                    <td>Yoshchiyev Tohirjon</td>
-                                    <td>Chorsu</td>
-                                    <td>Pokiza mahallasi 14</td>
-                                    <td>Link</td>
-                                    <td>
-                                        <span class="badge rounded-pill bg-success">Yopilgan</span>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex justify-content-around">
-                                            <a class="btn btn-info btn-sm text-white" title="See">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                            <a class="btn btn-primary btn-sm js_add_btn" title="Edit">
-                                                <i class="fas fa-pen"></i>
-                                            </a>
-                                            <a class="btn btn-danger btn-sm" title="Delete">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr style="background: #93baf3eb;">
-                                    <td>3</td>
-                                    <td>139</td>
-                                    <td>Sobirov Ilhomjon</td>
-                                    <td>Archazor</td>
-                                    <td>Ilg'or kochasi 53</td>
-                                    <td>Link</td>
-                                    <td>
-                                        <span class="badge rounded-pill bg-primary">Yangi</span>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex justify-content-around">
-                                            <a class="btn btn-info btn-sm text-white" title="See">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                            <a class="btn btn-primary btn-sm js_add_btn" title="Edit">
-                                                <i class="fas fa-pen"></i>
-                                            </a>
-                                            <a class="btn btn-danger btn-sm" title="Delete">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
+                                <tbody></tbody>
                             </table>
                         </div>
                     </div>
@@ -115,59 +34,53 @@
         </div>
 
         @include('service.add_edit_modal')
+
+        @include('service.show_modal')
     </div>
 @endsection
 
 @push('script')
+    <script src="{{ asset('assets/js/install.js') }}"></script>
     <script>
-        function form_clear(form) {
-            form.find('.js_name').val('')
-            form.find('.js_phone').val('')
-            form.find('.js_username').val('')
-            form.find('.js_password').val('')
-            form.find('.js_photo').val('')
-            let status = form.find('.js_status option');
-            $.each(status, function (i, item) {
-                $(item).removeAttr('selected');
-            });
-            form.find('.js_instance').val(null).trigger('change')
-        }
-
         $(document).ready(function () {
             var modal = $(document).find('#add_edit_modal');
             var deleteModal = $('#deleteModal')
             var form = modal.find('.js_add_edit_form');
 
-            var datatable = $('#datatable').DataTable({
+            var table = $('#datatable').DataTable({
+                scrollY: '60vh',
+                scrollCollapse: true,
                 paging: true,
-                pageLength: 20,
+                pageLength: 100,
                 lengthChange: false,
                 searching: true,
-                ordering: true,
-                info: true,
-                autoWidth: false,
+                info: false,
+                autoWidth: true,
                 language: {
                     search: "",
-                    searchPlaceholder: " Поиск...",
-                    sLengthMenu: "Кўриш _MENU_ тадан",
-                    // sInfo: "Показаны с _START_ по _END_ из _TOTAL_ записей",
-                    // emptyTable: "Информация недоступна",
-                    // sInfoFiltered: "(Отфильтровано из _MAX_ записей)",
-                    // sZeroRecords: "Информация не найдена",
-                    // oPaginate: {
-                    //     sNext: "Следующий",
-                    //     sPrevious: "Предыдущий",
-                    // },
+                    searchPlaceholder: "Search",
                 },
-                processing: false,
-                serverSide: false,
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    "url": "{{ route('getServices') }}",
+                },
+                columns: [
+                    { data: 'DT_RowIndex' },
+                    { data: 'blanka_number' },
+                    { data: 'name' },
+                    { data: 'address' },
+                    { data: 'phone' },
+                    { data: 'status' },
+                    { data: 'action', name: 'action', orderable: false, searchable: false }
+                ]
             });
 
 
             $(document).on('click', '.js_add_btn', function (e) {
                 e.preventDefault();
-                modal.find('.modal-title').html("Ish joylash");
-                form_clear(form);
+                modal.find('.modal-title').html("Servis joylash");
+                formClear(form);
                 let url = $(this).data('store_url');
                 form.attr('action', url);
                 modal.modal('show');
@@ -175,12 +88,11 @@
 
             $(document).on('click', '.js_edit_btn', function (e) {
                 e.preventDefault();
-                modal.find('.modal-title').html('{{__("admin.Edit user")}}')
-                let status = form.find('.js_status option')
+                modal.find('.modal-title').html('Taxrirlash')
                 let url = $(this).data('one_data_url')
                 let update_url = $(this).data('update_url')
                 form.attr('action', update_url)
-                form_clear(form);
+                formClear(form);
 
                 $.ajax({
                     url: url,
@@ -189,96 +101,91 @@
                     success: (response) => {
                         form.append("<input type='hidden' name='_method' value='PUT'>");
                         if (response.success) {
-                            let instance_array = [];
-                            for (let i = 0; i < response.data.user_instances.length; i++) {
-                                instance_array[i] = response.data.user_instances[i].instance_id;
-                            }
-                            form.find('.js_instance').val(instance_array)
-                            form.find('.js_instance').trigger('change')
+
+                            let group = form.find('.js_group option')
+                            group.val(response.data.group);
 
                             form.find('.js_name').val(response.data.name)
-                            form.find('.js_phone').val(response.data.phone)
-                            form.find('.js_username').val(response.data.username)
-                            $.each(status, function (i, item) {
-                                if (response.data.status === $(item).val()) {
-                                    $(item).attr('selected', true);
-                                }
-                            })
+                            form.find('.js_blanka_number').val(response.data.blanka_number)
+                            form.find('.js_address').val(response.data.address)
+                            form.find('.js_area').val(response.data.area)
+                            form.find('.js_location').val(response.data.location)
+                            form.find('.js_price').val(response.data.price);
+                            form.find('.js_description').val(response.data.description);
+
                             modal.modal('show')
                         }
                     },
                     error: (response) => {
-                        // console.log('error: ',response)
+                        console.log('error: ',response)
                     }
                 });
             })
 
             $(document).on('submit', '.js_add_edit_form', function (e) {
                 e.preventDefault();
-                let instance = form.find('.js_instance');
-                let name = form.find('.js_name')
-                let phone = form.find('.js_phone')
-                let photo = form.find('.js_photo')
-                let username = form.find('.js_username')
-                let password = form.find('.js_password')
-
+                let form = $(this);
                 $.ajax({
-                    url: $(this).attr('action'),
+                    url: form.attr('action'),
                     type: "POST",
                     data: new FormData(this),
                     dataType: "JSON",
                     contentType: false,
                     processData: false,
                     success: (response) => {
-                        // console.log(response)
+                        console.log(response)
                         if (response.success) {
                             modal.modal('hide')
-                            form_clear(form)
+                            formClear(form)
                             table.draw();
                         }
                     },
                     error: (response) => {
-                        if (typeof response.responseJSON.error !== 'undefined') {
-                            instance.addClass('is-invalid');
-                            instance.siblings('.invalid-feedback').html('{{ __('Admin.instance_fail') }}');
-                        }
-                        if (typeof response.responseJSON.errors !== 'undefined') {
-                            if (response.responseJSON.errors.name) {
-                                name.addClass('is-invalid');
-                                name.siblings('.invalid-feedback').html(response.responseJSON.errors.name[0]);
-                            }
-                            if (response.responseJSON.errors.phone) {
-                                phone.addClass('is-invalid');
-                                phone.siblings('.invalid-feedback').html(response.responseJSON.errors.phone[0]);
-                            }
-                            if (response.responseJSON.errors.username) {
-                                username.addClass('is-invalid');
-                                username.siblings('.invalid-feedback').html(response.responseJSON.errors.username[0]);
-                            }
-                            if (response.responseJSON.errors.password) {
-                                password.addClass('is-invalid');
-                                password.siblings('.invalid-feedback').html(response.responseJSON.errors.password[0]);
-                            }
-                            if (response.responseJSON.errors.photo) {
-                                photo.addClass('is-invalid');
-                                photo.siblings('.invalid-feedback').html(response.responseJSON.errors.photo[0]);
-                            }
-                        }
-                        // console.log('error: ', response);
+                        console.log('error: ', response)
+                        let errors = response.responseJSON.errors;
+                        handleFieldError(form, errors, 'blanka_number');
+                        handleFieldError(form, errors, 'name');
+                        handleFieldError(form, errors, 'phone');
+                        handleFieldError(form, errors, 'area');
+                        handleFieldError(form, errors, 'address');
+                        handleFieldError(form, errors, 'price');
+                        handleFieldError(form, errors, 'location');
+                        handleFieldError(form, errors, 'description');
                     }
                 });
             });
 
 
-            $(document).on("click", ".js_delete_btn", function () {
-                let name = $(this).data('name')
-                let url = $(this).data('url')
+            $(document).on("click", ".js_show_btn", function () {
+                let showModal = $('#show_modal');
+                let url = $(this).data('url');
+                console.log(url);
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    dataType: "JSON",
+                    success: (response) => {
+                        console.log(response)
+                        if (response.success) {
+                            showModal.find('.js_blanka_number').html(response.data.blanka_number);
+                            showModal.find('.js_name').html(response.data.name);
+                            showModal.find('.js_area_address').html(response.data.area+', '+response.data.address);
+                            showModal.find('.js_price').html(response.data.price);
+                            showModal.find('.js_description').html(response.data.description);
+                            showModal.find('.js_created_date').html(response.data.created_at);
 
-                deleteModal.find('.modal-title').html(name)
 
-                let form = deleteModal.find('#js_modal_delete_form')
-                form.attr('action', url)
-                deleteModal.modal('show');
+                            let group = groupSet(response.data.groups)
+                            showModal.find('.js_groups').html(group);
+                            showModal.find('.js_status').html(response.data.status);
+                            showModal.find('.js_comment').html(response.data.comment);
+                            showModal.modal('show');
+                        }
+                    },
+                    error: (response) => {
+                        console.log('error: ', response)
+                    }
+                });
             });
 
             $(document).on('submit', '#js_modal_delete_form', function (e) {

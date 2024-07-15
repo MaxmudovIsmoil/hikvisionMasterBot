@@ -7,7 +7,7 @@ function formClear(form) {
 
 function handleFieldError(form, errors, errorKey) {
     let element = form.find(`.js_${errorKey}`);
-    if (errors[errorKey]) {
+    if (typeof errors[errorKey] !== 'undefined' && errors[errorKey] !== null) {
         element.addClass('is-invalid');
         element.siblings('.invalid-feedback').html(errors[errorKey][0]);
     }

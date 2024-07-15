@@ -34,9 +34,24 @@ enum OrderStatus: int
             self::groupRunning => 'Bajarilmoqda',
             self::groupClosingProcess => 'Yopilish jarajonida',
             self::groupClosedSuccessfully => 'Yopildi',
-            self::groupPostponed => 'Keyinga qoldirildi',
-            self::adminPostponed => 'Keyinga qoldirildi',
+            self::groupPostponed => 'Gruruh keyinga qoldirildi',
+            self::adminPostponed => 'Admin keyinga qoldirildi',
             self::adminStopped => 'To\'xtatildi',
+        };
+    }
+
+
+    public function getTextWithStyle(): string
+    {
+        return match ($this) {
+            self::adminNew => '<span class="badge rounded-pill bg-warning">Yangi</span>',
+            self::groupAccepted => '<span class="badge rounded-pill bg-primary">Qabul qilindi</span>',
+            self::groupRunning => '<span class="badge rounded-pill bg-info">Bajarilmoqda</span>',
+            self::groupClosingProcess => '<span class="badge rounded-pill bg-info">Yopilish jarajonida</span>',
+            self::groupClosedSuccessfully => '<span class="badge rounded-pill bg-success">Yopildi</span>',
+            self::groupPostponed => '<span class="badge rounded-pill bg-danger">Guruh keyinga qoldirildi</span>',
+            self::adminPostponed => '<span class="badge rounded-pill bg-danger">Admin keyinga qoldirildi</span>',
+            self::adminStopped => '<span class="badge rounded-pill bg-secondary">To\'xtatildi</span>',
         };
     }
 

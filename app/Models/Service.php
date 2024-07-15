@@ -17,6 +17,7 @@ class Service extends Model
         'blanka_number',
         'area',
         'name',
+        'phone',
         'address',
         'location',
         'latitude',
@@ -31,9 +32,9 @@ class Service extends Model
 
 
 
-    public function group_service()
+    public function sendGroups()
     {
-        return $this->hasMany(GroupInstall::class, 'service_id', 'id');
+        return $this->hasMany(ServiceSendGroup::class, 'service_id', 'id');
     }
 
     /**

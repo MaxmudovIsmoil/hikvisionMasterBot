@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\InstallOrServiceStopRequest;
 use App\Http\Requests\InstallRequest;
 use App\Services\InstallService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Opcodes\LogViewer\Logs\Log;
 
 class InstallController extends Controller
 {
@@ -37,7 +39,7 @@ class InstallController extends Controller
     public function getOne(int $id): object
     {
         try {
-            return response()->success($this->service::one($id));
+            return response()->success($this->service->one($id));
         }
         catch (\Exception $e) {
             return response()->fail($e->getMessage());
@@ -59,7 +61,7 @@ class InstallController extends Controller
 
     public function update(InstallRequest $request, int $id): JsonResponse
     {
-        return response()->json($request->validated());
+//        return response()->json($request->validated());
         try {
             $result = $this->service->update($request->validated(), $id);
             return response()->success($result);
@@ -69,10 +71,11 @@ class InstallController extends Controller
         }
     }
 
-    public function destroy(int $id)
+    public function stop(InstallOrServiceStopRequest $request, int $id)
     {
         try {
-            return response()->success($this->service->destroy($id));
+            $res = $this->service->stop($request->validated('comment'), $id);
+            return response()->success($res);
         }
         catch (\Exception $e) {
             return response()->fail($e->getMessage());

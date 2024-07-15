@@ -12,10 +12,6 @@
                         <table class="table table-bordered table-striped table-hover table-sm">
                             <tbody>
                                 <tr>
-                                    <td width="27%" class="fw-500">Kategoriya</td>
-                                    <td class="js_category">Cell</td>
-                                </tr>
-                                <tr>
                                     <td width="27%" class="fw-500">Blanka raqam</td>
                                     <td class="js_blanka_number">Cell</td>
                                 </tr>

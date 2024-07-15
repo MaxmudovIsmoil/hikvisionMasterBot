@@ -4,31 +4,22 @@ namespace App\Services;
 
 use App\Enums\OrderStatus;
 use App\Helpers\Helper;
-use App\Http\Resources\InstallOnceResource;
-use App\Models\CategoryInstall;
+use App\Http\Resources\ServiceOnceResource;
 use App\Models\Group;
-use App\Models\Install;
-use App\Models\InstallSendGroup;
-use App\Models\InstallStage;
-use App\Models\InstallStageRun;
+use App\Models\Service;
+use App\Models\ServiceSendGroup;
+use App\Models\ServiceStage;
+use App\Models\ServiceStageRun;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
-class InstallService
+class ServiceService
 {
     public function __construct(
-        public Install $install
+        public Service $service
     ) {}
 
-    public function category(): array
-    {
-        return CategoryInstall::where('status', 1)
-            ->whereNull('deleted_at')
-            ->withCount('install')
-            ->get()
-            ->toArray();
-    }
 
     public function groups(): array
     {
@@ -38,47 +29,41 @@ class InstallService
             ->toArray();
     }
 
-    public function install(int $id)
+
+    public function getServices()
     {
-        return $this->install::whereNull('deleted_at')
-            ->when($id !== 0, function($query) use ($id) {
-                $query->where('category_id', $id);
-            })
-            ->whereHas('category', function ($q) {
-                $q->where('status', 1);
-            })
+        $service = $this->service::whereNull('deleted_at')
             ->orderBy('id', 'DESC')
             ->get();
-    }
-    public function getInstall(int $id)
-    {
-        return DataTables::of($this->install($id))
+
+        return DataTables::of($service)
             ->addIndexColumn()
             ->editColumn('id', '{{$id}}')
-            ->editColumn('phone', function($install) {
-                return Helper::phoneFormat($install->phone);
+            ->editColumn('phone', function($service) {
+                return Helper::phoneFormat($service->phone);
             })
-            ->editColumn('price', function($install) {
-                return Helper::moneyFormat($install->price);
+//            ->editColumn('price', function($service) {
+//                return Helper::moneyFormat($service->price);
+//            })
+            ->editColumn('status', function($service) {
+//                return '<span class="badge rounded-pill '.$service->status->getCssClass().'">'.$service->status->getLabelText().'</span>';
+                return $service->status->getTextWithStyle();
             })
-            ->editColumn('status', function($install) {
-//                return '<span class="badge rounded-pill '.$install->status->getCssClass().'">'.$install->status->getLabelText().'</span>';
-                return $install->status->getTextWithStyle();
-            })
-            ->addColumn('action', function ($install) {
+            ->addColumn('action', function ($service) {
                 $btn = '<div class="d-flex justify-content-around">
                             <a class="js_show_btn mr-3 btn btn-outline-info btn-sm"
-                                data-url="'.route('install.getOne', $install->id).'"
+                                data-url="'.route('service.getOne', $service->id).'"
                                 href="javascript:void(0);" title="See">
                                 <i class="fas fa-eye"></i>
                             </a>';
 
                 if (
-                    $install->status->isAdminNew() || $install->status->isGroupPostponed() ||
-                    $install->status->isAdminPostponed() || $install->status->isAdminStopped()
+                    $service->status->isAdminNew() || $service->status->isGroupPostponed() ||
+                    $service->status->isAdminPostponed() || $service->status->isAdminStopped()
                 ) {
-                    $btn .= '<a class="js_stop_btn mr-3 btn btn-outline-danger btn-sm"
-                                data-url="'.route('install.stop', $install->id).'"
+                    $btn .= '<a class="js_edit_btn mr-3 btn btn-outline-danger btn-sm"
+                                data-update_url="'.route('service.update', $service->id).'"
+                                data-one_url="'.route('service.getOne', $service->id).'"
                                 href="javascript:void(0);" title="To\'tatish">
                                 <i class="fas fa-times"></i> To\'xtatish
                             </a>';
@@ -100,14 +85,14 @@ class InstallService
 
     public function one(int $id): object
     {
-        $install = $this->install::with(['category', 'sendGroups'])->findOrFail($id);
-        return new InstallOnceResource($install);
+        $service = $this->service::with(['sendGroups'])->findOrFail($id);
+        return new ServiceOnceResource($service);
     }
 
     public function store(array $data): bool
     {
         DB::beginTransaction();
-            $installId = $this->install::insertGetId([
+            $serviceId = $this->service::insertGetId([
                 'category_id' => $data['category_id'],
                 'blanka_number' => $data['blanka_number'],
                 'name' => $data['name'],
@@ -121,9 +106,9 @@ class InstallService
                 'creator_id' => Auth::id(),
             ]);
 
-            foreach (InstallStage::get() as $stage) {
-                InstallStageRun::create([
-                    'install_id' => $installId,
+            foreach (ServiceStage::get() as $stage) {
+                ServiceStageRun::create([
+                    'service_id' => $serviceId,
                     'stage' => $stage->stage,
                     'text' => $stage->text,
                 ]);
@@ -131,9 +116,9 @@ class InstallService
 
             foreach ($data['group'] as $groupId) {
                 if ($groupId != 0) {
-                    InstallSendGroup::create([
+                    ServiceSendGroup::create([
                         'group_id' => $groupId,
-                        'install_id' => $installId,
+                        'service_id' => $serviceId,
                         'status' => OrderStatus::adminNew->value
                     ]);
                 }
@@ -151,8 +136,8 @@ class InstallService
 
     public function update(array $data, int $id): int
     {
-        $install = $this->install::findOrFail($id);
-        $install->fill([
+        $service = $this->service::findOrFail($id);
+        $service->fill([
             'category_id' => $data['category_id'],
             'name' => $data['name'],
             'blanka_number' => $data['blanka_number'],
@@ -163,17 +148,15 @@ class InstallService
             'price' => $data['price'],
             'updater_id' => Auth::id()
         ]);
-        $install->save();
+        $service->save();
 
         return $id;
     }
 
-    public function stop(string $comment, int $id): int
+    public function destroy(int $id): int
     {
-        $this->install::where('id', $id)
+        $this->service::where('id', $id)
             ->update([
-                'comment' => $comment,
-                'status' => OrderStatus::adminStopped->value,
                 'deleter_id' => Auth::id(),
                 'deleted_at' => now(),
             ]);

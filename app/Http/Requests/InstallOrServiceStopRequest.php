@@ -4,11 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class InstanceRequest extends FormRequest
+class InstallOrServiceStopRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
@@ -22,8 +19,7 @@ class InstanceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name_ru' => 'required',
-            'status' => 'required'
+            'comment' => 'required',
         ];
     }
 }

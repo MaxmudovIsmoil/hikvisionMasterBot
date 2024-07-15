@@ -2,63 +2,80 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\InstallRequest;
+use App\Http\Requests\ServiceRequest;
+use App\Services\ServiceService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct(
+        public ServiceService $service,
+    ) {}
+
     public function index()
     {
-        return view('service.index');
+        $groups = $this->service->groups();
+
+        return view('service.index',
+            compact('groups')
+        );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function getServices()
     {
-        //
+        try {
+            return $this->service->getServices();
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function getOne(int $id): object
     {
-        //
+        try {
+            return response()->success($this->service->one($id));
+        }
+        catch (\Exception $e) {
+            return response()->fail($e->getMessage());
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function store(ServiceRequest $request): JsonResponse
     {
-        //
+//        return response()->json($request->validated());
+        try {
+            $user = $this->service->store($request->validated());
+            return response()->success($user);
+        }
+        catch (\Exception $e) {
+            DB::rollBack();
+            return response()->fail($e->getMessage());
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(ServiceRequest $request, int $id): JsonResponse
     {
-        //
+        return response()->json($request->validated());
+        try {
+            $result = $this->service->update($request->validated(), $id);
+            return response()->success($result);
+        }
+        catch(\Exception $e) {
+            return response()->fail($e->getMessage());
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy(int $id)
     {
-        //
+        try {
+            return response()->success($this->service->destroy($id));
+        }
+        catch (\Exception $e) {
+            return response()->fail($e->getMessage());
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

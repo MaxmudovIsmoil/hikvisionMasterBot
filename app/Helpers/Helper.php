@@ -18,7 +18,10 @@ class Helper
 
     public static function moneyFormat(string $sum = ''): string
     {
-        return number_format($sum, 0, '.', ' ');
+        if ($sum === '')
+            return '';
+
+        return number_format( (float) $sum, 0, '.', ' ');
     }
 
 

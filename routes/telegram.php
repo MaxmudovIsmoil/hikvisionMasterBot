@@ -1,6 +1,7 @@
 <?php
 /** @var SergiX44\Nutgram\Nutgram $bot */
 
+use Illuminate\Support\Facades\Route;
 use SergiX44\Nutgram\Nutgram;
 
 /*
@@ -14,7 +15,6 @@ use SergiX44\Nutgram\Nutgram;
 */
 
 // Route::post('/webhook', 'WebHookCommand');
-
 
 //$bot->onCommand('start', function (Nutgram $bot) {
 //    return $bot->sendMessage('Hello, world!');

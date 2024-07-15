@@ -49,10 +49,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/install/one/{id}', [InstallController::class, 'getOne'])->name('install.getOne');
     Route::post('/install/store/', [InstallController::class, 'store'])->name('install.store');
     Route::put('/install/update/{id}', [InstallController::class, 'update'])->name('install.update');
-    Route::delete('/install/delete/{id}', [InstallController::class, 'destroy'])->name('install.destroy');
+    Route::put('/install/stop/{id}', [InstallController::class, 'stop'])->name('install.stop');
 
     // service
     Route::get('/service', [ServiceController::class, 'index'])->name('service.index');
+    Route::get('/service/get', [ServiceController::class, 'getServices'])->name('getServices');
+    Route::get('/service/one/{id}', [ServiceController::class, 'getOne'])->name('service.getOne');
     Route::post('/service/store/', [ServiceController::class, 'store'])->name('service.store');
     Route::put('/service/update/{id}', [ServiceController::class, 'update'])->name('service.update');
     Route::delete('/service/delete/{id}', [ServiceController::class, 'destroy'])->name('service.destroy');

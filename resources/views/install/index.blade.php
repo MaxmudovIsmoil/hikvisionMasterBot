@@ -34,7 +34,6 @@
                                         <th>F.I.O</th>
                                         <th>Manzil</th>
                                         <th>Tefeon raqam</th>
-                                        <th>Xizmat narxi</th>
                                         <th>Status</th>
                                         <th class="text-right">Harakat</th>
                                     </tr>
@@ -50,14 +49,15 @@
         @include('install.add_edit_modal')
 
         @include('install.show_modal')
+        @include('install.stop_modal')
     </div>
 @endsection
 
 @push('script')
+    <script src="{{ asset('assets/js/install.js') }}"></script>
     <script>
         $(document).ready(function () {
             var modal = $(document).find('#add_edit_modal');
-            var deleteModal = $('#deleteModal')
             var form = modal.find('.js_add_edit_form');
 
             var table = $('#datatable').DataTable({
@@ -84,7 +84,6 @@
                     { data: 'name' },
                     { data: 'address' },
                     { data: 'phone' },
-                    { data: 'price' },
                     { data: 'status' },
                     { data: 'action', name: 'action', orderable: false, searchable: false }
                 ]
@@ -125,7 +124,6 @@
                         { data: 'name' },
                         { data: 'address' },
                         { data: 'phone' },
-                        { data: 'price' },
                         { data: 'status' },
                         { data: 'action', name: 'action', orderable: false, searchable: false }
                     ]
@@ -142,44 +140,14 @@
                 modal.modal('show');
             });
 
-            $(document).on('click', '.js_edit_btn', function (e) {
+            $(document).on('click', '.js_stop_btn', function (e) {
                 e.preventDefault();
-                modal.find('.modal-title').html('Taxrirlash')
-                let status = form.find('.js_status option')
-                let url = $(this).data('one_data_url')
-                let update_url = $(this).data('update_url')
-                form.attr('action', update_url)
-                formClear(form);
-
-                $.ajax({
-                    url: url,
-                    type: "GET",
-                    dataType: "json",
-                    success: (response) => {
-                        form.append("<input type='hidden' name='_method' value='PUT'>");
-                        if (response.success) {
-
-                            let category = form.find('.js_category_id option')
-                            category.val(response.data.category_id);
-
-                            let group = form.find('.js_group option')
-                            group.val(response.data.group);
-
-                            form.find('.js_name').val(response.data.name)
-                            form.find('.js_blanka_number').val(response.data.blanka_number)
-                            form.find('.js_address').val(response.data.address)
-                            form.find('.js_area').val(response.data.area)
-                            form.find('.js_location').val(response.data.location)
-                            form.find('.js_price').val(response.data.price);
-                            form.find('.js_description').val(response.data.description);
-
-                            modal.modal('show')
-                        }
-                    },
-                    error: (response) => {
-                        console.log('error: ',response)
-                    }
-                });
+                let stopModal = $('#stopModal');
+                let form = stopModal.find('form');
+                let url = $(this).data('url');
+                form.attr('action', url);
+                form.find('.js_comment').val('');
+                stopModal.modal('show');
             })
 
             $(document).on('submit', '.js_add_edit_form', function (e) {
@@ -211,6 +179,8 @@
                         handleFieldError(form, errors, 'price');
                         handleFieldError(form, errors, 'location');
                         handleFieldError(form, errors, 'description');
+
+                        handleFieldError(form, errors, 'comment');
                     }
                 });
             });
@@ -219,14 +189,35 @@
             $(document).on("click", ".js_show_btn", function () {
                 let showModal = $('#show_modal');
                 let url = $(this).data('url');
-                // form.attr('action', url)
-                showModal.modal('show');
+                console.log(url);
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    dataType: "JSON",
+                    success: (response) => {
+                        console.log(response)
+                        if (response.success) {
+                            showModal.find('.js_category').html(response.data.category);
+                            showModal.find('.js_blanka_number').html(response.data.blanka_number);
+                            showModal.find('.js_name').html(response.data.name);
+                            showModal.find('.js_area_address').html(response.data.area+', '+response.data.address);
+                            showModal.find('.js_price').html(response.data.price);
+                            showModal.find('.js_description').html(response.data.description);
+                            showModal.find('.js_created_date').html(response.data.created_at);
+
+                            let group = groupSet(response.data.groups)
+                            showModal.find('.js_groups').html(group);
+                            showModal.find('.js_status').html(response.data.status);
+                            showModal.find('.js_comment').html(response.data.comment);
+                            showModal.modal('show');
+                        }
+                    },
+                    error: (response) => {
+                        console.log('error: ', response)
+                    }
+                });
             });
 
-            $(document).on('submit', '#js_modal_delete_form', function (e) {
-                e.preventDefault()
-                delete_function(deleteModal, $(this), table);
-            });
         });
     </script>
 @endpush
