@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('area')->nullable();
             $table->string('address')->nullable();
             $table->text('location')->nullable();
+            $table->integer('quantity')->nullable();
             $table->integer('price')->nullable();
             $table->enum('status', \App\Enums\OrderStatus::toArray())->nullable();
             $table->text('description')->nullable();

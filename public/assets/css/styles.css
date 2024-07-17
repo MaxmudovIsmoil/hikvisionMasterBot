@@ -360,7 +360,7 @@ div.main {
 }
 
 .check-list {
-    height: 247px;
+    height: 315px;
     padding: 5px 10px;
     border-radius: 3px;
     border: 1px solid lightgray;
@@ -421,4 +421,13 @@ div.main {
 }
 .size-12 {
     font-size: 12px!important;
+}
+
+
+.topBar .user-div {
+    display: flex;
+    justify-content: space-evenly;
+}
+.topBar .user-div span{
+    margin-top: 10px;
 }

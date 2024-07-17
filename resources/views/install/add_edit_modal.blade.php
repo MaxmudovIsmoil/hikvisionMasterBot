@@ -47,11 +47,16 @@
                                     <div class="invalid-feedback">Manzilni kiriting!</div>
                                 </div>
                                 <div class="col-md-6 mb-2">
+                                    <label for="quantity">Hizmat soni:</label>
+                                    <input type="number" class="form-control js_quantity" aria-label="quantity" name="quantity">
+                                    <div class="invalid-feedback">Hizmat narxini kiriting!</div>
+                                </div>
+                                <div class="col-md-6 mb-2">
                                     <label for="price">Hizmat narxi:</label>
                                     <input type="number" class="form-control js_price" aria-label="price" name="price">
                                     <div class="invalid-feedback">Hizmat narxini kiriting!</div>
                                 </div>
-                                <div class="col-md-6 mb-2">
+                                <div class="col-md-12 mb-2">
                                     <label for="location">Geo locatsiya:</label>
                                     <input type="text" class="form-control js_location" aria-label="location" name="location">
                                     <div class="invalid-feedback">Geo locatsiyani kiriting!</div>

@@ -6,7 +6,7 @@
                 <h4 class="modal-title">Ishni to'xtatish</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="" method="post" class="js_add_edit_form">
+            <form action="" method="post" class="js_stop_form">
                 @csrf
                 @method('PUT')
                 <div class="modal-body">

@@ -13,6 +13,7 @@ use App\Models\InstallStage;
 use App\Models\InstallStageRun;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Opcodes\LogViewer\Logs\Log;
 use Yajra\DataTables\Facades\DataTables;
 
 class InstallService
@@ -73,20 +74,24 @@ class InstallService
                                 <i class="fas fa-eye"></i>
                             </a>';
 
-                if (
-                    $install->status->isAdminNew() || $install->status->isGroupPostponed() ||
-                    $install->status->isAdminPostponed() || $install->status->isAdminStopped()
-                ) {
+                if ($install->status->isUserNew()) {
                     $btn .= '<a class="js_stop_btn mr-3 btn btn-outline-danger btn-sm"
                                 data-url="'.route('install.stop', $install->id).'"
                                 href="javascript:void(0);" title="To\'tatish">
                                 <i class="fas fa-times"></i> To\'xtatish
                             </a>';
                 }
+                else if($install->status->isUserStopped()) {
+                    $btn .= '<a class="js_stop_btn mr-3 btn btn-outline-danger btn-sm"
+                                data-url="'.route('install.stop', $install->id).'"
+                                href="javascript:void(0);" title="To\'tatish">
+                                <i class="fas fa-undo-alt"></i> Qayta yuborish
+                            </a>';
+                }
                 else {
                     $btn .= '<a class="mr-3 btn btn-outline-secondary btn-sm"
                                 href="javascript:void(0);" title="Edit">
-                                <i class="fas fa-lock"></i> To\'xtatish
+                                <i class="fas fa-eye"></i> To\'xtatilgan
                             </a>';
                 }
 
@@ -116,6 +121,7 @@ class InstallService
                 'address' => $data['address'],
                 'location' => $data['location'],
                 'description' => $data['description'],
+                'quantity' => $data['quantity'],
                 'price' => $data['price'],
                 'status' => OrderStatus::adminNew->value,
                 'creator_id' => Auth::id(),
@@ -160,6 +166,7 @@ class InstallService
             'area' => $data['area'],
             'address' => $data['address'],
             'location' => $data['location'],
+            'quantity' => $data['quantity'],
             'price' => $data['price'],
             'updater_id' => Auth::id()
         ]);
@@ -170,13 +177,23 @@ class InstallService
 
     public function stop(string $comment, int $id): int
     {
-        $this->install::where('id', $id)
-            ->update([
-                'comment' => $comment,
-                'status' => OrderStatus::adminStopped->value,
-                'deleter_id' => Auth::id(),
-                'deleted_at' => now(),
-            ]);
+        $data = [
+            'userId' => Auth::id(),
+            'comment' => $comment,
+            'status' => OrderStatus::userStopped->value,
+            'deleted_at' => Date('H:i, d.m.Y'),
+        ];
+
+        $install = $this->install::findOrFail($id);
+        $data = array_merge((array)$install->comment, $data);
+        \Illuminate\Support\Facades\Log::info(json_encode($data));
+        $install->fill([
+            'comment' => $data,
+            'status' => OrderStatus::userStopped->value,
+            'deleter_id' => Auth::id(),
+        ]);
+
+        // stop status install in groups
 
         return $id;
     }

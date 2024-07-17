@@ -28,6 +28,7 @@ class InstallRequest extends FormRequest
             'phone' => 'required|string|min:9|max:13',
             'area' => 'required',
             'address' => 'required',
+            'quantity' => 'required|numeric',
             'price' => 'required|numeric',
             'location' => 'required',
             'group.*' => 'required',

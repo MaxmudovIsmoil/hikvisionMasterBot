@@ -177,6 +177,7 @@
                         handleFieldError(form, errors, 'area');
                         handleFieldError(form, errors, 'address');
                         handleFieldError(form, errors, 'price');
+                        handleFieldError(form, errors, 'quantity');
                         handleFieldError(form, errors, 'location');
                         handleFieldError(form, errors, 'description');
 
@@ -195,12 +196,13 @@
                     type: "GET",
                     dataType: "JSON",
                     success: (response) => {
-                        console.log(response)
+                        // console.log(response)
                         if (response.success) {
                             showModal.find('.js_category').html(response.data.category);
                             showModal.find('.js_blanka_number').html(response.data.blanka_number);
                             showModal.find('.js_name').html(response.data.name);
                             showModal.find('.js_area_address').html(response.data.area+', '+response.data.address);
+                            showModal.find('.js_quantity').html(response.data.quantity);
                             showModal.find('.js_price').html(response.data.price);
                             showModal.find('.js_description').html(response.data.description);
                             showModal.find('.js_created_date').html(response.data.created_at);
@@ -209,6 +211,7 @@
                             showModal.find('.js_groups').html(group);
                             showModal.find('.js_status').html(response.data.status);
                             showModal.find('.js_comment').html(response.data.comment);
+                            // showModal.find('.js_user_stopped').html(response.data.comment);
                             showModal.modal('show');
                         }
                     },
@@ -218,6 +221,33 @@
                 });
             });
 
+
+            $(document).on('submit', '.js_stop_form', function (e) {
+                let stopModal = $(this).closest('#stopModal');
+                e.preventDefault();
+                let form = $(this);
+                $.ajax({
+                    url: form.attr('action'),
+                    type: "POST",
+                    data: form.serialize(),
+                    dataType: "JSON",
+                    success: (response) => {
+                        console.log(response)
+                        if (response.success) {
+                            stopModal.modal('hide');
+                            form.find('.js_comment').val('');
+                            table.draw();
+                        }
+                    },
+                    error: (response) => {
+                        console.log('error: ', response)
+                        if (response.responseJSON && response.responseJSON.errors) {
+                            let errors = response.responseJSON.errors;
+                            handleFieldError(form, errors, 'comment');
+                        }
+                    }
+                });
+            });
         });
     </script>
 @endpush

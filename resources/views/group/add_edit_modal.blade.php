@@ -18,6 +18,14 @@
                                     <div class="invalid-feedback">Guruh nomini kiriting!</div>
                                 </div>
                                 <div class="col-md-12 mb-2">
+                                    <label for="captain">Masul Usta (Sardor):</label>
+                                    <select class="form-select js_captain" aria-label="captain" name="captain">
+                                        <option value="">User 1</option>
+                                        <option value="">User 2</option>
+                                    </select>
+                                    <div class="invalid-feedback">Ustani tanlang!</div>
+                                </div>
+                                <div class="col-md-12 mb-2">
                                     <label for="phone">Telefon raqam:</label>
                                     <input type="number" class="form-control js_phone" id="phone" name="phone" placeholder="901234567">
                                     <div class="invalid-feedback">Telefon raqamni kiriting!</div>

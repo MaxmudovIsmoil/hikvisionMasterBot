@@ -46,7 +46,6 @@ class ServiceService
 //                return Helper::moneyFormat($service->price);
 //            })
             ->editColumn('status', function($service) {
-//                return '<span class="badge rounded-pill '.$service->status->getCssClass().'">'.$service->status->getLabelText().'</span>';
                 return $service->status->getTextWithStyle();
             })
             ->addColumn('action', function ($service) {
@@ -58,8 +57,8 @@ class ServiceService
                             </a>';
 
                 if (
-                    $service->status->isAdminNew() || $service->status->isGroupPostponed() ||
-                    $service->status->isAdminPostponed() || $service->status->isAdminStopped()
+                    $service->status->isUserNew() || $service->status->isGroupPostponed() ||
+                    $service->status->isUserPostponed() || $service->status->isUserStopped()
                 ) {
                     $btn .= '<a class="js_edit_btn mr-3 btn btn-outline-danger btn-sm"
                                 data-update_url="'.route('service.update', $service->id).'"

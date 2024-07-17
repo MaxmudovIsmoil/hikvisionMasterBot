@@ -27,8 +27,11 @@
 {{--                <label for="search"><i class="fas fa-search"></i></label>--}}
             </div>
             <i class="fas fa-bell"></i>
-            <div class="user user-profile js_user_profile">
-                <img class="dropdown-toggle" src="{{ asset('assets/images/user.png') }}" alt="Admin">
+            <div class="user-div">
+                <span class="user-name">{{ auth()->user()->name }}</span>
+                <div class="user user-profile js_user_profile">
+                    <img class="dropdown-toggle" src="{{ asset('assets/images/user.png') }}" alt="Admin">
+                </div>
             </div>
             <ul class="ul-profile d-none">
                 <li>
@@ -54,37 +57,19 @@
                 <li class="@if(Request::is('dashboard')) active @endif">
                     <a href="{{ route('dashboard') }}">
                         <i class="fas fa-th-large"></i>
-                        <div>Dashboard</div>
+                        <div>Bosh sahifa</div>
                     </a>
                 </li>
                 <li class="@if(Request::is('install')) active @endif">
                     <a href="{{ route('install.index') }}">
                         <i class="fas fa-stream"></i>
-                        <div>установка</div>
+                        <div>O'rnatish</div>
                     </a>
                 </li>
                 <li class="@if(Request::is('service')) active @endif">
                     <a href="{{ route('service.index') }}">
                         <i class="fas fa-layer-group"></i>
-                        <div>Servis</div>
-                    </a>
-                </li>
-                <li class="@if(Request::is('group')) active @endif">
-                    <a href="{{ route('group.index') }}">
-                        <i class="fas fa-user-friends"></i>
-                        <div>Guruh</div>
-                    </a>
-                </li>
-                <li class="@if(Request::is('user')) active @endif">
-                    <a href="{{ route('user.index') }}">
-                        <i class="fas fa-users"></i>
-                        <div>Hodimlar</div>
-                    </a>
-                </li>
-                <li class="@if(Request::is('category-install')) active @endif">
-                    <a href="{{ route('categoryInstall.index') }}">
-                        <i class="fas fa-list-alt"></i>
-                        <div>установка kategoya</div>
+                        <div>Hizmat ko'rsatish</div>
                     </a>
                 </li>
                 <li class="@if(Request::is('report')) active @endif">
@@ -93,10 +78,35 @@
                         <div>Hisobot</div>
                     </a>
                 </li>
+                <li class="@if(Request::is('group')) active @endif">
+                    <a href="{{ route('group.index') }}">
+                        <i class="fas fa-user-friends"></i>
+                        <div>Guruhlar</div>
+                    </a>
+                </li>
+                <li class="@if(Request::is('user')) active @endif">
+                    <a href="{{ route('user.index') }}">
+                        <i class="fas fa-users"></i>
+                        <div>Ustalar</div>
+                    </a>
+                </li>
+                <li class="@if(Request::is('category-install')) active @endif">
+                    <a href="{{ route('categoryInstall.index') }}">
+                        <i class="fas fa-list-alt"></i>
+                        <div>O'rnatish kategoyasi</div>
+                    </a>
+                </li>
                 <li class="@if(Request::is('group-ball')) active @endif">
                     <a href="{{ route('groupBall') }}">
                         <i class="fas fa-coins"></i>
-                        <div>Guruh bal</div>
+                        <div>Guruh bal va E'lonlar</div>
+                    </a>
+                </li>
+
+                <li class="@if(Request::is('user')) active @endif">
+                    <a href="{{ route('user.index') }}">
+                        <i class="fas fa-user"></i>
+                        <div>Hodim</div>
                     </a>
                 </li>
             </ul>
