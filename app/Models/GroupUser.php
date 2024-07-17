@@ -13,6 +13,7 @@ class GroupUser extends Model
     protected $fillable = [
         'group_id',
         'user_id',
+        'capitan',
     ];
 
     public $timestamps = false;

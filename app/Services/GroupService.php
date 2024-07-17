@@ -75,6 +75,12 @@ class GroupService
                 'status' => $data['status']
             ]);
 
+            $this->groupUser::create([
+                'group_id' => $groupId,
+                'user_id' => $data['captain_id'],
+                'capitan' => 1,
+            ]);
+
             for ($u = 0; $u < count($data['user']); $u++) {
                 $this->groupUser::create([
                     'group_id' => $groupId,
@@ -109,6 +115,13 @@ class GroupService
             $group->save();
 
             $this->groupUser::where('group_id', $id)->delete();
+
+            $this->groupUser::create([
+                'group_id' => $id,
+                'user_id' => $data['captain_id'],
+                'capitan' => 1,
+            ]);
+
             if (!empty($data['user'])) {
                 for ($u = 0; $u < count($data['user']); $u++) {
                     $this->groupUser::create([

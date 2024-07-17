@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('group_users', function (Blueprint $table) {
             $table->unsignedBigInteger('group_id');
             $table->unsignedBigInteger('user_id');
+            $table->enum('capitan', [1, null])->nullable();
         });
     }
 

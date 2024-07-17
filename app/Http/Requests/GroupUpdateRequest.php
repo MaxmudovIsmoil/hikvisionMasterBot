@@ -18,6 +18,7 @@ class GroupUpdateRequest extends FormRequest
     {
         return [
             'name' => "required",
+            'captain_id' => "required",
             'ball' => 'required',
             'phone' => [
                 'required',

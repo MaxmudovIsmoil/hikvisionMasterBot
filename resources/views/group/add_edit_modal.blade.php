@@ -18,10 +18,12 @@
                                     <div class="invalid-feedback">Guruh nomini kiriting!</div>
                                 </div>
                                 <div class="col-md-12 mb-2">
-                                    <label for="captain">Masul Usta (Sardor):</label>
-                                    <select class="form-select js_captain" aria-label="captain" name="captain">
-                                        <option value="">User 1</option>
-                                        <option value="">User 2</option>
+                                    <label for="captain">Masul Usta (Yetakchi):</label>
+                                    <select class="form-select js_captain_id" aria-label="captain" name="captain_id">
+                                        <option value="">---</option>
+                                        @foreach($users as $user)
+                                            <option value="{{ $user['id'] }}">{{ $user['name'] }}</option>
+                                        @endforeach
                                     </select>
                                     <div class="invalid-feedback">Ustani tanlang!</div>
                                 </div>
@@ -54,7 +56,7 @@
                             <p class="mb-0">Hodimlar</p>
                             <div class="check-list">
                                 @foreach($users as $u)
-                                    <div class="form-check">
+                                    <div class="form-check jsCheckboxForm">
                                         <input class="form-check-input jsCheckOne" type="checkbox" name="user[]" value="{{ $u['id'] }}" id="check{{$u['id']}}">
                                         <label class="form-check-label" for="check{{$u['id']}}">
                                             {{ $u['name'] }}

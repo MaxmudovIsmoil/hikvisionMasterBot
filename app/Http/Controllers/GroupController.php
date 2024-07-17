@@ -7,6 +7,7 @@ use App\Http\Requests\GroupUpdateRequest;
 use App\Models\User;
 use App\Services\GroupService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
@@ -44,7 +45,7 @@ class GroupController extends Controller
 
     public function store(GroupStoreRequest $request): JsonResponse
     {
-//        return response()->json($request->validated());
+//        return response()->json($request->all());
         try {
             $user = $this->service->store($request->validated());
             return response()->success($user);

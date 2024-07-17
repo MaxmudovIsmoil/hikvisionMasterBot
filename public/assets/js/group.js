@@ -49,3 +49,22 @@ function groupDetailSet(detail) {
 
     $(document).find('.js_div_detail').html(details);
 }
+
+
+$(document).on('change', '.js_captain_id', function () {
+   let userId = $(this).val();
+
+   let users = $('.jsCheckboxForm');
+   $.each(users, function (i, user) {
+       $(user).find('.jsCheckOne').removeAttr('disabled');
+       if (userId === $(user).find('.jsCheckOne').val()) {
+           $(user).find('.jsCheckOne').attr('disabled', true);
+       }
+   });
+});
+
+$('#add_edit_modal button[data-bs-dismiss="modal"]').click(function() {
+
+    $('.jsCheckOne').removeAttr('disabled');
+
+})
