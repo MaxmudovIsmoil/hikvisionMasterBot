@@ -43,6 +43,10 @@ $(document).on('submit', '.js_profile_form', function (e) {
         },
         error: (response) => {
             console.log('error: ', response);
+            if (response.responseJSON && response.responseJSON.errors) {
+                let errors = response.responseJSON.errors;
+                handleFieldError(form, errors, 'username');
+            }
         }
     });
 });

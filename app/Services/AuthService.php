@@ -33,9 +33,8 @@ class AuthService
         Auth::logout();
     }
 
-    public function profile(array $data)
+    public function profile(array $data, int $userId)
     {
-        $userId = Auth::id();
         $user = User::findOrfail($userId);
         if (isset($data['password'])) {
             $user->fill(['password' => Hash::make($data['password'])]);

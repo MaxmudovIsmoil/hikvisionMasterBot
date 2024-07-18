@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryInstallController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GroupBallController;
 use App\Http\Controllers\InstallController;
+use App\Http\Controllers\MasterController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\GroupController;
@@ -70,17 +71,26 @@ Route::middleware('auth')->group(function () {
     Route::get('/group-ball/get/{id}', [GroupBallController::class, 'getOne'])->name('groupBall.getOne');
     Route::put('/group-ball/update/{id}', [GroupBallController::class, 'update'])->name('groupBall.update');
 
+    // Master
+    Route::get('master', [MasterController::class, 'index'])->name('master.index');
+    Route::get('/get-masters', [MasterController::class, 'getMasters'])->name('getMasters');
+    Route::post('master/create', [MasterController::class, 'store'])->name('master.store');
+    Route::get('/masters/one/{id}', [MasterController::class, 'getOne'])->name('master.getOne');
+    Route::post('master/edit/{id}', [MasterController::class, 'update'])->name('master.update');
+    Route::delete('master/delete/{id}', [MasterController::class, 'destroy'])->name('master.destroy');
+
+
     // Users
     Route::resource('user', UserController::class)->except(['create', 'edit', 'show']);
     Route::get('/get-users', [UserController::class, 'getUsers'])->name('getUsers');
-    Route::get('/users/one/{id}', [UserController::class, 'getOne'])->name('user.getOne');
+    Route::get('/user/one/{id}', [UserController::class, 'getOne'])->name('user.getOne');
 
 
     Route::get('/report', [ReportController::class, 'index'])->name('report');
 
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
     // user profile
-    Route::post('/user/profile', [AuthController::class, 'profile'])->name('user.profile');
+    Route::post('/user/profile/{id}', [AuthController::class, 'profile'])->name('user.profile');
 });
 
 Route::get('/test', [\App\Http\Controllers\TelegramController::class, 'test']);

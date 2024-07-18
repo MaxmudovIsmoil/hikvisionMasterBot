@@ -29,6 +29,10 @@ class ServiceService
             ->toArray();
     }
 
+    public function count()
+    {
+        return $this->service->count();
+    }
 
     public function getServices()
     {

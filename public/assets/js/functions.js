@@ -24,3 +24,7 @@ $(document).on('change', '.jsCheckAll', function () {
     $('.jsCheckOne').prop('checked', isChecked);
 })
 
+$('.modal button[data-bs-dismiss="modal"]').click(function() {
+
+    $('input').removeClass('is-invalid');
+})

@@ -7,6 +7,7 @@
                class="btn btn-outline-primary btn-sm addBtn js_add_btn" style="opacity: 1;">
                 <i class="fas fa-plus"></i>&nbsp; Qo'shish
             </a>
+            <div class="text-primary fw-600 service-div-count">Jami: <span>{{ $count }}</span></div>
         </div>
         <div class="content-body">
             <div class="row">
@@ -48,7 +49,7 @@
             var form = modal.find('.js_add_edit_form');
 
             var table = $('#datatable').DataTable({
-                scrollY: '60vh',
+                scrollY: '65vh',
                 scrollCollapse: true,
                 paging: true,
                 pageLength: 100,

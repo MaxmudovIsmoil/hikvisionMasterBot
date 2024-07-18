@@ -6,7 +6,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="profileModalLabel"></h5>
             </div>
-            <form action="{{ route('user.profile') }}" method="post" class="js_profile_form">
+            <form action="{{ route('user.profile', [auth()->user()->id]) }}" method="post" class="js_profile_form">
                 @csrf
                 <div class="modal-body">
                     <div class="row">

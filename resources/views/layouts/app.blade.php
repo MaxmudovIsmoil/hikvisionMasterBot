@@ -63,13 +63,13 @@
                 <li class="@if(Request::is('install')) active @endif">
                     <a href="{{ route('install.index') }}">
                         <i class="fas fa-stream"></i>
-                        <div>O'rnatish</div>
+                        <div>O'rnatishlar</div>
                     </a>
                 </li>
                 <li class="@if(Request::is('service')) active @endif">
                     <a href="{{ route('service.index') }}">
                         <i class="fas fa-layer-group"></i>
-                        <div>Hizmat ko'rsatish</div>
+                        <div>Servislar</div>
                     </a>
                 </li>
                 <li class="@if(Request::is('report')) active @endif">
@@ -84,8 +84,8 @@
                         <div>Guruhlar</div>
                     </a>
                 </li>
-                <li class="@if(Request::is('user')) active @endif">
-                    <a href="{{ route('user.index') }}">
+                <li class="@if(Request::is('master')) active @endif">
+                    <a href="{{ route('master.index') }}">
                         <i class="fas fa-users"></i>
                         <div>Ustalar</div>
                     </a>

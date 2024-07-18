@@ -43,10 +43,10 @@ class AuthController extends Controller
     }
 
 
-    public function profile(UserProfileRequest $request): JsonResponse
+    public function profile(UserProfileRequest $request, int $id): JsonResponse
     {
         try {
-            $result = $this->service->profile($request->validated());
+            $result = $this->service->profile($request->validated(), $id);
             return response()->success($result);
         }
         catch(\Exception $e) {

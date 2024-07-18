@@ -8,7 +8,9 @@
         <div class="card-div">
             <div class="card-content">
                 <div class="number">{{ $installCount }}</div>
-                <div class="card-name">O'rnatishlar</div>
+                <div class="card-name">
+                    <a class="nav-link" href="{{ route('install.index') }}">O'rnatishlar</a>
+                </div>
             </div>
             <div class="icon-box">
 {{--                <i class="fas fa-user-graduate"></i>--}}
@@ -18,7 +20,9 @@
         <div class="card-div">
             <div class="card-content">
                 <div class="number">{{ $serviceCount }}</div>
-                <div class="card-name">Servislar</div>
+                <div class="card-name">
+                    <a class="nav-link" href="{{ route('service.index') }}">Servislar</a>
+                </div>
             </div>
             <div class="icon-box">
                 <i class="fas fa-users-cog"></i>
@@ -27,7 +31,9 @@
         <div class="card-div">
             <div class="card-content">
                 <div class="number">{{ $groupCount }}</div>
-                <div class="card-name">Guruhlar</div>
+                <div class="card-name">
+                    <a class="nav-link" href="{{ route('group.index') }}">Guruhlar</a>
+                </div>
             </div>
             <div class="icon-box">
                 <i class="fas fa-users"></i>

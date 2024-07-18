@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->string('chatId')->nullable();
             $table->enum('status', [1, 0])->default(1)->comment('1-active,0-no active');
-            $table->tinyInteger('role')->default(2)->comment('1-Admin, 2-user, 3-master for bot');
+            $table->enum('role', \App\Enums\UserRole::toArray())->nullable();
             $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

@@ -431,3 +431,14 @@ div.main {
 .topBar .user-div span{
     margin-top: 10px;
 }
+
+.card-name .nav-link:hover{
+    color: #299b63;
+}
+
+.service-div-count {
+    position: absolute;
+    left: 150px;
+    top: 15px;
+    z-index: 1;
+}

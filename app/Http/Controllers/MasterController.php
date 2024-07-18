@@ -2,39 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\InstallRequest;
-use App\Http\Requests\ServiceRequest;
-use App\Services\ServiceService;
+use App\Http\Requests\MasterStoreRequest;
+use App\Http\Requests\MasterUpdateRequest;
+use App\Http\Requests\MaterStoreRequest;
+use App\Http\Requests\MaterUpdateRequest;
+use App\Services\MasterService;
+use App\Services\MaterService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\DB;
 
-class ServiceController extends Controller
+
+class MasterController extends Controller
 {
     public function __construct(
-        public ServiceService $service,
+        public MasterService $service
     ) {}
 
     public function index()
     {
-        $groups = $this->service->groups();
-        $count = $this->service->count();
-
-        return view('service.index',
-            compact('groups', 'count')
-        );
+        return view('master.index');
     }
 
-    public function getServices()
+    public function getMasters()
     {
-        try {
-            return $this->service->getServices();
-        }
-        catch (\Exception $e) {
-            return $e->getMessage();
-        }
+        return $this->service->getMasters();
     }
 
-    public function getOne(int $id): object
+    public function getOne(int $id)
     {
         try {
             return response()->success($this->service->one($id));
@@ -44,22 +37,20 @@ class ServiceController extends Controller
         }
     }
 
-    public function store(ServiceRequest $request): JsonResponse
+    public function store(MasterStoreRequest $request)
     {
-//        return response()->json($request->validated());
+//        return response()->json(['res' =>$request->all()]);
         try {
             $user = $this->service->store($request->validated());
             return response()->success($user);
         }
         catch (\Exception $e) {
-            DB::rollBack();
             return response()->fail($e->getMessage());
         }
     }
 
-    public function update(ServiceRequest $request, int $id): JsonResponse
+    public function update(MasterUpdateRequest $request, int $id): JsonResponse
     {
-        return response()->json($request->validated());
         try {
             $result = $this->service->update($request->validated(), $id);
             return response()->success($result);
@@ -78,5 +69,4 @@ class ServiceController extends Controller
             return response()->fail($e->getMessage());
         }
     }
-
 }

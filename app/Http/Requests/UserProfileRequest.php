@@ -6,6 +6,8 @@ use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rule;
+use Opcodes\LogViewer\Logs\Log;
 
 class UserProfileRequest extends FormRequest
 {
@@ -24,7 +26,11 @@ class UserProfileRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'username' => 'required|min:3|unique:users,phone,'.$this->id,
+            'username' => [
+                'required',
+                'min:3',
+                Rule::unique('users', 'username')->ignore($this->id)
+            ],
             'password' => 'sometimes',
         ];
     }
