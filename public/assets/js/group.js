@@ -51,7 +51,7 @@ function groupDetailSet(detail) {
 }
 
 
-$(document).on('change', '.js_captain_id', function () {
+$(document).on('change', '.js_capitan_id', function () {
    let userId = $(this).val();
 
    let users = $('.jsCheckboxForm');

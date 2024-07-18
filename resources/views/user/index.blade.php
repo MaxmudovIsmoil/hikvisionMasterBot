@@ -83,7 +83,7 @@
             let form = modal.find('.js_add_edit_form')
 
             formClear(form);
-            modal.find('.modal-title').html('User qo\'shish');
+            modal.find('.modal-title').html('Hodim qo\'shish');
             form.attr('action', url);
             modal.modal('show');
         })
@@ -95,9 +95,8 @@
             let form = modal.find('.js_add_edit_form');
             formClear(form);
 
-            modal.find('.modal-title').html('Foydalanuvchi taxrirlash');
+            modal.find('.modal-title').html('Hodim taxrirlash');
             form.attr('action', update_url);
-            form.append('<input type="hidden" name="_method" value="PUT">');
 
             $.ajax({
                 type: 'GET',

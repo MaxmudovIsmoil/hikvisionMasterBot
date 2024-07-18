@@ -18,8 +18,8 @@
                                     <div class="invalid-feedback">Guruh nomini kiriting!</div>
                                 </div>
                                 <div class="col-md-12 mb-2">
-                                    <label for="captain">Masul Usta (Yetakchi):</label>
-                                    <select class="form-select js_captain_id" aria-label="captain" name="captain_id">
+                                    <label for="capitan">Masul Usta (Yetakchi):</label>
+                                    <select class="form-select js_capitan_id" aria-label="capitan" name="capitan_id">
                                         <option value="">---</option>
                                         @foreach($users as $user)
                                             <option value="{{ $user['id'] }}">{{ $user['name'] }}</option>

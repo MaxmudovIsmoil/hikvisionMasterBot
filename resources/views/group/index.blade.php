@@ -103,7 +103,7 @@
                 url: one_url,
                 dataType: 'JSON',
                 success: (response) => {
-                    // console.log('response: ', response);
+                    console.log('response: ', response);
                     if (response.success) {
                         form.find('.js_name').val(response.data.name);
                         form.find('.js_address').val(response.data.address);
@@ -112,15 +112,24 @@
                         form.find('.js_level').val(response.data.level);
                         let status = form.find('.js_status option')
                         status.val(response.data.status);
-
-
                         let users = form.find('.jsCheckOne');
+
+                        var capitanId = null;
                         let userResponses = response.data.user.reduce((acc, userRes) => {
-                            acc[userRes['user_id']] = true;
-                            return acc;
+                            if(userRes['capitan']) {
+                                form.find('.js_capitan_id option').val(userRes['user_id']);
+                                acc[userRes['user_id']] = false;
+                                capitanId = userRes['user_id'];
+                                return acc;
+                            }
+                            else {
+                                acc[userRes['user_id']] = true;
+                                return acc;
+                            }
                         }, {});
 
-                        users.each(function () {
+                        form.find('.js_capitan_id option').val(capitanId);
+                        users.each(function (i, user) {
                             let userId = parseFloat($(this).val());
                             if (userResponses[userId]) {
                                 $(this).prop('checked', true);
@@ -160,7 +169,10 @@
 
                         handleFieldError(form, errors, 'name');
                         handleFieldError(form, errors, 'level');
+                        handleFieldError(form, errors, 'phone');
                         handleFieldError(form, errors, 'ball');
+                        handleFieldError(form, errors, 'capitan_id');
+
 
                         let length = $('.js_div_detail').length;
                         for(let i = 0; i <= length; i++) {

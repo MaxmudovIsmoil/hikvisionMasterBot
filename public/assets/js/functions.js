@@ -20,6 +20,11 @@ $(document).on('input', 'input', function () {
 })
 
 
+$(document).on('change', 'select', function () {
+    $(this).removeClass('is-invalid');
+})
+
+
 $(document).on('change', '.jsCheckAll', function () {
     let isChecked = $(this).is(':checked');
     $('.jsCheckOne').prop('checked', isChecked);

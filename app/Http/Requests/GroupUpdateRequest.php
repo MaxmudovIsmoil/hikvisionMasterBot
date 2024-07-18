@@ -18,13 +18,11 @@ class GroupUpdateRequest extends FormRequest
     {
         return [
             'name' => "required",
-            'captain_id' => "required",
+            'capitan_id' => "required",
             'ball' => 'required',
             'phone' => [
                 'required',
-                'string',
-                'min:9',
-                'max:13',
+                'size:9',
                 Rule::unique('groups', 'phone')->ignore($this->route('group')),
             ],
             'level' => 'required',

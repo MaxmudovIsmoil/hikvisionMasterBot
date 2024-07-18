@@ -77,7 +77,7 @@ class GroupService
 
             $this->groupUser::create([
                 'group_id' => $groupId,
-                'user_id' => $data['captain_id'],
+                'user_id' => $data['capitan_id'],
                 'capitan' => 1,
             ]);
 
@@ -118,7 +118,7 @@ class GroupService
 
             $this->groupUser::create([
                 'group_id' => $id,
-                'user_id' => $data['captain_id'],
+                'user_id' => $data['capitan_id'],
                 'capitan' => 1,
             ]);
 

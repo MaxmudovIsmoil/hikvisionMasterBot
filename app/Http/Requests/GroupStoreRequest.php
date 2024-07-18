@@ -17,7 +17,7 @@ class GroupStoreRequest extends FormRequest
     {
         return [
             'name' => "required",
-            'captain_id' => "required",
+            'capitan_id' => "required",
             'ball' => 'required',
             'phone' => 'required|string|unique:groups,phone|min:9|max:13',
             'level' => 'required',

@@ -19,7 +19,7 @@ class GroupController extends Controller
     public function index()
     {
         $users = User::select('id', 'name')
-            ->where('role', 2)
+            ->where(['role' => 3, 'status' => 1])
             ->whereNull('deleted_at')
             ->get()
             ->toArray();
