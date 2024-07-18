@@ -13,7 +13,6 @@
                 </div>
             </div>
             <div class="icon-box">
-{{--                <i class="fas fa-user-graduate"></i>--}}
                 <i class="fas fa-project-diagram"></i>
             </div>
         </div>
@@ -36,7 +35,7 @@
                 </div>
             </div>
             <div class="icon-box">
-                <i class="fas fa-users"></i>
+                <i class="fas fa-user-friends"></i>
             </div>
         </div>
         <div class="card-div">

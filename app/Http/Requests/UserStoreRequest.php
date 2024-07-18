@@ -19,25 +19,12 @@ class UserStoreRequest extends FormRequest
         $rules = [
             'job' => 'required',
             'name' => 'required',
-            'phone' => 'required|min:7|max:13',
+            'phone' => 'required|size:9|unique:users,phone',
             'address' => 'sometimes',
             'status' => 'required',
-            'role' => 'required',
-            'username' => 'sometimes',
-            'password' => 'sometimes',
+            'username' => 'required|unique:users,username',
+            'password' => 'required|min:3',
         ];
-
-        if ($this->input(key: 'role') == 2) {
-            $rules['username'] = 'required|unique:users,username';
-            $rules['password'] = 'required|min:3';
-        }
-
-//        $this->sometimes('username', 'required|unique:users,username', function ($input) {
-//            return $input->role == 2;
-//        });
-//        $this->sometimes('password', 'required|min:3', function ($input) {
-//            return $input->role == 2;
-//        });
 
         return $rules;
     }

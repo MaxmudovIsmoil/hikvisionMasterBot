@@ -62,20 +62,14 @@
                 </li>
                 <li class="@if(Request::is('install')) active @endif">
                     <a href="{{ route('install.index') }}">
-                        <i class="fas fa-stream"></i>
+                        <i class="fas fa-project-diagram"></i>
                         <div>O'rnatishlar</div>
                     </a>
                 </li>
                 <li class="@if(Request::is('service')) active @endif">
                     <a href="{{ route('service.index') }}">
-                        <i class="fas fa-layer-group"></i>
+                        <i class="fas fa-users-cog"></i>
                         <div>Servislar</div>
-                    </a>
-                </li>
-                <li class="@if(Request::is('report')) active @endif">
-                    <a href="{{ route('report') }}">
-                        <i class="fas fa-chart-bar"></i>
-                        <div>Hisobot</div>
                     </a>
                 </li>
                 <li class="@if(Request::is('group')) active @endif">
@@ -84,10 +78,22 @@
                         <div>Guruhlar</div>
                     </a>
                 </li>
+                <li class="@if(Request::is('report')) active @endif">
+                    <a href="{{ route('report') }}">
+                        <i class="fas fa-chart-bar"></i>
+                        <div>Hisobot</div>
+                    </a>
+                </li>
                 <li class="@if(Request::is('master')) active @endif">
                     <a href="{{ route('master.index') }}">
                         <i class="fas fa-users"></i>
                         <div>Ustalar</div>
+                    </a>
+                </li>
+                <li class="@if(Request::is('user')) active @endif">
+                    <a href="{{ route('user.index') }}">
+                        <i class="fas fa-user"></i>
+                        <div>Hodimlar</div>
                     </a>
                 </li>
                 <li class="@if(Request::is('category-install')) active @endif">
@@ -100,13 +106,6 @@
                     <a href="{{ route('groupBall') }}">
                         <i class="fas fa-coins"></i>
                         <div>Guruh bal va E'lonlar</div>
-                    </a>
-                </li>
-
-                <li class="@if(Request::is('user')) active @endif">
-                    <a href="{{ route('user.index') }}">
-                        <i class="fas fa-user"></i>
-                        <div>Hodim</div>
                     </a>
                 </li>
             </ul>

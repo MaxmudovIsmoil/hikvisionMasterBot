@@ -7,6 +7,7 @@
                class="btn btn-outline-primary btn-sm addBtn js_add_btn">
                 <i class="fas fa-user-plus"></i>&nbsp; Qo'shish
             </a>
+            <div class="text-primary fw-600 div-count">Jami: <span>{{ $count }}</span></div>
         </div>
         <div class="content-body">
             <div class="row">
@@ -21,7 +22,7 @@
                                         <th>Ism</th>
                                         <th>Telefon raqam</th>
                                         <th>Yashsh mazil</th>
-                                        <th>Role</th>
+                                        <th>Status</th>
                                         <th>Login</th>
                                         <th class="text-right">Harakat</th>
                                     </tr>
@@ -71,7 +72,7 @@
                 {data: 'name'},
                 {data: 'phone'},
                 {data: 'address'},
-                {data: 'role'},
+                {data: 'status'},
                 {data: 'username'},
                 {data: 'action', orderable: false, searchable: false}
             ]
@@ -82,7 +83,7 @@
             let form = modal.find('.js_add_edit_form')
 
             formClear(form);
-            modal.find('.modal-title').html('Group qo\'shish');
+            modal.find('.modal-title').html('User qo\'shish');
             form.attr('action', url);
             modal.modal('show');
         })
@@ -94,7 +95,7 @@
             let form = modal.find('.js_add_edit_form');
             formClear(form);
 
-            modal.find('.modal-title').html('Edit group');
+            modal.find('.modal-title').html('Foydalanuvchi taxrirlash');
             form.attr('action', update_url);
             form.append('<input type="hidden" name="_method" value="PUT">');
 
@@ -112,15 +113,6 @@
                         form.find('.js_username').val(response.data.username);
                         let status = form.find('.js_status option')
                         status.val(response.data.status);
-
-                        let role = form.find('.js_role');
-                        role.val(response.data.role);
-                        if(response.data.role === 2) {
-                            form.find('.js_div_login').removeClass('d-none');
-                        }
-                        else {
-                            form.find('.js_div_login').addClass('d-none');
-                        }
                     }
                     modal.modal('show');
                 },
@@ -142,10 +134,11 @@
                 dataType: "json",
                 data: form.serialize(),
                 success: (response) => {
-                    // console.log('response: ', response);
+                    console.log('response: ', response);
                     if (response.success) {
                         modal.modal('hide');
                         datatable.draw();
+                        formClear(form);
                     }
                     else {
                         let errors = response.errors;
@@ -169,14 +162,6 @@
         });
 
 
-        // $(document).on("click", ".js_delete_btn", function () {
-        //     let name = $(this).data('name')
-        //     let url = $(this).data('url')
-        //     deleteModal.find('.modal-title').html(name)
-        //     let form = deleteModal.find('#js_modal_delete_form')
-        //     form.attr('action', url)
-        //     deleteModal.modal('show');
-        // });
 
         $(document).on('submit', '#js_modal_delete_form', function (e) {
             e.preventDefault()

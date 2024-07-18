@@ -7,6 +7,7 @@
                class="btn btn-outline-primary btn-sm addBtn js_add_btn">
                 <i class="fas fa-user-plus"></i>&nbsp; Qo'shish
             </a>
+            <div class="text-primary fw-600 div-count">Jami: <span>{{ $count }}</span></div>
         </div>
         <div class="content-body">
             <div class="row">
@@ -132,6 +133,7 @@
                     if (response.success) {
                         modal.modal('hide');
                         datatable.draw();
+                        formClear(form);
                     }
                     else {
                         let errors = response.errors;

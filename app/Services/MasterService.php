@@ -14,6 +14,11 @@ class MasterService
         public User $model
     ) {}
 
+    public function count()
+    {
+        return $this->model->where('role', 3)->whereNull('deleted_at')->count();
+    }
+
     public function getMasters()
     {
         $masters = $this->model->where('role', 3)
@@ -62,7 +67,7 @@ class MasterService
     public function store(array $data): bool
     {
         $this->model::create([
-            'job' => $data['name'],
+            'job' => $data['job'],
             'name' => $data['name'],
             'address' => $data['address'] ?? null,
             'phone' => $data['phone'],
@@ -79,7 +84,7 @@ class MasterService
     {
         $this->model::where('id', $id)
             ->update([
-                'job' => $data['name'],
+                'job' => $data['job'],
                 'name' => $data['name'],
                 'address' => $data['address'],
                 'phone' => $data['phone'],

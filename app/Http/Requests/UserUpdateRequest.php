@@ -18,37 +18,15 @@ class UserUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules = [
+        return [
             'job' => 'required',
             'name' => 'required',
-            'phone' => 'required|min:7|max:13',
+            'phone' => 'required|size:9|unique:users,phone,'.$this->id,
             'address' => 'sometimes',
             'status' => 'required',
-            'role' => 'required',
-            'username' => 'sometimes',
+            'username' => 'required|unique:users,username,' . $this->id,
             'password' => 'sometimes',
         ];
-
-        if ($this->input(key: 'role') == 2) {
-//            $rules['username'] = 'required|unique:users,username';
-//            $rules['username'] = ['required', Rule::unique('users', 'username')->ignore($this->user)];
-            $rules['username'] = 'required|unique:users,username,' . $this->user;
-            $rules['password'] = 'required|min:3';
-        }
-
-         return $rules;
-//        return [
-//            'dep' => 'required',
-//            'pos' => 'required',
-//            'name' => 'required|string|max:255',
-//            'email'=> ['required', 'email', Rule::unique('users', 'email')->ignore($this->user)],
-//            'login'=> ['required', Rule::unique('users', 'login')->ignore($this->user)],
-////            'username' => 'required|unique:users,username,' . $this->user,
-//            'password' => 'sometimes',
-//            'language' => 'required',
-//            'ldap' => 'required',
-//            'status' => 'required',
-//        ];
     }
 
     public function failedValidation(Validator $validator)

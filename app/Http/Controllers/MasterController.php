@@ -19,7 +19,9 @@ class MasterController extends Controller
 
     public function index()
     {
-        return view('master.index');
+        $count = $this->service->count();
+
+        return view('master.index', compact('count'));
     }
 
     public function getMasters()

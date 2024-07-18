@@ -1,5 +1,6 @@
 function formClear(form) {
     $(form).find('input[type="text"]').val('');
+    $(form).find('input[type="number"]').val('');
     $(form).find('input[name="_method"]').remove();
     $('select option').prop('selected', false);
     $('.jsCheckOne').prop('checked', false);

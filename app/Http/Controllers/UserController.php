@@ -16,7 +16,8 @@ class UserController extends Controller
 
     public function index()
     {
-        return view('user.index');
+        $count = $this->service->count();
+        return view('user.index', compact('count'));
     }
 
     public function getUsers()
@@ -36,7 +37,6 @@ class UserController extends Controller
 
     public function store(UserStoreRequest $request)
     {
-//        return response()->json(['res' =>$request->all()]);
         try {
             $user = $this->service->store($request->validated());
             return response()->success($user);

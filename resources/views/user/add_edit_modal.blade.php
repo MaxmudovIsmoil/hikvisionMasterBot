@@ -20,17 +20,12 @@
                             <input type="text" class="form-control js_name" id="fio" name="name">
                             <div class="invalid-feedback">F.I.O ni kiriting!</div>
                         </div>
-                        <div class="col-md-6 mb-2">
+                        <div class="col-md-4 mb-2">
                             <label for="phone">Telefon raqam</label>
-                            <input type="text" class="form-control js_phone" name="phone" placeholder="901234567" aria-label="phone" >
+                            <input type="number" class="form-control js_phone" name="phone" placeholder="901234567" aria-label="phone" >
                             <div class="invalid-feedback">Telefon raqam kiriting!</div>
                         </div>
-                        <div class="col-md-6 mb-2">
-                            <label for="address">Manzil</label>
-                            <input type="text" class="form-control js_address" aria-label="address" name="address">
-                            <div class="invalid-feedback">Manzilni kiriting!</div>
-                        </div>
-                        <div class="col-md-6 mb-2">
+                        <div class="col-md-2 mb-2">
                             <label for="status">Status</label>
                             <select class="form-select" name="status" aria-label="status">
                                 <option value="1">Faol</option>
@@ -38,26 +33,22 @@
                             </select>
                         </div>
                         <div class="col-md-6 mb-2">
-                            <label for="status">Role</label>
-                            <select class="form-select js_role" name="role" aria-label="role">
-                                <option value="3">Mater</option>
-                                <option value="2">User</option>
-                            </select>
+                            <label for="address">Manzil</label>
+                            <input type="text" class="form-control js_address" aria-label="address" name="address">
+                            <div class="invalid-feedback">Manzilni kiriting!</div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="row js_div_login d-none">
-                                <div class="col-md-6 mb-2">
-                                    <label for="username">Login</label>
-                                    <input type="text" class="form-control js_username" name="username" aria-label="username">
-                                    <div class="invalid-feedback">Malumotni kiriting!</div>
-                                </div>
-                                <div class="col-md-6 mb-2">
-                                    <label for="password">Parol</label>
-                                    <input type="text" class="form-control js_password" name="password" aria-label="password">
-                                    <div class="invalid-feedback">Malumotni kiriting!</div>
-                                </div>
-                            </div>
+
+                        <div class="col-md-6 mb-2">
+                            <label for="username">Login</label>
+                            <input type="text" class="form-control js_username" name="username" aria-label="username">
+                            <div class="invalid-feedback">Malumotni kiriting!</div>
                         </div>
+                        <div class="col-md-6 mb-2">
+                            <label for="password">Parol</label>
+                            <input type="text" class="form-control js_password" name="password" aria-label="password">
+                            <div class="invalid-feedback">Malumotni kiriting!</div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="modal-footer">

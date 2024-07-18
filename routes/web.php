@@ -81,9 +81,12 @@ Route::middleware('auth')->group(function () {
 
 
     // Users
-    Route::resource('user', UserController::class)->except(['create', 'edit', 'show']);
+    Route::get('user', [UserController::class, 'index'])->name('user.index');
     Route::get('/get-users', [UserController::class, 'getUsers'])->name('getUsers');
-    Route::get('/user/one/{id}', [UserController::class, 'getOne'])->name('user.getOne');
+    Route::post('user/create', [UserController::class, 'store'])->name('user.store');
+    Route::get('/users/one/{id}', [UserController::class, 'getOne'])->name('user.getOne');
+    Route::post('user/edit/{id}', [UserController::class, 'update'])->name('user.update');
+    Route::delete('user/delete/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 
 
     Route::get('/report', [ReportController::class, 'index'])->name('report');

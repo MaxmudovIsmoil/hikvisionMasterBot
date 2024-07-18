@@ -7,7 +7,7 @@
                class="btn btn-outline-primary btn-sm addBtn js_add_btn" style="opacity: 1;">
                 <i class="fas fa-plus"></i>&nbsp; Qo'shish
             </a>
-            <div class="text-primary fw-600 service-div-count">Jami: <span>{{ $count }}</span></div>
+            <div class="text-primary fw-600 div-count">Jami: <span>{{ $count }}</span></div>
         </div>
         <div class="content-body">
             <div class="row">
