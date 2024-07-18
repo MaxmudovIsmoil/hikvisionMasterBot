@@ -7,20 +7,21 @@
     <div class="cards">
         <div class="card-div">
             <div class="card-content">
-                <div class="number">1217</div>
-                <div class="card-name">Hizmatlar</div>
+                <div class="number">{{ $installCount }}</div>
+                <div class="card-name">O'rnatishlar</div>
             </div>
             <div class="icon-box">
-                <i class="fas fa-user-graduate"></i>
+{{--                <i class="fas fa-user-graduate"></i>--}}
+                <i class="fas fa-project-diagram"></i>
             </div>
         </div>
         <div class="card-div">
             <div class="card-content">
-                <div class="number">42</div>
-                <div class="card-name">Tugallangan ishlar</div>
+                <div class="number">{{ $serviceCount }}</div>
+                <div class="card-name">Servislar</div>
             </div>
             <div class="icon-box">
-                <i class="fas fa-chalkboard-teacher"></i>
+                <i class="fas fa-users-cog"></i>
             </div>
         </div>
         <div class="card-div">
@@ -44,7 +45,7 @@
     </div>
     <div class="charts">
     <div class="chart">
-        <h2>Ishlar (past 12 months)</h2>
+        <h2>Ishlar (oxirgi 12 oylik)</h2>
         <div>
             <canvas id="lineChart"></canvas>
         </div>

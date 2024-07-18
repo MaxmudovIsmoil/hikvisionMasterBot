@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
+use App\Models\Install;
+use App\Models\Service;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -16,9 +18,11 @@ class DashboardController extends Controller
         $groupCount = Group::where('status', 1)->count();
         $userCount = User::where(['status' => 1, 'role' => 2])->count();
 
+        $installCount = Install::count();
+        $serviceCount = Service::count();
 
         return view('dashboard',
-            compact('groupCount', 'userCount')
+            compact('groupCount', 'userCount', 'installCount', 'serviceCount')
         );
     }
 
