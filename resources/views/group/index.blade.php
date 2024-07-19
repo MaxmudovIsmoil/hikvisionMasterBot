@@ -114,21 +114,18 @@
                         status.val(response.data.status);
                         let users = form.find('.jsCheckOne');
 
-                        var capitanId = null;
                         let userResponses = response.data.user.reduce((acc, userRes) => {
                             if(userRes['capitan']) {
-                                form.find('.js_capitan_id option').val(userRes['user_id']);
+                                form.find('.js_capitan_id').val(userRes['user_id']);
+                                capitanChange(userRes['user_id']);
                                 acc[userRes['user_id']] = false;
-                                capitanId = userRes['user_id'];
                                 return acc;
                             }
-                            else {
-                                acc[userRes['user_id']] = true;
-                                return acc;
-                            }
+                            acc[userRes['user_id']] = true;
+                            return acc;
                         }, {});
 
-                        form.find('.js_capitan_id option').val(capitanId);
+                        // form.find('.js_capitan_id option').val(capitanId);
                         users.each(function (i, user) {
                             let userId = parseFloat($(this).val());
                             if (userResponses[userId]) {
@@ -137,6 +134,7 @@
                         });
 
                         groupDetailSet(response.data.detail);
+
                     }
                     modal.modal('show');
                 },

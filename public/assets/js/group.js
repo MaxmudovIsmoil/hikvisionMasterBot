@@ -1,5 +1,3 @@
-
-
 function draw(item = 1) {
     let detailDiv = '<div class="row js_div_detail">\n' +
         '                                <div class="col-md-6 mb-2">\n' +
@@ -16,18 +14,6 @@ function draw(item = 1) {
 
     $(document).find('.js_div_detail').last().after(detailDiv);
 }
-
-$(document).on('click', '.js_plus_btn', function () {
-    let item = $(document).find('.js_div_detail').length;
-    draw(item);
-})
-
-$(document).on('click', '.js_minus_btn', function () {
-    let length = $(document).find('.js_div_detail').length;
-    if (length > 1) {
-        $(document).find('.js_div_detail').last().remove();
-    }
-})
 
 function groupDetailSet(detail) {
 
@@ -51,20 +37,35 @@ function groupDetailSet(detail) {
 }
 
 
-$(document).on('change', '.js_capitan_id', function () {
-   let userId = $(this).val();
+function capitanChange(userId) {
+    const users = $('.jsCheckboxForm');
+    $.each(users, function (i, user) {
+        $(user).find('.jsCheckOne').removeAttr('disabled');
+        let checkUserId = parseFloat($(user).find('.jsCheckOne').val());
+        if (userId === checkUserId) {
+            $(user).find('.jsCheckOne').attr('disabled', true);
+        }
+    });
+}
 
-   let users = $('.jsCheckboxForm');
-   $.each(users, function (i, user) {
-       $(user).find('.jsCheckOne').removeAttr('disabled');
-       if (userId === $(user).find('.jsCheckOne').val()) {
-           $(user).find('.jsCheckOne').attr('disabled', true);
-       }
-   });
+$(document).on('click', '.js_plus_btn', function () {
+    let item = $(document).find('.js_div_detail').length;
+    draw(item);
+})
+
+$(document).on('click', '.js_minus_btn', function () {
+    let length = $(document).find('.js_div_detail').length;
+    if (length > 1) {
+        $(document).find('.js_div_detail').last().remove();
+    }
+})
+
+
+$(document).on('change', '.js_capitan_id', function () {
+   let userId = parseFloat($(this).val());
+   capitanChange(userId);
 });
 
 $('#add_edit_modal button[data-bs-dismiss="modal"]').click(function() {
-
     $('.jsCheckOne').removeAttr('disabled');
-
 })
