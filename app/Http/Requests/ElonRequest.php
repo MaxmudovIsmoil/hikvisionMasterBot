@@ -22,7 +22,7 @@ class ElonRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'group_id.*' => 'required',
+            'group.*' => 'required',
             'message' => 'required'
         ];
     }

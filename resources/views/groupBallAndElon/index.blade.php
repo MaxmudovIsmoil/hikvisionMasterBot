@@ -9,18 +9,21 @@
                         <div class="card-datatable">
                             <table class="table" id="datatable">
                                 <thead>
-                                <tr>
-                                    <th>Guruh bal yig'ish haqida ma'lumot</th>
-                                    <th class="text-right">Harakat</th>
-                                </tr>
+                                    <tr>
+                                        <th>Guruh bal yig'ish haqida ma'lumot</th>
+                                        <th class="text-right">Harakat</th>
+                                    </tr>
                                 </thead>
                                 <tbody></tbody>
                             </table>
                         </div>
                     </div>
-                    <br>
-                    <div class="col-12 position-relative">
 
+                    <div class="col-12 mt-2">
+                        <div class="alert alert-success text-center position-relative">
+                            <a class="btn btn-sm btn-primary add-elon-btn js_add_btn"><i class="fas fa-plus"></i> Qo'shish</a>
+                            <p class="h4 mb-0">E'lonlar</p>
+                        </div>
                         <div class="card">
                             <div class="card-datatable">
                                 <table class="table" id="elon">
@@ -44,8 +47,8 @@
 
     </div>
 
-    @include('groupBall.add_edit_modal')
-    @include('groupBall.elon_modal')
+    @include('groupBallAndElon.add_edit_modal')
+    @include('groupBallAndElon.elon_modal')
 
 @endsection
 
@@ -150,7 +153,7 @@
                 "url": '{{ route("getElon") }}',
             },
             columns: [
-                { data: 'DT_RowIndex' },
+                {data: 'DT_RowIndex'},
                 {data: 'group'},
                 {data: 'message'},
                 {data: 'created_at'},
@@ -158,6 +161,11 @@
             ]
         });
 
+
+        $(document).on('click', '.js_add_btn', function (e) {
+            e.preventDefault();
+            elonModal.modal('show');
+        });
 
         $('.js_elon_form').on('submit', function (e) {
             e.preventDefault()
@@ -170,16 +178,22 @@
                 dataType: "json",
                 data: form.serialize(),
                 success: (response) => {
-                    // console.log('response: ', response);
+                    console.log('response: ', response);
                     if (response.success) {
-                        modal.modal('hide');
-                        datatable.draw();
+                        elonModal.modal('hide');
+                        elon.draw();
                     }
                 },
                 error: (response) => {
                     console.log("errors: ", response)
                 }
             })
+        });
+
+        $(document).on('submit', '#js_modal_delete_form', function (e) {
+            e.preventDefault();
+            let deleteModal = $('#deleteModal');
+            delete_function(deleteModal, $(this), elon);
         });
     </script>
 @endpush

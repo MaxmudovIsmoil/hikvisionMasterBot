@@ -8,6 +8,7 @@ use App\Models\Elon;
 use App\Models\Group;
 use App\Models\GroupBall;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -20,9 +21,10 @@ class GroupBallController extends Controller
 
     public function index()
     {
+
         $groups = Group::whereNull('deleted_at')->where('status', 1)->get();
 
-        return view('groupBall.index', compact('groups'));
+        return view('groupBallAndElon.index', compact('groups'));
     }
 
 
@@ -39,8 +41,8 @@ class GroupBallController extends Controller
             ->addColumn('action', function ($group) {
                 return '<div class="d-flex justify-content-end">
                             <a class="js_edit_btn mr-3 btn btn-outline-primary btn-sm"
-                                data-update_url="'.route('groupBall.update', $group->id).'"
-                                data-one_url="'.route('groupBall.getOne', $group->id).'"
+                                data-update_url="'.route('groupBallAndElon.update', $group->id).'"
+                                data-one_url="'.route('groupBallAndElon.getOne', $group->id).'"
                                 href="javascript:void(0);" title="Edit">
                                 <i class="fas fa-pen"></i> Taxrirlash
                             </a>
@@ -86,13 +88,16 @@ class GroupBallController extends Controller
             ->addIndexColumn()
             ->editColumn('id', '{{$id}}')
             ->editColumn('group', function($elon) {
-                Log::info(json_encode($elon->groupIds));
-                $group = Group::whereIn('id', $elon->groupIds)->get();
-                $groupName = '';
-                foreach($group as $g) {
-                    $groupName .= $g->name.', ';
+                if ($elon->groupIds !== null) {
+                    $groupIds = json_decode($elon->groupIds);
+                    $group = Group::whereIn('id', $groupIds)->get();
+                    $groupName = '';
+                    foreach ($group as $g) {
+                        $groupName .= $g->name . '; ';
+                    }
+                    return $groupName;
                 }
-                return $groupName;
+                return '';
             })
             ->editColumn('message', function ($elon) {
                 return nl2br($elon->message);
@@ -102,8 +107,8 @@ class GroupBallController extends Controller
             })
             ->addColumn('action', function ($elon) {
                 return '<div class="d-flex justify-content-end">
-                            <a class="js_edit_btn mr-3 btn btn-outline-danger btn-sm"
-                                data-one_url="'.route('groupBall.getOne', $elon->id).'"
+                            <a class="js_delete_btn mr-3 btn btn-outline-danger btn-sm"
+                                data-url="'.route('elon.destroy', $elon->id).'"
                                 href="javascript:void(0);" title="Delete">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
@@ -119,11 +124,23 @@ class GroupBallController extends Controller
     {
         try {
             Elon::create([
-                'groupIds' => $request->validated('group_id'),
+                'groupIds' => json_encode($request->validated('group')),
                 'message' => $request->validated('message'),
-                'status' => 1
+                'status' => 1,
+                'creator_id' => Auth::id(),
             ]);
             return response()->success('ok');
+        }
+        catch(\Exception $e) {
+            return response()->fail($e->getMessage());
+        }
+    }
+
+    public function destroyElon(int $id)
+    {
+        try {
+            Elon::destroy($id);
+            return response()->success($id);
         }
         catch(\Exception $e) {
             return response()->fail($e->getMessage());

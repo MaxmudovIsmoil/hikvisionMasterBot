@@ -66,12 +66,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/group/one/{id}', [GroupController::class, 'getOne'])->name('group.getOne');
 
     // Group ball send text admin to telegram
-    Route::get('/group-ball', [GroupBallController::class, 'index'])->name('groupBall');
+    Route::get('/group-ball', [GroupBallController::class, 'index'])->name('groupBallAndElon');
     Route::get('/group-ball/all', [GroupBallController::class, 'getBall'])->name('getGroupBall');
-    Route::get('/group-ball/get/{id}', [GroupBallController::class, 'getOneBall'])->name('groupBall.getOne');
-    Route::put('/group-ball/update/{id}', [GroupBallController::class, 'updateBAll'])->name('groupBall.update');
+    Route::get('/group-ball/get/{id}', [GroupBallController::class, 'getOneBall'])->name('groupBallAndElon.getOne');
+    Route::put('/group-ball/update/{id}', [GroupBallController::class, 'updateBAll'])->name('groupBallAndElon.update');
     Route::get('/elon/get', [GroupBallController::class, 'getElon'])->name('getElon');
     Route::post('/elon/create', [GroupBallController::class, 'storeElon'])->name('elon.store');
+    Route::delete('/elon/delete/{id}', [GroupBallController::class, 'destroyElon'])->name('elon.destroy');
 
     // Master
     Route::get('master', [MasterController::class, 'index'])->name('master.index');

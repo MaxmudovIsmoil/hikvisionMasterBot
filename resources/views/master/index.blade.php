@@ -19,7 +19,7 @@
                                     <tr>
                                         <th>№</th>
                                         <th>Kasbi</th>
-                                        <th>Ism</th>
+                                        <th>F.I.O</th>
                                         <th>Telefon raqam</th>
                                         <th>Yashsh mazil</th>
                                         <th>Status</th>

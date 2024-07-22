@@ -103,7 +103,7 @@
                     </a>
                 </li>
                 <li class="@if(Request::is('group-ball')) active @endif">
-                    <a href="{{ route('groupBall') }}">
+                    <a href="{{ route('groupBallAndElon') }}">
                         <i class="fas fa-coins"></i>
                         <div>Guruh bal va E'lonlar</div>
                     </a>

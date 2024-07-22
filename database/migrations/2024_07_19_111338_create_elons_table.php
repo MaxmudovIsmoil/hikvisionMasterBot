@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->json('groupIds')->nullable();
             $table->string('message')->nullable();
+            $table->unsignedBigInteger('creator_id')->nullable();
+            $table->unsignedBigInteger('deleter_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
