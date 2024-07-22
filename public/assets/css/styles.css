@@ -442,3 +442,14 @@ div.main {
     top: 15px;
     z-index: 1;
 }
+
+i.fa-copy {
+  cursor: pointer;
+}
+
+.add-elon-btn {
+    position: absolute;
+    left: 10px;
+    top: 5px;
+    z-index: 1;
+}

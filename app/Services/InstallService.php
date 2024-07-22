@@ -123,7 +123,7 @@ class InstallService
                 'description' => $data['description'],
                 'quantity' => $data['quantity'],
                 'price' => $data['price'],
-                'status' => OrderStatus::adminNew->value,
+                'status' => OrderStatus::userNew->value,
                 'creator_id' => Auth::id(),
             ]);
 
@@ -140,7 +140,7 @@ class InstallService
                     InstallSendGroup::create([
                         'group_id' => $groupId,
                         'install_id' => $installId,
-                        'status' => OrderStatus::adminNew->value
+                        'status' => OrderStatus::userNew->value
                     ]);
                 }
             }
@@ -185,14 +185,14 @@ class InstallService
         ];
 
         $install = $this->install::findOrFail($id);
-        $data = array_merge((array)$install->comment, $data);
-        \Illuminate\Support\Facades\Log::info(json_encode($data));
+//        $data = array_merge((array)$install->comment, $data);
         $install->fill([
             'comment' => $data,
             'status' => OrderStatus::userStopped->value,
             'deleter_id' => Auth::id(),
         ]);
 
+        \Illuminate\Support\Facades\Log::info(json_encode($data));
         // stop status install in groups
 
         return $id;

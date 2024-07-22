@@ -189,10 +189,8 @@
 
             $(document).on("click", ".js_show_btn", function () {
                 let showModal = $('#show_modal');
-                let url = $(this).data('url');
-                console.log(url);
                 $.ajax({
-                    url: url,
+                    url: $(this).data('url'),
                     type: "GET",
                     dataType: "JSON",
                     success: (response) => {
@@ -201,9 +199,11 @@
                             showModal.find('.js_category').html(response.data.category);
                             showModal.find('.js_blanka_number').html(response.data.blanka_number);
                             showModal.find('.js_name').html(response.data.name);
+                            showModal.find('.js_phone').html(response.data.phone);
                             showModal.find('.js_area_address').html(response.data.area+', '+response.data.address);
                             showModal.find('.js_quantity').html(response.data.quantity);
                             showModal.find('.js_price').html(response.data.price);
+                            showModal.find('.js_location').html(locationSet(response.data.location));
                             showModal.find('.js_description').html(response.data.description);
                             showModal.find('.js_created_date').html(response.data.created_at);
 
@@ -211,7 +211,7 @@
                             showModal.find('.js_groups').html(group);
                             showModal.find('.js_status').html(response.data.status);
                             showModal.find('.js_comment').html(response.data.comment);
-                            // showModal.find('.js_user_stopped').html(response.data.comment);
+
                             showModal.modal('show');
                         }
                     },

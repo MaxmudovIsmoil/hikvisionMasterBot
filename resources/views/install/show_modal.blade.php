@@ -24,12 +24,16 @@
                                     <td class="js_name"></td>
                                 </tr>
                                 <tr>
+                                    <td class="fw-500">Telefon raqam</td>
+                                    <td class="js_phone"></td>
+                                </tr>
+                                <tr>
                                     <td class="fw-500">Hudud, Manzil</td>
                                     <td class="js_area_address"></td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-500">Telefon raqam</td>
-                                    <td class="js_phone"></td>
+                                    <td class="fw-500">Lokatisiya</td>
+                                    <td class="js_location"><span></span></td>
                                 </tr>
                                 <tr>
                                     <td class="fw-500">Soni</td>
@@ -38,10 +42,6 @@
                                 <tr>
                                     <td class="fw-500">Hizmat narxi</td>
                                     <td><span class="js_price"></span> so'm</td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-500">Lokatisiya</td>
-                                    <td class="js_location"><span></span></td>
                                 </tr>
                                 <tr>
                                     <td class="fw-500">Izoh</td>

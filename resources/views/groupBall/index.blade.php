@@ -10,12 +10,32 @@
                             <table class="table" id="datatable">
                                 <thead>
                                 <tr>
-                                    <th>Text</th>
+                                    <th>Guruh bal yig'ish haqida ma'lumot</th>
                                     <th class="text-right">Harakat</th>
                                 </tr>
                                 </thead>
                                 <tbody></tbody>
                             </table>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="col-12 position-relative">
+
+                        <div class="card">
+                            <div class="card-datatable">
+                                <table class="table" id="elon">
+                                    <thead>
+                                        <tr>
+                                            <th>№</th>
+                                            <th>Guruh</th>
+                                            <th>E'lon</th>
+                                            <th>Vaqti</th>
+                                            <th class="text-right">Harakat</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -25,6 +45,7 @@
     </div>
 
     @include('groupBall.add_edit_modal')
+    @include('groupBall.elon_modal')
 
 @endsection
 
@@ -63,7 +84,7 @@
             let form = modal.find('.js_add_edit_form');
             formClear(form);
 
-            modal.find('.modal-title').html('Kategoriya taxrirlash');
+            modal.find('.modal-title').html('Taxrirlash');
             form.attr('action', update_url);
             form.append('<input type="hidden" name="_method" value="PUT">');
 
@@ -108,5 +129,57 @@
             })
         });
 
+        // Elon
+        var elonModal = $('#elonModal');
+
+        var elon = $('#elon').DataTable({
+            scrollY: '70vh',
+            scrollCollapse: true,
+            paging: false,
+            lengthChange: false,
+            searching: false,
+            info: false,
+            autoWidth: true,
+            language: {
+                search: "",
+                searchPlaceholder: "Izlash",
+            },
+            processing: true,
+            serverSide: true,
+            ajax: {
+                "url": '{{ route("getElon") }}',
+            },
+            columns: [
+                { data: 'DT_RowIndex' },
+                {data: 'group'},
+                {data: 'message'},
+                {data: 'created_at'},
+                {data: 'action', orderable: false, searchable: false}
+            ]
+        });
+
+
+        $('.js_elon_form').on('submit', function (e) {
+            e.preventDefault()
+            let form = $(this)
+            let action = form.attr('action')
+
+            $.ajax({
+                url: action,
+                type: "POST",
+                dataType: "json",
+                data: form.serialize(),
+                success: (response) => {
+                    // console.log('response: ', response);
+                    if (response.success) {
+                        modal.modal('hide');
+                        datatable.draw();
+                    }
+                },
+                error: (response) => {
+                    console.log("errors: ", response)
+                }
+            })
+        });
     </script>
 @endpush

@@ -67,9 +67,11 @@ Route::middleware('auth')->group(function () {
 
     // Group ball send text admin to telegram
     Route::get('/group-ball', [GroupBallController::class, 'index'])->name('groupBall');
-    Route::get('/group-ball/all', [GroupBallController::class, 'get'])->name('getGroupBall');
-    Route::get('/group-ball/get/{id}', [GroupBallController::class, 'getOne'])->name('groupBall.getOne');
-    Route::put('/group-ball/update/{id}', [GroupBallController::class, 'update'])->name('groupBall.update');
+    Route::get('/group-ball/all', [GroupBallController::class, 'getBall'])->name('getGroupBall');
+    Route::get('/group-ball/get/{id}', [GroupBallController::class, 'getOneBall'])->name('groupBall.getOne');
+    Route::put('/group-ball/update/{id}', [GroupBallController::class, 'updateBAll'])->name('groupBall.update');
+    Route::get('/elon/get', [GroupBallController::class, 'getElon'])->name('getElon');
+    Route::post('/elon/create', [GroupBallController::class, 'storeElon'])->name('elon.store');
 
     // Master
     Route::get('master', [MasterController::class, 'index'])->name('master.index');
@@ -97,5 +99,3 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/test', [\App\Http\Controllers\TelegramController::class, 'test']);
-
-
