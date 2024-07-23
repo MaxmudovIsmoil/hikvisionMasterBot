@@ -16,6 +16,6 @@ use SergiX44\Nutgram\Nutgram;
 |
 */
 
-Route::get('/webhook', [WebHookCommand::class, '__invoke']);
+//Route::get('/webhook', [WebHookCommand::class, '__invoke']);
 
 Route::get('/start', [StartCommand::class, 'start']);
