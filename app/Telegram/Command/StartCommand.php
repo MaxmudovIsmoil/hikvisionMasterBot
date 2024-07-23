@@ -11,7 +11,8 @@ class StartCommand
     public function start(Nutgram $bot)
     {
         Log::info('bot');
-        $bot->sendMessage('Welcome to the bot!');
+        $chatId = config('adminChatId');
+        $bot->sendMessage('Welcome to the bot!', $chatId);
 
         $bot->run(Webhook::class);
     }
