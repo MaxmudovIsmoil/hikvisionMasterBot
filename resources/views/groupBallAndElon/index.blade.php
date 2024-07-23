@@ -195,5 +195,11 @@
             let deleteModal = $('#deleteModal');
             delete_function(deleteModal, $(this), elon);
         });
+
+
+        $('.modal button[data-bs-dismiss="modal"]').click(function() {
+            $('.jsCheckOne').removeAttr('disabled');
+        });
+
     </script>
 @endpush
