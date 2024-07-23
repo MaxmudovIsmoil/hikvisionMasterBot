@@ -20,8 +20,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        LogViewer::auth(function ($request) {
-            return $request->user() && ($request->user()->role === 1);
-        });
+//        LogViewer::auth(function ($request) {
+//            return $request->user() && ($request->user()->role === 1);
+//        });
     }
 }
