@@ -26,9 +26,9 @@ Route::get('/start', [StartCommand::class]);
 
 
 
-$bot->onException(function (Nutgram $bot, \Throwable $exception) {
-    \Illuminate\Support\Facades\Log::info($exception->getMessage());
-
-    $chatId = env('ADMIN_CHAT_ID');
-    $bot->sendMessage('Error: ' . $exception->getMessage(), $chatId);
-});
+//$bot->onException(function (Nutgram $bot, \Throwable $exception) {
+//    \Illuminate\Support\Facades\Log::info($exception->getMessage());
+//
+//    $chatId = env('ADMIN_CHAT_ID');
+//    $bot->sendMessage('Error: ' . $exception->getMessage(), $chatId);
+//});
