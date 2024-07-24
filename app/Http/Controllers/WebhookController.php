@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Facades\Telegram;
-use Illuminate\Http\Request;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use SergiX44\Nutgram\Nutgram;
 
 class WebhookController extends Controller
 {
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
     public function __invoke(Nutgram $bot)
     {
 //        $message    = $request['message'] ?? [];

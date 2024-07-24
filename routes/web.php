@@ -10,6 +10,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WebhookController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -100,3 +101,5 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/test', [\App\Http\Controllers\TelegramController::class, 'test']);
+
+Route::post('/webhook', [WebHookController::class, '__invoke']);
