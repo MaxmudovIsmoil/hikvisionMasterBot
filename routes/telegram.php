@@ -1,6 +1,7 @@
 <?php
 ///** @var SergiX44\Nutgram\Nutgram $bot */
 
+use App\Http\Controllers\WebhookController;
 use App\Telegram\Command\RunCommand;
 use App\Telegram\Command\StartCommand;
 use App\Telegram\Command\WebHookCommand;
@@ -19,7 +20,7 @@ use SergiX44\Nutgram\RunningMode\Polling;
 |
 */
 
-Route::get('/webhook', [WebhookCommand::class, '__invoke']);
+Route::get('/webhook', [WebhookController::class, '__invoke']);
 
 
 Route::get('/start', [StartCommand::class, 'start']);
