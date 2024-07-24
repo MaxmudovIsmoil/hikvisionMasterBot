@@ -2,7 +2,9 @@
 
 namespace App\Facades;
 
-class Telegram
+use Illuminate\Support\Facades\Facade;
+
+class Telegram extends Facade
 {
     protected static function getFacadeAccessor()
     {
