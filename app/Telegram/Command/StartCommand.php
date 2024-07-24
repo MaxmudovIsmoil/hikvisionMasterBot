@@ -2,13 +2,16 @@
 
 namespace App\Telegram\Command;
 
-use App\Facades\Telegram;
+use SergiX44\Nutgram\Handlers\Type\Command;
+use SergiX44\Nutgram\Nutgram;
 
-class StartCommand
+class StartCommand extends Command
 {
-    public function start()
+    protected string $command = 'start';
+
+    public function handle(Nutgram $bot): void
     {
-        Telegram::sendMessage('Hello');
+        $bot->sendMessage('Salom bot');
     }
 
 }

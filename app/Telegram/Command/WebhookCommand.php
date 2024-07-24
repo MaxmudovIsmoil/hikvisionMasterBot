@@ -8,12 +8,8 @@ use SergiX44\Nutgram\Nutgram;
 
 class WebhookCommand extends Controller
 {
-    public function __invoke()
+    public function __invoke(Nutgram $bot)
     {
-        $api = config('telegram.api');
-        $token = config('telegram.token');
-        $url = config('app.url');
-        $http = Http::get($api.$token.'/setWebhook?url='.$url.'/start');
-        dd($http->body());
+        $bot->run();
     }
 }

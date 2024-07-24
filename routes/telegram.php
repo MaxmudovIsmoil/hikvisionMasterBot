@@ -1,13 +1,10 @@
 <?php
-///** @var SergiX44\Nutgram\Nutgram $bot */
+/** @var SergiX44\Nutgram\Nutgram $bot */
 
-use App\Http\Controllers\WebhookController;
-use App\Telegram\Command\RunCommand;
 use App\Telegram\Command\StartCommand;
 use App\Telegram\Command\WebHookCommand;
 use Illuminate\Support\Facades\Route;
 use SergiX44\Nutgram\Nutgram;
-use SergiX44\Nutgram\RunningMode\Polling;
 
 
 /*
@@ -20,16 +17,18 @@ use SergiX44\Nutgram\RunningMode\Polling;
 |
 */
 
-Route::get('/webhook', [WebhookController::class, '__invoke']);
+//Route::get('/webhook', [WebhookController::class, '__invoke']);
 
 
-Route::get('/start', [StartCommand::class, 'start']);
+Route::get('/webhook', [WebHookCommand::class, '__invoke']);
+
+Route::get('/start', [StartCommand::class]);
 
 
 
-//$bot->onException(function (Nutgram $bot, \Throwable $exception) {
-//    \Illuminate\Support\Facades\Log::info($exception->getMessage());
-//
-//    $chatId = env('ADMIN_CHAT_ID');
-//    $bot->sendMessage('Error: ' . $exception->getMessage(), $chatId);
-//});
+$bot->onException(function (Nutgram $bot, \Throwable $exception) {
+    \Illuminate\Support\Facades\Log::info($exception->getMessage());
+
+    $chatId = env('ADMIN_CHAT_ID');
+    $bot->sendMessage('Error: ' . $exception->getMessage(), $chatId);
+});
