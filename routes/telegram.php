@@ -1,6 +1,7 @@
 <?php
 /** @var SergiX44\Nutgram\Nutgram $bot */
 
+use App\Http\Controllers\WebhookController;
 use App\Telegram\Command\StartCommand;
 use App\Telegram\Command\WebHookCommand;
 use Illuminate\Support\Facades\Route;
@@ -20,7 +21,7 @@ use SergiX44\Nutgram\Nutgram;
 //Route::get('/webhook', [WebhookController::class, '__invoke']);
 
 
-Route::get('/webhook', [WebHookCommand::class, '__invoke']);
+Route::get('/webhook', [WebHookController::class, '__invoke']);
 
 Route::get('/start', [StartCommand::class]);
 
