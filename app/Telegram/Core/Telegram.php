@@ -10,9 +10,10 @@ class Telegram
     private ?string $api;
     private ?string $token;
 
-    public function __construct(
-        public Http $http
-    ) {
+    public object $http;
+
+    public function __construct(Http $http) {
+        $this->http = $http;
         $this->api = config('telegram.api');
         $this->token = config('telegram.token');
     }
