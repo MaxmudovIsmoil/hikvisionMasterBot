@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Telegram\Core\Telegram;
 use Illuminate\Support\ServiceProvider;
 use Opcodes\LogViewer\Facades\LogViewer;
 
@@ -12,7 +13,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind('telegram-facade', function () {
+            return new Telegram();
+        });
     }
 
     /**

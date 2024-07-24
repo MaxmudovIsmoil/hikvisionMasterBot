@@ -13,3 +13,4 @@ Artisan::command('inspire', function () {
 Artisan::command('bol', function (Schedule $schedule) {
     $schedule->command('bot:polling')->everyMinute();
 });
+

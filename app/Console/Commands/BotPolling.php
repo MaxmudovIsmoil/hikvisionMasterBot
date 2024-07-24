@@ -18,10 +18,6 @@ class BotPolling extends Command
 
     public function handle()
     {
-        $bot = app(Nutgram::class);
-
-        $bot->onCommand('start', StartCommand::class);
-
-        $bot->run();
+        //
     }
 }

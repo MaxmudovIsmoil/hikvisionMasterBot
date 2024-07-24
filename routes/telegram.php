@@ -19,8 +19,8 @@ use SergiX44\Nutgram\RunningMode\Polling;
 |
 */
 
-Route::get('/webhook', [RunCommand::class, 'webhook']);
-Route::get('/polling', [RunCommand::class, 'polling']);
+Route::get('/webhook', [WebhookCommand::class, '__invoke']);
+
 
 Route::get('/start', [StartCommand::class, 'start']);
 

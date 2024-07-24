@@ -2,16 +2,13 @@
 
 namespace App\Telegram\Command;
 
-use Illuminate\Support\Facades\Log;
-use SergiX44\Nutgram\Nutgram;
-use SergiX44\Nutgram\RunningMode\Webhook;
+use App\Facades\Telegram;
 
 class StartCommand
 {
-    public function start(Nutgram $bot)
+    public function start()
     {
-        Log::info('bot');
-        $bot->sendMessage('Welcome to the bot!');
+        Telegram::sendMessage('Hello');
     }
 
 }
