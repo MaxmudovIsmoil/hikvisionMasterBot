@@ -16,11 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/start', [StartCommand::class]);
-
-//Telegram::onCommand('start', function () {
-//    Telegram::sendMessage('Hello, world!');
-//});
+Telegram::onCommand('start', function () {
+    Telegram::sendMessage('Hello, world!');
+});
 
 //$bot->onException(function (Nutgram $bot, \Throwable $exception) {
 //    \Illuminate\Support\Facades\Log::info($exception->getMessage());
