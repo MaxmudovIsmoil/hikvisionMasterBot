@@ -13,7 +13,7 @@ class NutgramServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(Nutgram::class, function ($app) {
-            return new Nutgram(config('telegram.token'));
+            return new Nutgram(config('nutgram.token'));
         });
     }
 
