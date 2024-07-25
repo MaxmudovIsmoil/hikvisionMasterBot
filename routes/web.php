@@ -100,4 +100,4 @@ Route::middleware('auth')->group(function () {
     Route::post('/user/profile/{id}', [AuthController::class, 'profile'])->name('user.profile');
 });
 
-Route::post('/webhook', [WebhookController::class, '__invoke'])->name('webhook');
+//Route::post('/webhook', [WebhookController::class, '__invoke'])->name('webhook');

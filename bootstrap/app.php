@@ -12,6 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
         then: function () {
             Route::name('telegram.')->group(base_path('routes/telegram.php'));
+            Route::name('api.')->prefix('api')->group(base_path('routes/api.php'));
         },
     )
     ->withMiddleware(function (Middleware $middleware) {
