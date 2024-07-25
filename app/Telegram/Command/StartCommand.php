@@ -2,11 +2,10 @@
 
 namespace App\Telegram\Command;
 
-use App\Helpers\Helper;
 use Illuminate\Support\Facades\Log;
 use SergiX44\Nutgram\Handlers\Type\Command;
 use SergiX44\Nutgram\Nutgram;
-use SergiX44\Nutgram\Telegram\Properties\ParseMode;
+use SergiX44\Nutgram\RunningMode\Polling;
 use SergiX44\Nutgram\Telegram\Types\Keyboard\KeyboardButton;
 use SergiX44\Nutgram\Telegram\Types\Keyboard\ReplyKeyboardMarkup;
 
@@ -16,8 +15,10 @@ class StartCommand extends Command
 
     public function handle(Nutgram $bot): void
     {
-        Log::info('start command');
-        $bot->sendMessage('Salom bot Hush kelibsiz');
+        $bot->setRunningMode(Polling::class);
+
+        Log::info('Start command');
+        $bot->sendMessage('Salom bot hush kelibsiz');
 
         $bot->sendMessage(
             text: 'Welcome!',

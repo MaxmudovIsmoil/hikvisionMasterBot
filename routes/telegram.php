@@ -4,10 +4,7 @@
 
 use App\Telegram\Command\StartCommand;
 use Nutgram\Laravel\Facades\Telegram;
-use SergiX44\Nutgram\RunningMode\Polling;
 
-
-$bot->setRunningMode(Polling::class);
 
 //Telegram::onCommand('start', function () {
 //    Telegram::sendMessage('Hello, world!');
