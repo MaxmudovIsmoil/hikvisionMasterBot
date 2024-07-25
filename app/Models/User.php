@@ -28,6 +28,7 @@ class User extends Authenticatable
         'username',
         'status',
         'role',
+        'chatId',
         'password',
         'email',
         'creator_id',

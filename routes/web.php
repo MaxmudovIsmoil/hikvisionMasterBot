@@ -10,9 +10,9 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\WebhookController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use SergiX44\Nutgram\Nutgram;
 
 
 Route::get('/', function () {

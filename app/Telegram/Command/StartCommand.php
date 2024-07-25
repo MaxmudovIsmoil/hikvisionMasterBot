@@ -2,31 +2,99 @@
 
 namespace App\Telegram\Command;
 
-use Illuminate\Support\Facades\Log;
-use SergiX44\Nutgram\Handlers\Type\Command;
+use App\Facades\Telegram;
+use SergiX44\Nutgram\Conversations\Conversation;
 use SergiX44\Nutgram\Nutgram;
-use SergiX44\Nutgram\RunningMode\Polling;
+use SergiX44\Nutgram\Telegram\Properties\ParseMode;
 use SergiX44\Nutgram\Telegram\Types\Keyboard\KeyboardButton;
 use SergiX44\Nutgram\Telegram\Types\Keyboard\ReplyKeyboardMarkup;
 
-class StartCommand extends Command
+class StartCommand extends Conversation
 {
-    protected string $command = 'start';
+    protected ?string $step = 'start';
 
-    public function handle(Nutgram $bot): void
+    public function start(Nutgram $bot): void
     {
-        $bot->setRunningMode(Polling::class);
+        $chatId = $bot->chatId();
 
-        Log::info('Start command');
-        $bot->sendMessage('Salom bot hush kelibsiz');
+        if (Telegram::userChatIdDoesntExist($chatId)) {
+            $this->sendWelcomeMessage($bot);
+            $this->next('phoneStep');
+        } else {
+            $this->sendAdminContactMessage($bot);
+        }
+    }
 
+    private function sendWelcomeMessage(Nutgram $bot): void
+    {
+        $name = Telegram::getName($bot);
+        $text = "Assalomu alaykum <b>{$name}</b> botga hush kelibsiz.\nIltimos telefon raqamingizni kiriting!\nMisol uchun: 901234567";
         $bot->sendMessage(
-            text: 'Welcome!',
-            reply_markup: ReplyKeyboardMarkup::make()->addRow(
-                KeyboardButton::make('Give me food!'),
-                KeyboardButton::make('Give me animal!'),
-            )
+            text: $text,
+            parse_mode: ParseMode::HTML,
+            reply_markup: $this->getPhoneRequestKeyboard()
         );
     }
 
+    private function sendAdminContactMessage(Nutgram $bot): void
+    {
+        $name = Telegram::getName($bot);
+        $text = "<b>{$name}</b> savolingiz bo'lsa adminga murojaat qiling";
+        $bot->sendMessage(
+            text: $text,
+            parse_mode: ParseMode::HTML,
+            reply_markup: $this->getMainMenuKeyboard()
+        );
+    }
+
+    private function getPhoneRequestKeyboard(): ReplyKeyboardMarkup
+    {
+        return ReplyKeyboardMarkup::make(resize_keyboard: true)
+            ->addRow(
+                KeyboardButton::make(text: "📱 Telefon raqamni jo'natish", request_contact: true),
+            );
+    }
+
+    private function getMainMenuKeyboard(): ReplyKeyboardMarkup
+    {
+        return ReplyKeyboardMarkup::make(resize_keyboard: true)
+            ->addRow(
+                KeyboardButton::make(text: "Shaxsiy kabinet"),
+                KeyboardButton::make(text: "Yordam"),
+            );
+    }
+
+    public function phoneStep(Nutgram $bot): void
+    {
+        $chatId = $bot->chatId();
+
+        $phone = $bot->message()->contact
+            ? $bot->message()->contact->phone_number
+            : $bot->message()->text;
+
+
+        if (Telegram::checkPhoneNumber($phone)) {
+            $this->handlePhoneNumber($bot, $phone, $chatId);
+        } else {
+            $bot->sendMessage("🚫 Telefon raqam noto'g'ri.\nIltimos qaytadan kiriting!");
+        }
+    }
+
+    private function handlePhoneNumber(Nutgram $bot, string $phone, int $chatId): void
+    {
+        $user = Telegram::checkPhoneAndGetUser($phone, $chatId);
+
+        if ($user !== null) {
+            $text = "Hush kelibsiz <b>{$user->name}</b> siz bilan ishlashdan mamnunmiz!";
+            $bot->sendMessage(
+                text: $text,
+                parse_mode: ParseMode::HTML,
+                reply_markup: $this->getMainMenuKeyboard()
+            );
+            $this->end();
+        }
+        else {
+            $bot->sendMessage("🚫 Telefon raqam noto'g'ri.\nIltimos qaytadan kiriting!");
+        }
+    }
 }
