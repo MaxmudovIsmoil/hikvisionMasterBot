@@ -26,7 +26,21 @@ Telegram::onText('Bosh sahifa', function (\SergiX44\Nutgram\Nutgram $bot) {
 
 Telegram::onText('Shahsiy kabinet', function (\SergiX44\Nutgram\Nutgram $bot) {
     $bot->sendMessage(
-        text: 'Shahsiy kabinet',
+        text: 'Shahsiy kabinet menu',
+        parse_mode: ParseMode::HTML,
+        reply_markup: ReplyKeyboardMarkup::make(resize_keyboard: true)
+            ->addRow(
+                KeyboardButton::make(text: "Ball yig’ish uchun nima qilish kerak"),
+            )->addRow(
+                KeyboardButton::make(text: "Bosh sahifa"),
+                KeyboardButton::make(text: "Balansni tekshirish")
+            )
+    );
+});
+
+Telegram::onText('Yordam', function (\SergiX44\Nutgram\Nutgram $bot) {
+    $bot->sendMessage(
+        text: 'Yordam menu',
         parse_mode: ParseMode::HTML,
         reply_markup: ReplyKeyboardMarkup::make(resize_keyboard: true)
             ->addRow(
@@ -37,17 +51,24 @@ Telegram::onText('Shahsiy kabinet', function (\SergiX44\Nutgram\Nutgram $bot) {
 });
 
 
-//Telegram::onText('/start', function (\SergiX44\Nutgram\Nutgram $bot) {
-//    $bot->sendMessage('salom');
-//});
-
+Telegram::onText('Balansni tekshirish', function (\SergiX44\Nutgram\Nutgram $bot) {
+    $bot->sendMessage(
+        text: 'Balansni tekshirish menu',
+        parse_mode: ParseMode::HTML,
+        reply_markup: ReplyKeyboardMarkup::make(resize_keyboard: true)
+            ->addRow(
+                KeyboardButton::make(text: "Bosh sahifa"),
+                KeyboardButton::make(text: "Medatni belgilash"),
+            )
+    );
+});
 
 Telegram::onText("test", function (\SergiX44\Nutgram\Nutgram $bot) {
     $bot->sendMessage('test message');
 });
 
 
-Telegram::onText('infoBall', function(\SergiX44\Nutgram\Nutgram $bot) {
+Telegram::onText('Ball yig’ish uchun nima qilish kerak', function(\SergiX44\Nutgram\Nutgram $bot) {
     $ball = GroupBall::first()->text;
     $bot->sendMessage(text: $ball, parse_mode: ParseMode::HTML);
 });

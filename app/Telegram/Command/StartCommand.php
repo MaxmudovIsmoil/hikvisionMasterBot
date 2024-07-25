@@ -22,6 +22,7 @@ class StartCommand extends Conversation
             $this->next('phoneStep');
         } else {
             $this->sendAdminContactMessage($bot);
+            $this->end();
         }
     }
 
