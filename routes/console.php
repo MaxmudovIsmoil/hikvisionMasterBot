@@ -9,8 +9,3 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote')->hourly();
 
 
-
-Artisan::command('bol', function (Schedule $schedule) {
-    $schedule->command('bot:polling')->everyMinute();
-});
-
