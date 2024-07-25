@@ -19,13 +19,13 @@ class StartCommand extends Command
         Log::info('start command');
         $bot->sendMessage('Salom bot Hush kelibsiz');
 
-//        $bot->sendMessage(
-//            text: 'Welcome!',
-//            reply_markup: ReplyKeyboardMarkup::make()->addRow(
-//                KeyboardButton::make('Give me food!'),
-//                KeyboardButton::make('Give me animal!'),
-//            )
-//        );
+        $bot->sendMessage(
+            text: 'Welcome!',
+            reply_markup: ReplyKeyboardMarkup::make()->addRow(
+                KeyboardButton::make('Give me food!'),
+                KeyboardButton::make('Give me animal!'),
+            )
+        );
     }
 
 }

@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 
 Telegram::onCommand('start', StartCommand::class);
 
+//$bot->onCommand('start', StartCommand::class);
+
 //$bot->onException(function (Nutgram $bot, \Throwable $exception) {
 //    \Illuminate\Support\Facades\Log::info($exception->getMessage());
 //

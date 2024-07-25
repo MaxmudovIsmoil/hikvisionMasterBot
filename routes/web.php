@@ -99,5 +99,3 @@ Route::middleware('auth')->group(function () {
     // user profile
     Route::post('/user/profile/{id}', [AuthController::class, 'profile'])->name('user.profile');
 });
-
-//Route::post('/webhook', [WebHookController::class, '__invoke']);
