@@ -10,7 +10,6 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\WebhookController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -99,7 +98,3 @@ Route::middleware('auth')->group(function () {
     // user profile
     Route::post('/user/profile/{id}', [AuthController::class, 'profile'])->name('user.profile');
 });
-
-Route::get('/test', [\App\Http\Controllers\TelegramController::class, 'test']);
-
-//Route::get('/webhook', [WebHookController::class, '__invoke']);

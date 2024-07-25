@@ -11,7 +11,6 @@ use SergiX44\Nutgram\RunningMode\RunningMode;
 class WebhookController extends Controller
 {
 
-
     public function __invoke(Nutgram $bot)
     {
 //        $message    = $request['message'] ?? [];

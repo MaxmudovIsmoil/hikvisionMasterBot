@@ -3,10 +3,8 @@
 
 use App\Http\Controllers\WebhookController;
 use App\Telegram\Command\StartCommand;
-use App\Telegram\Command\WebHookCommand;
 use Illuminate\Support\Facades\Route;
 use SergiX44\Nutgram\Nutgram;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -14,12 +12,15 @@ use SergiX44\Nutgram\Nutgram;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register telegram handlers for Nutgram. These
-| handlers are loaded by the Nutgram ServiceProvider. Enjoy!
+| handlers are loaded by the NutgramServiceProvider. Enjoy!
 |
 */
 
+$bot->onCommand('start', function (Nutgram $bot) {
+    return $bot->sendMessage('Hello, world!');
+})->description('The start command!');
 
-Route::get('/webhook', [WebhookController::class, '__invoke']);
+//Route::post('/webhook', [WebhookController::class, '__invoke']);
 
 
 Route::get('/start', [StartCommand::class]);

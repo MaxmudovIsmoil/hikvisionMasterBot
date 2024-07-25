@@ -8,6 +8,7 @@
         "php": "^8.2",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
+        "nutgram/laravel": "^1.4",
         "nutgram/nutgram": "^4.24",
         "opcodesio/log-viewer": "^3.10",
         "yajra/laravel-datatables-oracle": "11.0"
