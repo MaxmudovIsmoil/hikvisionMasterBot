@@ -14,7 +14,7 @@ Telegram::onCommand('start', StartCommand::class);
 
 //$bot->onCommand('start', StartCommand::class);
 
-$bot->onException(function (\SergiX44\Nutgram\Nutgram $bot, \Throwable $exception) {
+Telegram::onException(function (\SergiX44\Nutgram\Nutgram $bot, \Throwable $exception) {
     \Illuminate\Support\Facades\Log::info($exception->getMessage());
 
     $chatId = config('nutgram.TELEGRAM_ADMIN_CHAT_ID');
