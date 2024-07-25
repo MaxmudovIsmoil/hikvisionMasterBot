@@ -102,4 +102,4 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/test', [\App\Http\Controllers\TelegramController::class, 'test']);
 
-Route::post('/webhook', [WebHookController::class, '__invoke']);
+Route::get('/webhook', [WebHookController::class, '__invoke']);
