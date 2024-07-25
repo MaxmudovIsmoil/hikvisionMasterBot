@@ -6,13 +6,12 @@ use Illuminate\Support\Facades\Log;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use SergiX44\Nutgram\Nutgram;
+use SergiX44\Nutgram\RunningMode\RunningMode;
 
 class WebhookController extends Controller
 {
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     */
+
+
     public function __invoke(Nutgram $bot)
     {
 //        $message    = $request['message'] ?? [];
@@ -24,7 +23,7 @@ class WebhookController extends Controller
 //            Telegram::sendSharePhoneBtn($chatId, $firstName);
 //        }
 //        Telegram::sendMessage($chatId, "Salom");
-
         $bot->run();
     }
+
 }
