@@ -3,6 +3,7 @@
 
 
 use App\Models\GroupBall;
+use App\Telegram\Command\PersonalCabinetCommand;
 use App\Telegram\Command\StartCommand;
 use Nutgram\Laravel\Facades\Telegram;
 use SergiX44\Nutgram\Telegram\Properties\ParseMode;
@@ -24,19 +25,7 @@ Telegram::onText('Bosh sahifa', function (\SergiX44\Nutgram\Nutgram $bot) {
     );
 });
 
-Telegram::onText('Shahsiy kabinet', function (\SergiX44\Nutgram\Nutgram $bot) {
-    $bot->sendMessage(
-        text: 'Shahsiy kabinet menu',
-        parse_mode: ParseMode::HTML,
-        reply_markup: ReplyKeyboardMarkup::make(resize_keyboard: true)
-            ->addRow(
-                KeyboardButton::make(text: "Ball yig’ish uchun nima qilish kerak"),
-            )->addRow(
-                KeyboardButton::make(text: "Bosh sahifa"),
-                KeyboardButton::make(text: "Balansni tekshirish")
-            )
-    );
-});
+Telegram::onText('Shahsiy kabinet', PersonalCabinetCommand::class);
 
 Telegram::onText('Yordam', function (\SergiX44\Nutgram\Nutgram $bot) {
     $bot->sendMessage(

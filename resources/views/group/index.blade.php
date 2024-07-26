@@ -190,6 +190,7 @@
             })
         });
 
+
         $(document).on('submit', '#js_modal_delete_form', function (e) {
             e.preventDefault()
             delete_function(deleteModal, $(this), datatable);

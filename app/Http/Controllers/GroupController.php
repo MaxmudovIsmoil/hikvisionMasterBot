@@ -15,7 +15,6 @@ class GroupController extends Controller
         public GroupService $service
     ) {}
 
-
     public function index()
     {
         $users = User::select('id', 'name')
@@ -71,6 +70,18 @@ class GroupController extends Controller
     {
         try {
             return response()->success($this->service->destroy($id));
+        }
+        catch (\Exception $e) {
+            return response()->fail($e->getMessage());
+        }
+    }
+
+
+    public function getCapitanPhone(int $userId)
+    {
+        try {
+            $phone = User::findOrfail($userId)->phone;
+            return response()->success($phone);
         }
         catch (\Exception $e) {
             return response()->fail($e->getMessage());

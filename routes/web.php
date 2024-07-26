@@ -65,6 +65,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('group', GroupController::class)->except(['create', 'edit', 'show']);
     Route::get('/get-groups', [GroupController::class, 'getGroups'])->name('getGroups');
     Route::get('/group/one/{id}', [GroupController::class, 'getOne'])->name('group.getOne');
+    Route::get('/group/capitan-phone/{id}', [GroupController::class, 'getCapitanPhone'])->name('group.getCapitanPhone');
 
     // Group ball send text admin to telegram
     Route::get('/group-ball', [GroupBallController::class, 'index'])->name('groupBallAndElon');

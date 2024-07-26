@@ -60,8 +60,6 @@ class Telegram
         }
         $user = User::where('phone', $phone)->with('group.group')->first();
 
-//        \Illuminate\Support\Facades\Log::info("phone: ". json_encode($phone));
-//        \Illuminate\Support\Facades\Log::info("user: ". json_encode($user));
         if ($user) {
             $user->update(['chatId' => $chatId]);
             return $user;
@@ -69,5 +67,24 @@ class Telegram
         return null;
     }
 
+
+    public function getUser(int $chatId): object|string
+    {
+        try {
+            return User::where('chatId', $chatId)->with('group.group')->first();
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function personalCapinet(int $chatId): string
+    {
+        $user = $this->getUser($chatId);
+        $text = 'Guruh nomi: '.$user->group->group->name;
+        $text .= 'Guruhdagi ishchilar soni: '.$user->group->group->name;
+        $text .= 'Guruh to’plagan bali: '.$user->group->group->ball;
+        return $text;
+    }
 
 }

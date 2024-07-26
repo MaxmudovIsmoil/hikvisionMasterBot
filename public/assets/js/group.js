@@ -62,8 +62,24 @@ $(document).on('click', '.js_minus_btn', function () {
 
 
 $(document).on('change', '.js_capitan_id', function () {
-   let userId = parseFloat($(this).val());
-   capitanChange(userId);
+    let userId = parseFloat($(this).val());
+    capitanChange(userId);
+    let url = window.location.href+'/capitan-phone/'+userId;
+    $.ajax({
+        url: url,
+        type: "GET",
+        dataType: "json",
+        success: (response) => {
+            // console.log('response: ', response);
+            if (response.success) {
+                let phone = $('#add_edit_modal').find('.js_phone');
+                phone.val(response.data);
+            }
+        },
+        error: (error) => {
+            console.log('error: ', error)
+        }
+    });
 });
 
 $('#add_edit_modal button[data-bs-dismiss="modal"]').click(function() {

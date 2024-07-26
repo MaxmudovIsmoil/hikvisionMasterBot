@@ -6,6 +6,7 @@ use App\Helpers\Helper;
 use App\Models\Group;
 use App\Models\GroupDetail;
 use App\Models\GroupUser;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
@@ -156,5 +157,7 @@ class GroupService
         DB::commit();
         return $id;
     }
+
+
 
 }
