@@ -9,7 +9,7 @@
             </a>
             <div class="text-primary fw-600 div-count">Jami: <span>{{ $count }}</span></div>
         </div>
-        <div class="content-body">
+        <div class="content-body size-14">
             <div class="row">
                 <div class="col-12">
                     <div class="card">

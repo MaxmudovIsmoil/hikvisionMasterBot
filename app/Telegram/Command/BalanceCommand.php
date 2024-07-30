@@ -9,22 +9,23 @@ use SergiX44\Nutgram\Telegram\Properties\ParseMode;
 use SergiX44\Nutgram\Telegram\Types\Keyboard\KeyboardButton;
 use SergiX44\Nutgram\Telegram\Types\Keyboard\ReplyKeyboardMarkup;
 
-class PersonalCabinetCommand extends Command
+class BalanceCommand extends Command
 {
     public function handle(Nutgram $bot)
     {
-        $text = Telegram::personalCapinet($bot->chatId());
+        $text = Telegram::balance($bot->chatId());
         $bot->sendMessage(
             text: $text,
             parse_mode: ParseMode::HTML,
             reply_markup: ReplyKeyboardMarkup::make(resize_keyboard: true)
                 ->addRow(
-                    KeyboardButton::make(text: "Ball yig’ish uchun nima qilish kerak")
-                )->addRow(
-                    KeyboardButton::make(text: "Bosh sahifa"),
-                    KeyboardButton::make(text: "Balansni tekshirish")
+                    KeyboardButton::make(text: "00:00"),
+                    KeyboardButton::make(text: "7 kun"),
+                    KeyboardButton::make(text: "1 oy"),
                 )
+            ->addRow( KeyboardButton::make(text: "Orqaga qaytish"))
         );
+
     }
 
 }

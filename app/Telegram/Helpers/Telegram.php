@@ -2,9 +2,8 @@
 
 namespace App\Telegram\Helpers;
 
-use App\Models\User;
+use App\Models\Group;
 use Illuminate\Support\Str;
-use Opcodes\LogViewer\Logs\Log;
 
 class Telegram
 {
@@ -42,36 +41,35 @@ class Telegram
 
     public function userChatIdDoesntExist(int $chatId): bool
     {
-        return User::where('chatId', $chatId)->doesntExist();
+        return Group::where('chatId', $chatId)->doesntExist();
     }
 
-    public function checkUserId(int $chatId): ?int
+    public function checkGroupId(int $chatId): ?int
     {
-        $user = User::where('chatId', $chatId)->first();
-
-        return $user?->id;
+        $group = Group::where('chatId', $chatId)->first();
+        return $group?->id;
     }
 
 
-    public function checkPhoneAndGetUser(string $phone, int $chatId): ?User
+    public function checkPhoneAndGetGroup(string $phone, int $chatId): ?Group
     {
         if (strlen($phone) > 9) {
             $phone = substr($phone, -9);
         }
-        $user = User::where('phone', $phone)->with('group.group')->first();
+        $group = Group::where('phone', $phone)->with('user')->first();
 
-        if ($user) {
-            $user->update(['chatId' => $chatId]);
-            return $user;
+        if ($group) {
+            $group->update(['chatId' => $chatId]);
+            return $group;
         }
         return null;
     }
 
 
-    public function getUser(int $chatId): object|string
+    public function getGroup(int $chatId): object|string
     {
         try {
-            return User::where('chatId', $chatId)->with('group.group')->first();
+            return Group::where('chatId', $chatId)->with(['user', 'user.user'])->first();
         }
         catch (\Exception $e) {
             return $e->getMessage();
@@ -80,10 +78,28 @@ class Telegram
 
     public function personalCapinet(int $chatId): string
     {
-        $user = $this->getUser($chatId);
-        $text = 'Guruh nomi: '.$user->group->group->name;
-        $text .= 'Guruhdagi ishchilar soni: '.$user->group->group->name;
-        $text .= 'Guruh to’plagan bali: '.$user->group->group->ball;
+        $capitan = '';
+        $group = $this->getGroup($chatId);
+        foreach ($group->user as $user) {
+            if ($user->capitan) {
+                $capitan = $user->user->name;
+            }
+        }
+        $text = "👥 <b>Group</b>\n";
+        $text .= "Nomi: <b>".$group->name."</b>\n";
+        $text .= "Rahbar: <b>".$capitan."</b>\n";
+        $text .= "Ishchilar soni: <b>".$group->user->count()."</b>\n";
+        $text .= "To’plagan bali: <b>".$group->ball."</b>";
+        return $text;
+    }
+
+    public function balance(int $chatId): string
+    {
+        $group = $this->getGroup($chatId);
+        $text = "Balans\n";
+        $text .= "Guruh : <b>".$group->name."</b>\n";
+        $text .= "Ustanovkalar soni: 3\n";
+        $text .= "Servislar soni: 4\n";
         return $text;
     }
 

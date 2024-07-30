@@ -83,10 +83,10 @@ class StartCommand extends Conversation
 
     private function handlePhoneNumber(Nutgram $bot, string $phone, int $chatId): void
     {
-        $user = Telegram::checkPhoneAndGetUser($phone, $chatId);
+        $group = Telegram::checkPhoneAndGetGroup($phone, $chatId);
 
-        if ($user !== null) {
-            $text = "Hush kelibsiz <b>{$user->name}</b> siz bilan ishlashdan mamnunmiz!";
+        if ($group !== null) {
+            $text = "Hush kelibsiz <b>{$group->name}</b> siz bilan ishlashdan mamnunmiz!";
             $bot->sendMessage(
                 text: $text,
                 parse_mode: ParseMode::HTML,

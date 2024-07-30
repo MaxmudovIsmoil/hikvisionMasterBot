@@ -7,9 +7,9 @@
                class="btn btn-outline-primary btn-sm addBtn js_add_btn">
                 <i class="fas fa-user-plus"></i>&nbsp; Qo'shish
             </a>
-            <div class="text-primary fw-600 div-count">Jami: <span>{{ $count }}</span></div>
+            <div class="text-primary fw-600 div-count">Jami: <span class="js_count">{{ $count }}</span></div>
         </div>
-        <div class="content-body">
+        <div class="content-body size-14">
             <div class="row">
                 <div class="col-12">
                     <div class="card">

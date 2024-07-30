@@ -4,7 +4,7 @@
 {{--    <link rel="stylesheet" href="{{ asset('assets/css/order.css') }}"/>--}}
 @endpush
 @section('content')
-    <div class="cards">
+    <div class="cards size-14">
         <div class="card-div">
             <div class="card-content">
                 <div class="number">{{ $installCount }}</div>

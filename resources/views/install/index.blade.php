@@ -21,7 +21,7 @@
                 <i class="fas fa-plus"></i>&nbsp; Qo'shish
             </a>
         </div>
-        <div class="content-body">
+        <div class="content-body size-14">
             <div class="row">
                 <div class="col-12">
                     <div class="card">

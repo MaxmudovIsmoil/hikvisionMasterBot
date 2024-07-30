@@ -17,6 +17,7 @@ class Group extends Model
         'ball',
         'status',
         'phone',
+        'chatId',
         'creator_id',
         'updater_id'
     ];
