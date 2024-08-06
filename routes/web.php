@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SSEController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryInstallController;
 use App\Http\Controllers\DashboardController;
@@ -99,4 +100,8 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
     // user profile
     Route::post('/user/profile/{id}', [AuthController::class, 'profile'])->name('user.profile');
+
+    Route::get('notification/service', [SSEController::class, 'installNotification'])->name('service-notification');
+    Route::get('notification/install', [SSEController::class, 'serviceNotification'])->name('service-notification');
+
 });

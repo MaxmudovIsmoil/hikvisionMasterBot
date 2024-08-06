@@ -98,4 +98,5 @@ class StartCommand extends Conversation
             $bot->sendMessage("🚫 Telefon raqam noto'g'ri.\nIltimos qaytadan kiriting!");
         }
     }
+
 }
