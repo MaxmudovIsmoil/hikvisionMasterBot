@@ -14,7 +14,7 @@ use Illuminate\Http\JsonResponse;
 class MasterController extends Controller
 {
     public function __construct(
-        public MasterService $service
+        private MasterService $service
     ) {}
 
     public function index()

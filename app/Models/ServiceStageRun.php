@@ -13,7 +13,7 @@ class ServiceStageRun extends Model
     protected $table = 'service_stage_runs';
 
     protected $fillable = [
-       'install_id',
+       'service_id',
        'stage',
        'text',
     ];

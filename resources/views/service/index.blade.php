@@ -78,6 +78,13 @@
             });
 
 
+            // let srviceNotificationSource = new EventSource(route("service-notification"));
+            // srviceNotificationSource.onmessage = function(event) {
+            //     let data = JSON.parse(event.data);
+            //     console.log('data: ', data);
+            //     //Mana shu yerda logika yoziladi.  `oc` o’zgaruvchida backenddan kelayotgan data bo’ladi
+            // }
+
             $(document).on('click', '.js_add_btn', function (e) {
                 e.preventDefault();
                 modal.find('.modal-title').html("Servis joylash");

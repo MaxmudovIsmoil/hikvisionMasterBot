@@ -11,7 +11,7 @@ use Yajra\DataTables\DataTables;
 class MasterService
 {
     public function __construct(
-        public User $model
+        private User $model
     ) {}
 
     public function count()

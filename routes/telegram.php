@@ -2,12 +2,14 @@
 /** @var SergiX44\Nutgram\Nutgram $bot */
 
 
+use App\Jobs\InstallOrServiceSendTelegramJob;
 use App\Models\GroupBall;
 use App\Telegram\Command\BalanceCommand;
 use App\Telegram\Command\GoBackCommand;
 use App\Telegram\Command\HomeCommand;
 use App\Telegram\Command\PersonalCabinetCommand;
 use App\Telegram\Command\StartCommand;
+use App\Telegram\Helpers\InstallOrServiceTelegram;
 use Nutgram\Laravel\Facades\Telegram;
 use SergiX44\Nutgram\Telegram\Properties\ParseMode;
 use SergiX44\Nutgram\Telegram\Types\Keyboard\KeyboardButton;
@@ -41,6 +43,13 @@ Telegram::onText('Yordam', function (\SergiX44\Nutgram\Nutgram $bot) {
     );
 });
 
+
+Telegram::onCallbackQuery([InstallOrServiceTelegram::class, 'okeyOrCancel']);
+
+//Telegram::onCallbackQuery(function (\SergiX44\Nutgram\Nutgram $bot) {
+//    $chatId = config('nutgram.TELEGRAM_ADMIN_CHAT_ID');
+//    $bot->sendMessage('okey',  $chatId);
+//});
 
 
 Telegram::onException(function (\SergiX44\Nutgram\Nutgram $bot, \Throwable $exception) {

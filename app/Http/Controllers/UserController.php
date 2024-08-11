@@ -11,7 +11,7 @@ use Illuminate\Http\JsonResponse;
 class UserController extends Controller
 {
     public function __construct(
-        public UserService $service
+        private UserService $service
     ) {}
 
     public function index()

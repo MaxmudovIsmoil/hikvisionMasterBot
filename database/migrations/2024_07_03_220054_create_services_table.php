@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('blanka_number')->nullable();
             $table->string('name')->nullable();
             $table->string('phone')->nullable();
+            $table->string('price')->nullable();
             $table->string('area')->nullable();
             $table->string('address')->nullable();
             $table->text('location')->nullable();

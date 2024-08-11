@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 class CategoryInstallController extends Controller
 {
     public function __construct(
-        public CategoryInstallService $service
+        private CategoryInstallService $service
     ) {}
 
     public function index()

@@ -17,6 +17,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('telegram-facade', function () {
             return new Telegram();
         });
+
     }
 
     /**

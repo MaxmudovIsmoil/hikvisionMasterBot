@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\ServiceProvider;
+use Nutgram\Laravel\Facades\Telegram;
 
 class ResponseServiceProvider extends ServiceProvider
 {
@@ -20,6 +21,8 @@ class ResponseServiceProvider extends ServiceProvider
         });
 
         Response::macro('fail', function ($error, $code = 400) {
+//            $chatId = config('nutgram.adminChatId');
+//            Telegram::sendMessage('Error: '.$error, $chatId);
             return response()->json([
                 'success'  => false,
                 'error' => $error,

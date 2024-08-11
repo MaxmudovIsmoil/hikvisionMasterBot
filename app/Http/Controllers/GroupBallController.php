@@ -15,7 +15,7 @@ use Yajra\DataTables\Facades\DataTables;
 class GroupBallController extends Controller
 {
     public function __construct(
-        public GroupBall $modal
+        private GroupBall $modal
     ) {}
 
 

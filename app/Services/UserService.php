@@ -16,7 +16,7 @@ class UserService
 //    use FileTrait;
 
     public function __construct(
-        public User $model
+        private User $model
     ) {}
 
     public function count()

@@ -5,11 +5,13 @@ namespace App\Services;
 use App\Enums\OrderStatus;
 use App\Helpers\Helper;
 use App\Http\Resources\ServiceOnceResource;
+use App\Jobs\InstallOrServiceSendTelegram;
 use App\Models\Group;
 use App\Models\Service;
 use App\Models\ServiceSendGroup;
 use App\Models\ServiceStage;
 use App\Models\ServiceStageRun;
+use App\Telegram\Helpers\InstallOrServiceTelegram;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
@@ -17,9 +19,8 @@ use Yajra\DataTables\Facades\DataTables;
 class ServiceService
 {
     public function __construct(
-        public Service $service
+        private Service $service
     ) {}
-
 
     public function groups(): array
     {
@@ -96,7 +97,6 @@ class ServiceService
     {
         DB::beginTransaction();
             $serviceId = $this->service::insertGetId([
-                'category_id' => $data['category_id'],
                 'blanka_number' => $data['blanka_number'],
                 'name' => $data['name'],
                 'phone' => $data['phone'],
@@ -105,7 +105,7 @@ class ServiceService
                 'location' => $data['location'],
                 'description' => $data['description'],
                 'price' => $data['price'],
-                'status' => OrderStatus::adminNew->value,
+                'status' => OrderStatus::userNew->value,
                 'creator_id' => Auth::id(),
             ]);
 
@@ -122,17 +122,15 @@ class ServiceService
                     ServiceSendGroup::create([
                         'group_id' => $groupId,
                         'service_id' => $serviceId,
-                        'status' => OrderStatus::adminNew->value
+                        'status' => OrderStatus::userNew->value
                     ]);
+                    // bot -> send for groups
+                    $text = InstallOrServiceTelegram::getText(2, $data);
+                    InstallOrServiceTelegram::send(2, $serviceId, $groupId, $text);
+//                    InstallOrServiceSendTelegram::dispatch(type: 2, id: $serviceId, groupId: $groupId, data: $data);
                 }
             }
-            // bot -> send for groups
-//            if (in_array(0, $data['group'])) {
-//                // all send groups
-//            }
-//            else {
-//                // any send groups
-//            }
+
         DB::commit();
         return true;
     }

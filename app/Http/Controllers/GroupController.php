@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class GroupController extends Controller
 {
     public function __construct(
-        public GroupService $service
+        private GroupService $service
     ) {}
 
     public function index()
@@ -56,7 +56,7 @@ class GroupController extends Controller
 
     public function update(GroupUpdateRequest $request, int $id): JsonResponse
     {
-//        return response()->json($request->validated());
+
         try {
             $result = $this->service->update($request->validated(), $id);
             return response()->success($result);

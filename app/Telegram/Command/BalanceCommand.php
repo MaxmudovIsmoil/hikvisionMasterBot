@@ -19,9 +19,9 @@ class BalanceCommand extends Command
             parse_mode: ParseMode::HTML,
             reply_markup: ReplyKeyboardMarkup::make(resize_keyboard: true)
                 ->addRow(
-                    KeyboardButton::make(text: "00:00"),
                     KeyboardButton::make(text: "7 kun"),
                     KeyboardButton::make(text: "1 oy"),
+                    KeyboardButton::make(text: "00:00"),
                 )
             ->addRow( KeyboardButton::make(text: "Orqaga qaytish"))
         );

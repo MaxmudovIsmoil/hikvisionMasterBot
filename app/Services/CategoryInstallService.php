@@ -9,7 +9,7 @@ use Yajra\DataTables\Facades\DataTables;
 class CategoryInstallService
 {
     public function __construct(
-        public CategoryInstall $modal,
+        protected CategoryInstall $modal,
     ) {}
 
     public function all()

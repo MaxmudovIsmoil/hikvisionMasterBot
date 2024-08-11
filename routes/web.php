@@ -101,7 +101,7 @@ Route::middleware('auth')->group(function () {
     // user profile
     Route::post('/user/profile/{id}', [AuthController::class, 'profile'])->name('user.profile');
 
-    Route::get('notification/service', [SSEController::class, 'installNotification'])->name('service-notification');
+    Route::get('notification/service', [SSEController::class, 'installNotification'])->name('install-notification');
     Route::get('notification/install', [SSEController::class, 'serviceNotification'])->name('service-notification');
 
 });

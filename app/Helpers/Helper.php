@@ -27,5 +27,15 @@ class Helper
 
 
 
+    public static function phoneFormatForTelegram(string $phone): string
+    {
+        $kod = substr($phone, 0, 2);
+        $prefix = substr($phone, 2, 3);
+        $suffix1 = substr($phone, 5, 2);
+        $suffix2 = substr($phone, 7,2);
+
+        return $kod." ".$prefix." ".$suffix1." ".$suffix2;
+    }
+
 
 }

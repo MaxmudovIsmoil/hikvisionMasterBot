@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class ServiceController extends Controller
 {
     public function __construct(
-        public ServiceService $service,
+        private ServiceService $service,
     ) {}
 
     public function index()
@@ -46,7 +46,7 @@ class ServiceController extends Controller
 
     public function store(ServiceRequest $request): JsonResponse
     {
-//        return response()->json($request->validated());
+        // return response()->json($request->validated());
         try {
             $user = $this->service->store($request->validated());
             return response()->success($user);

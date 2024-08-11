@@ -2,6 +2,8 @@
 
 namespace App\Telegram\Helpers;
 
+use App\Helpers\Helper;
+use App\Models\CategoryInstall;
 use App\Models\Group;
 use Illuminate\Support\Str;
 
@@ -66,7 +68,7 @@ class Telegram
     }
 
 
-    public function getGroup(int $chatId): object|string
+    public function getGroup(int $chatId): object|string|null
     {
         try {
             return Group::where('chatId', $chatId)->with(['user', 'user.user'])->first();
@@ -102,5 +104,6 @@ class Telegram
         $text .= "Servislar soni: 4\n";
         return $text;
     }
+
 
 }

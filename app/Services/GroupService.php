@@ -14,9 +14,9 @@ use Yajra\DataTables\Facades\DataTables;
 class GroupService
 {
     public function __construct(
-        public Group $group,
-        public GroupDetail $detail,
-        public GroupUser $groupUser,
+        protected Group $group,
+        protected GroupDetail $detail,
+        protected GroupUser $groupUser,
     ) {}
 
     public function getGroups()

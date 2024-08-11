@@ -8,13 +8,35 @@ class SSEController extends Controller
 {
     public function installNotification()
     {
-
+//        $notification = Notification::where([
+//            'direction_id' => auth()->user()->just_created_visit->direction_id,
+//            'type' => Notification::TYPE_ORDERFIELD,
+//            'user_id' => auth()->user()->id,
+//            'sent' => false
+//        ])->first();
+//        $this->sendData('notification', $notification);
+//        if ($notification) {
+//            $notification->sent = true;
+//            $notification->save();
+//        }
+        $this->sendData('notification', 123);
     }
 
-    public function installNotification()
+    public function serviceNotification()
     {
-
+//        $notification = Notification::where([
+//            'direction_id' => auth()->user()->just_created_visit->direction_id,
+//            'type' => Notification::TYPE_ORDERFIELD,
+//            'user_id' => auth()->user()->id,
+//            'sent' => false
+//        ])->first();
+//        $this->sendData('notification', $notification);
+//        if ($notification) {
+//            $notification->sent = true;
+//            $notification->save();
+//        }
     }
+
 
     public function sendOrderFieldNotifications(): void
     {

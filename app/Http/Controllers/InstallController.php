@@ -7,12 +7,13 @@ use App\Http\Requests\InstallRequest;
 use App\Services\InstallService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Nutgram\Laravel\Facades\Telegram;
 use Opcodes\LogViewer\Logs\Log;
 
 class InstallController extends Controller
 {
     public function __construct(
-        public InstallService $service,
+        private InstallService $service,
     ) {}
 
     public function index()

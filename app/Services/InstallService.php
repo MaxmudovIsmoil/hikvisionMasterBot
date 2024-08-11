@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Enums\OrderStatus;
 use App\Helpers\Helper;
 use App\Http\Resources\InstallOnceResource;
+use App\Telegram\Helpers\InstallOrServiceTelegram;
 use App\Models\CategoryInstall;
 use App\Models\Group;
 use App\Models\Install;
@@ -13,13 +14,12 @@ use App\Models\InstallStage;
 use App\Models\InstallStageRun;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Opcodes\LogViewer\Logs\Log;
 use Yajra\DataTables\Facades\DataTables;
 
 class InstallService
 {
     public function __construct(
-        public Install $install
+        protected Install $install
     ) {}
 
     public function category(): array
@@ -51,6 +51,7 @@ class InstallService
             ->orderBy('id', 'DESC')
             ->get();
     }
+
     public function getInstall(int $id)
     {
         return DataTables::of($this->install($id))
@@ -112,6 +113,7 @@ class InstallService
     public function store(array $data): bool
     {
         DB::beginTransaction();
+
             $installId = $this->install::insertGetId([
                 'category_id' => $data['category_id'],
                 'blanka_number' => $data['blanka_number'],
@@ -126,6 +128,7 @@ class InstallService
                 'status' => OrderStatus::userNew->value,
                 'creator_id' => Auth::id(),
             ]);
+
 
             foreach (InstallStage::get() as $stage) {
                 InstallStageRun::create([
@@ -142,15 +145,13 @@ class InstallService
                         'install_id' => $installId,
                         'status' => OrderStatus::userNew->value
                     ]);
+                    // send telegram bot
+                    $text = InstallOrServiceTelegram::getText(1, $data);
+                    InstallOrServiceTelegram::send(1, $installId, $groupId, $text);
+//                    InstallOrServiceSendTelegram::dispatch(type: 1, id: $installId, groupId: $groupId, data: $data);
                 }
             }
-            // bot -> send for groups
-//            if (in_array(0, $data['group'])) {
-//                // all send groups
-//            }
-//            else {
-//                // any send groups
-//            }
+
         DB::commit();
         return true;
     }

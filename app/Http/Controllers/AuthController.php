@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Redirect;
 class AuthController extends Controller
 {
     public function __construct(
-        public AuthService $service
+        private AuthService $service
     ) {}
 
 
