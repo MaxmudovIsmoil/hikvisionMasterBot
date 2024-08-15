@@ -38,7 +38,10 @@ class InstallOrServiceSendTelegram implements ShouldQueue
      */
     public function handle()
     {
-        $text = InstallOrServiceTelegram::getText($this->type, $this->data);
+//        $text = InstallOrServiceTelegram::getSendText(1, $data);
+//        InstallOrServiceTelegram::send(1, $installId, $groupId, $text);
+
+        $text = InstallOrServiceTelegram::getSendText($this->type, $this->data);
         InstallOrServiceTelegram::send($this->type, $this->id, $this->groupId, $text);
     }
 

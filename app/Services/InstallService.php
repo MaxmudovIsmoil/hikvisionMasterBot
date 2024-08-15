@@ -15,6 +15,7 @@ use App\Models\InstallStageRun;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
+use App\Jobs\InstallOrServiceSendTelegram;
 
 class InstallService
 {
@@ -138,18 +139,14 @@ class InstallService
                 ]);
             }
 
-            foreach ($data['group'] as $groupId) {
-                if ($groupId != 0) {
-                    InstallSendGroup::create([
-                        'group_id' => $groupId,
-                        'install_id' => $installId,
-                        'status' => OrderStatus::userNew->value
-                    ]);
-                    // send telegram bot
-                    $text = InstallOrServiceTelegram::getText(1, $data);
-                    InstallOrServiceTelegram::send(1, $installId, $groupId, $text);
-//                    InstallOrServiceSendTelegram::dispatch(type: 1, id: $installId, groupId: $groupId, data: $data);
-                }
+            foreach ($data['group'] as $groupId) if ($groupId != 0) {
+                InstallSendGroup::create([
+                    'group_id' => $groupId,
+                    'install_id' => $installId,
+                    'status' => OrderStatus::userNew->value
+                ]);
+                // send telegram bot
+                InstallOrServiceSendTelegram::dispatch(type: 1, id: $installId, groupId: $groupId, data: $data);
             }
 
         DB::commit();

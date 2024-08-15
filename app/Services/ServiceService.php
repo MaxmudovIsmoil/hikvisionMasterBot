@@ -125,9 +125,9 @@ class ServiceService
                         'status' => OrderStatus::userNew->value
                     ]);
                     // bot -> send for groups
-                    $text = InstallOrServiceTelegram::getText(2, $data);
-                    InstallOrServiceTelegram::send(2, $serviceId, $groupId, $text);
-//                    InstallOrServiceSendTelegram::dispatch(type: 2, id: $serviceId, groupId: $groupId, data: $data);
+//                    $text = InstallOrServiceTelegram::getSendText(2, $data);
+//                    InstallOrServiceTelegram::send(2, $serviceId, $groupId, $text);
+                    InstallOrServiceSendTelegram::dispatch(type: 2, id: $serviceId, groupId: $groupId, data: $data);
                 }
             }
 
