@@ -31,4 +31,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('accepted_install_details');
     }
+
 };

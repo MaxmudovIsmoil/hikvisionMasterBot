@@ -6,6 +6,7 @@ use App\Models\Group;
 use App\Models\CategoryInstall;
 use App\Models\Install;
 use App\Models\Service;
+use Illuminate\Support\Facades\DB;
 use SergiX44\Nutgram\Nutgram;
 use Nutgram\Laravel\Facades\Telegram;
 use Illuminate\Support\Facades\Log;
@@ -65,7 +66,7 @@ class InstallOrServiceTelegram
     }
 
 
-    public function okeyOrCancel(Nutgram $bot)
+    public function acceptOrCancel(Nutgram $bot)
     {
         $callbackData = $bot->callbackQuery()?->data;
         if (!$callbackData) {
@@ -87,12 +88,19 @@ class InstallOrServiceTelegram
         Log::info("Callback Data - Type: {$type}, ID: {$id}, Status: {$status}");
 
         try {
-            if ($type == 1) {
-                $datas = Install::findOrFail($id);
-            } else {
-                $datas = Service::findOrFail($id);
-            }
+            DB::beginTransaction();
+                if ($type == 1) {
+                    $datas = Install::findOrFail($id);
+                    // install status update
+                    // accepted install store
+                } else {
+                    // service status update
+                    // accepted service store
+                    $datas = Service::findOrFail($id);
+                }
+            DB::commit();
         } catch (ModelNotFoundException $e) {
+            DB::rollback();
             Log::error("Record not found for ID: {$id} and Type: {$type}");
             return;
         }
@@ -144,7 +152,6 @@ class InstallOrServiceTelegram
 
     public static function getAcceptedText(int $type, $data): string
     {
-        Log::info(json_encode($data->category_id));
         try {
             $text = "✅ Qabul qilindi:\n";
             if($type == 1) {
@@ -177,21 +184,21 @@ class InstallOrServiceTelegram
 
 
 
-//    public static function accepted(int $type, int $id, string $text, int $chatId, int $messageId ): void
-//    {
-//        // $type = 1 install, 2 service
-//        Telegram::editMessageText(
-//            text: $text,
-//            chat_id: $groupChatId,
-//            message_id: $messageId
-//            reply_markup: InlineKeyboardMarkup::make()
-//                ->addRow(
-//                    InlineKeyboardButton::make('✅ Ishni yopish', callback_data: "$type:$id:2"),
-//                    InlineKeyboardButton::make('🛑 Keyinga qoldirish', callback_data: "$type:$id:-1")
-//                ),
-//            parse_mode: ParseMode::HTML
-//        );
-//
-//    }
+    public static function accepted(int $type, int $id, string $text, int $chatId, int $messageId ): void
+    {
+        // $type = 1 install, 2 service
+        Telegram::editMessageText(
+            text: $text,
+            chat_id: $groupChatId,
+            message_id: $messageId
+            reply_markup: InlineKeyboardMarkup::make()
+                ->addRow(
+                    InlineKeyboardButton::make('✅ Ishni yopish', callback_data: "$type:$id:2"),
+                    InlineKeyboardButton::make('🛑 Keyinga qoldirish', callback_data: "$type:$id:-1")
+                ),
+            parse_mode: ParseMode::HTML
+        );
+
+    }
 
 }

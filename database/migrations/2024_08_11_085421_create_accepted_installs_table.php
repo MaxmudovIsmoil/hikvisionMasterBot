@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('accepted_installa', function (Blueprint $table) {
+        Schema::create('accepted_installs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('group_id')->nullable();
             $table->unsignedBigInteger('install_id');

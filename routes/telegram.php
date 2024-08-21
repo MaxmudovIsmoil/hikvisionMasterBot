@@ -44,7 +44,7 @@ Telegram::onText('Yordam', function (\SergiX44\Nutgram\Nutgram $bot) {
 });
 
 
-Telegram::onCallbackQuery([InstallOrServiceTelegram::class, 'okeyOrCancel']);
+Telegram::onCallbackQuery([InstallOrServiceTelegram::class, 'acceptOrCancel']);
 
 //Telegram::onCallbackQuery(function (\SergiX44\Nutgram\Nutgram $bot) {
 //    $chatId = config('nutgram.TELEGRAM_ADMIN_CHAT_ID');
